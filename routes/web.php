@@ -10,4 +10,4 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/Usuario/{token}/login', 'UsuarioControler@login');
+Route::get('/Usuario/{token}/login', 'UsuarioController@login');
