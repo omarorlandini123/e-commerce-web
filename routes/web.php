@@ -11,3 +11,4 @@
 |
 */
 Route::get('/Usuario/{token}/login', 'UsuarioController@login');
+Route::get('/Producto', 'ProductoController@index');
