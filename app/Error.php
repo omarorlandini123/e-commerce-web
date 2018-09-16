@@ -7,4 +7,6 @@ class Error extends Model
 {
     public $codigo;
     public $descripcion;
+
+   
 }

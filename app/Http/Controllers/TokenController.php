@@ -36,7 +36,7 @@ class TokenController extends Controller
         $error = new Error;
         if($codigo==null){            
             $error->codigo = "E_0002";
-            $error->descripcion = "El codigo a validar está vacío";
+            $error->descripcion = "El codigo a validar está vacío";            
             return $error;
         }
 
@@ -44,7 +44,7 @@ class TokenController extends Controller
         if($token_encontrado==null || !is_array($token_encontrado) || count($token_encontrado)==0 || $token_encontrado[0]==null){           
             $error->codigo = "E_0003";
             $error->descripcion = "El codigo no se ha encontrado";
-            return $error;
+            return $error->toJson(JSON_PRETTY_PRINT);;
         }
 
         if($token_encontrado[0]->token_id>0){
