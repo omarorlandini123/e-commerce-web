@@ -48,9 +48,9 @@ class TokenController extends Controller
         }
 
         if($token_encontrado[0]->token_id>0){
-            return $token_encontrado;
+            return $token_encontrado[0];
         }
-        
+
         return null;
     }
 }
