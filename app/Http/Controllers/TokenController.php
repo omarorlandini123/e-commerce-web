@@ -40,10 +40,10 @@ class TokenController extends Controller
             return $error->toJson(JSON_PRETTY_PRINT);
         }
 
-        $sql=Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->toSql();
-        return $sql;
-        
-        $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->get();
+        //$sql=Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->toSql();
+        //return $sql;
+
+        $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1);
         if($token_encontrado==null || !is_array($token_encontrado) || count($token_encontrado)==0 || $token_encontrado[0]==null){           
             $error->codigo = "E_0003";
             $error->descripcion = "El codigo no se ha encontrado";
