@@ -23,7 +23,8 @@ class TokenController extends Controller
         $token_var->token = md5(uniqid(rand(), true)) ;
         $token_var->token_fecha_creacion = Carbon::now();
         $token_var->save();
-
+        return $token_var;
+        
         if($token_var->token_id>0){
             $token_rpta = new Token;
             $token_rpta->token_codigo_sms=true;
