@@ -41,14 +41,16 @@ class TokenController extends Controller
         }
 
         $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->get();
-        if($token_encontrado==null || $token_encontrado->token_id==null || $token_encontrado->token_id==0){           
+        if($token_encontrado==null || !is_array($token_encontrado) || count($token_encontrado)==0 || $token_encontrado[0]==null){           
             $error->codigo = "E_0003";
-            $error->descripcion = "El codigo a validar está vacío";
+            $error->descripcion = "El codigo no se ha encontrado";
             return $error;
         }
-        if($token_encontrado->token_id>0){
+
+        if($token_encontrado[0]->token_id>0){
             return $token_encontrado;
         }
-
+        
+        return null;
     }
 }
