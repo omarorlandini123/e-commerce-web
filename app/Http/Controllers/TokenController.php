@@ -50,6 +50,10 @@ class TokenController extends Controller
             return $error;
         }
 
+        if($token_encontrado[0]->token_id>0){
+            return $token_encontrado[0];
+        }
+
         return $token_encontrado;
 
     }
