@@ -19,8 +19,8 @@ class TokenController extends Controller
 
         $token_var = new Token;
         $token_var->token_numero = $numero;
-        $token_var->token_codigo_sms = rand(100000, 999999);;        
-        $token_var->token = md5(uniqid(rand(), true))        ;
+        $token_var->token_codigo_sms = rand(100000, 999999).'';        
+        $token_var->token = md5(uniqid(rand(), true)) ;
         $token_var->token_fecha_creacion = Carbon::now();
         $token_var->save();
 
