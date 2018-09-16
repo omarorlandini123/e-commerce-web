@@ -1,9 +1,9 @@
 <?php
 
 namespace App;
+use Illuminate\Database\Eloquent\Model;
 
-
-class Error
+class Error extends Model
 {
     public $codigo;
     public $descripcion;
