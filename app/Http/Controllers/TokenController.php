@@ -24,6 +24,11 @@ class TokenController extends Controller
         $token_var->token_fecha_creacion = Carbon::now();
         $token_var->save();
 
-        return true;
+        if($token_var->token_id>0){
+            $token_rpta = new Token;
+            $token_rpta->token_codigo_sms=true;
+            return $token_rpta;
+        }
+        return null;
     }
 }
