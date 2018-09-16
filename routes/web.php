@@ -12,7 +12,7 @@
 */
 
 Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
-Route::get('/SolicitarRegistro/{codigo}','TokenController@solicitaRegistro');
+Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
 Route::get('/Registrar/{token}','UsuarioController@registro');
 Route::get('/Usuario/{token}/login', 'UsuarioController@login');
 

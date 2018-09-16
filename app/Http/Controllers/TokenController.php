@@ -36,18 +36,16 @@ class TokenController extends Controller
         return $error;
     }
 
-    public function solicitaRegistro(Request $request, $codigo){
+    public function solicitaRegistro(Request $request, $numero,$codigo){
         $error = new Error;
-        if($codigo==null){            
+        if($codigo==null|| $numero==null || $codigo==""|| $numero==""){            
             $error->codigo = "E_0003";
             $error->descripcion = "El codigo a validar está vacío";            
             return $error;
         }
 
-        //$sql=Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->toSql();
-        //return $sql;
 
-        $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->get();
+        $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo],['token_numero', '=', $numero]])->orderBy('token_fecha_creacion','desc')->take(1)->get();
         if($token_encontrado==null || count($token_encontrado)==0 || $token_encontrado[0]==null){           
             $error->codigo = "E_0004";
             $error->descripcion = "El codigo no se ha encontrado";            
