@@ -31,4 +31,24 @@ class TokenController extends Controller
         }
         return null;
     }
+
+    public function solicitaRegistro(Request $request, $codigo){
+        $error = new Error;
+        if($codigo==null){            
+            $error->codigo = "E_0002";
+            $error->descripcion = "El codigo a validar está vacío";
+            return $error;
+        }
+
+        $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->get();
+        if($token_encontrado==null || $token_encontrado->token_id==null || $token_encontrado->token_id==0){           
+            $error->codigo = "E_0003";
+            $error->descripcion = "El codigo a validar está vacío";
+            return $error;
+        }
+        if($token_encontrado->token_id>0){
+            return $token_encontrado;
+        }
+
+    }
 }
