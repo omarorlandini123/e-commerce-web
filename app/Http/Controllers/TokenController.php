@@ -37,18 +37,18 @@ class TokenController extends Controller
         if($codigo==null){            
             $error->codigo = "E_0002";
             $error->descripcion = "El codigo a validar está vacío";            
-            return $error->toJson(JSON_PRETTY_PRINT);
+            return $error;
         }
 
         //$sql=Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1)->toSql();
         //return $sql;
 
         $token_encontrado = Token::where('token_codigo_sms', '=', $codigo)->orderBy('token_fecha_creacion','desc')->take(1);
-        if($token_encontrado==null || !is_array($token_encontrado) || count($token_encontrado)==0 || $token_encontrado[0]==null){           
+        if($token_encontrado==null || count($token_encontrado)==0 || $token_encontrado[0]==null){           
             $error->codigo = "E_0003";
             $error->descripcion = "El codigo no se ha encontrado";
             
-            return $error->toJson(JSON_PRETTY_PRINT);;
+            return $error;
         }
 
         if($token_encontrado[0]->token_id>0){
