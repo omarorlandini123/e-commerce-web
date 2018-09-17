@@ -50,10 +50,13 @@ class UsuarioController extends Controller
             if($token_usuario_reg->token_usuario_id>0){
                 $token_usuario_rpta = new TokenUsuario;
                 $token_usuario_rpta->registrado = true;
+                return $token_usuario_rpta;
             }else{
                 return Error::getError(7);
             }
 
+        }else{
+            return Error::getError(7);
         }
     }
 
