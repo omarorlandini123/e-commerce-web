@@ -3,15 +3,19 @@
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 
-class Error extends Model
+class Error 
 {
     private $codigo;
     private $descripcion;
+
+    function __toString(){
+       return  json_encode($this);
+    }
    
     function __construct($codigo,$descripcion) {		
         $this->codigo=$codigo;
         $this->descripcion=$descripcion;
-        $this->save();
+        
     }
 
     static function getError($E_code){
