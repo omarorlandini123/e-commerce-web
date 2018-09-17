@@ -12,7 +12,7 @@ class TokenController extends Controller
     public function solicitaCodigo(Request $request, $numero){
         //$name = $request->input('name');
         if($numero == null){
-            return Error::getError(TipoError::E_0001);
+            return Error::getError(1);
         }
 
         $token_var = new Token;
@@ -28,14 +28,14 @@ class TokenController extends Controller
             return $token_rpta;
         }
 
-        return Error::getError(TipoError::E_0002);
+        return Error::getError(2);
         
     }
 
     public function solicitaRegistro(Request $request, $numero,$codigo){
        
         if($codigo==null|| $numero==null || $codigo==""|| $numero==""){            
-            return Error::getError(TipoError::E_0003);
+            return Error::getError(3);
         }
 
 
@@ -43,7 +43,7 @@ class TokenController extends Controller
         
         
         if($token_encontrado==null ||  count($token_encontrado)==0 || $token_encontrado[0]==null){           
-            return Error::getError(TipoError::E_0004);
+            return Error::getError(4);
         }
 
         if($token_encontrado[0]->token_id>0){
