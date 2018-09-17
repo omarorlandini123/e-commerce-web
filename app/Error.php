@@ -5,8 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Error 
 {
-    private $codigo;
-    private $descripcion;
+    public  $codigo;
+    public  $descripcion;
 
     function __toString(){
        return  json_encode($this);
