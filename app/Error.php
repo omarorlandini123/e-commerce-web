@@ -28,6 +28,10 @@ class Error
                 return new Error("E_0003","El código a validar está vacío");
             case TipoError::E_0004:
                 return new Error("E_0004","El código no se ha encontrado");
+            case TipoError::E_0005:
+                return new Error("E_0005","El token ingresado es inválido");
+            case TipoError::E_0006:
+                return new Error("E_0006","Necesita llenar los valores completamente");
         }
     }
 
@@ -40,5 +44,7 @@ abstract class TipoError
     const E_0002 = 2;
     const E_0003 = 3;
     const E_0004 = 4;
+    const E_0005 = 5;
+    const E_0006 = 6;
     
 }
