@@ -43,7 +43,7 @@ class TokenController extends Controller
         
         
         if($token_encontrado==null ||  count($token_encontrado)==0 || $token_encontrado[0]==null){           
-            return new Error("E_0004","El codigo no se ha encontrado");
+            return Error::getError(TipoError::E_0004);
         }
 
         if($token_encontrado[0]->token_id>0){

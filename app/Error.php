@@ -25,9 +25,9 @@ class Error
             case TipoError::E_0002:
                 return new Error("E_0002","No se ha podido generar el código");
             case TipoError::E_0003:
-                return new Error("E_0003","El codigo a validar está vacío");
+                return new Error("E_0003","El código a validar está vacío");
             case TipoError::E_0004:
-                return new Error("E_0004","El codigo no se ha encontrado");
+                return new Error("E_0004","El código no se ha encontrado");
         }
     }
 
