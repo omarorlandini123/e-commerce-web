@@ -33,7 +33,7 @@ class TokenController extends Controller
     }
 
     public function solicitaRegistro(Request $request, $numero,$codigo){
-        $error = new Error;
+       
         if($codigo==null|| $numero==null || $codigo==""|| $numero==""){            
             return Error::getError(TipoError::E_0003);
         }
