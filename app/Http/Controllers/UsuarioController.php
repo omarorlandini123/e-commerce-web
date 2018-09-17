@@ -12,4 +12,12 @@ class UsuarioController extends Controller
         return Usuario::all();
     }
 
+    public function registro(Request $request, $token){
+        $token_var=Token::where('token',$token)->first();
+        if($token_var==null){
+            
+        }
+    
+    }
+
 }

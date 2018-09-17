@@ -6,15 +6,13 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Token;
 use App\Error;
+use App\TipoError;
 class TokenController extends Controller
 {
     public function solicitaCodigo(Request $request, $numero){
         //$name = $request->input('name');
         if($numero == null){
-            $error = new Error;
-            $error->codigo = "E_0001";
-            $error->descripcion = "El numero a enviar está vacío";
-            return $error;
+            return Error::getError(TipoError::E_0001);
         }
 
         $token_var = new Token;
@@ -30,26 +28,20 @@ class TokenController extends Controller
             return $token_rpta;
         }
 
-        $error = new Error;
-        $error->codigo = "E_0002";
-        $error->descripcion = "No se ha podido generar el código";
-        return $error;
+        return Error::getError(TipoError::E_0002);
+        
     }
 
     public function solicitaRegistro(Request $request, $numero,$codigo){
         $error = new Error;
         if($codigo==null|| $numero==null || $codigo==""|| $numero==""){            
-            $error->codigo = "E_0003";
-            $error->descripcion = "El codigo a validar está vacío";            
-            return $error;
+            return Error::getError(TipoError::E_0003);
         }
 
 
         $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo],['token_numero', '=', $numero]])->orderBy('token_fecha_creacion','desc')->take(1)->get();
         if($token_encontrado==null || count($token_encontrado)==0 || $token_encontrado[0]==null){           
-            $error->codigo = "E_0004";
-            $error->descripcion = "El codigo no se ha encontrado";            
-            return $error;
+            return Error::getError(TipoError::E_0004);
         }
 
         if($token_encontrado[0]->token_id>0){
