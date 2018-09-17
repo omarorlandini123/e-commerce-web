@@ -41,7 +41,7 @@ class TokenController extends Controller
 
         $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo],['token_numero', '=', $numero]])->orderBy('token_fecha_creacion','desc')->take(1)->get();
         if($token_encontrado==null || count($token_encontrado)==0 || $token_encontrado[0]==null){           
-            return Error::getError(TipoError::E_0004);
+            return new Error("E_0004","El codigo no se ha encontrado");
         }
 
         if($token_encontrado[0]->token_id>0){
