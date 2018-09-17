@@ -11,6 +11,7 @@ class Error extends Model
     function __construct($codigo,$descripcion) {		
         $this->codigo=$codigo;
         $this->descripcion=$descripcion;
+        $this->save();
     }
 
     static function getError($E_code){
