@@ -34,6 +34,8 @@ class Error
                 return new Error("E_0006","Necesita llenar los valores completamente");
             case 7:
                 return new Error("E_0007","No se pudo guardar el usuario");
+            case 8:
+                return new Error("E_0007","El DNI ya se encuentra registrado");
         }
     }
 

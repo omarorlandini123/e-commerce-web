@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Usuario;
 use App\Token;
 use App\TokenUsuario;
+use App\Documento;
 
 class UsuarioController extends Controller
 {
@@ -26,6 +27,10 @@ class UsuarioController extends Controller
             return Error::getError(5);
         }
 
+        $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
+        if($token_var!=null || count($token_var)!=0){
+            return Error::getError(8);
+        }
      
         $usuario_reg = new Usuario;
         $usuario_reg->usuario_nombre= $request->input('nombre');
@@ -44,9 +49,23 @@ class UsuarioController extends Controller
             $token_usuario_reg->save();
             
             if($token_usuario_reg->token_usuario_id>0){
-                $token_usuario_rpta = new TokenUsuario;
-                $token_usuario_rpta->registrado = true;
-                return $token_usuario_rpta;
+
+                $dni_reg = new Documento;
+                $dni_reg->documento_numero = $request->input('dni');
+                $dni_reg->documento_tipo = 0;
+                $dni_reg->documento_defecto = 1;
+                $dni_reg->usuario_usuario_id= $usuario_reg->usuario_id;
+
+                $dni_reg->save();
+
+                if($dni_reg->documento_id>0){
+                    $token_usuario_rpta = new TokenUsuario;
+                    $token_usuario_rpta->registrado = true;
+                    return $token_usuario_rpta;
+                }else{
+                    return Error::getError(7);
+                }
+
             }else{
                 return Error::getError(7);
             }

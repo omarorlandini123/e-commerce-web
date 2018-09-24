@@ -32,12 +32,40 @@ class TokenController extends Controller
         
     }
 
+    public function necesitaRegistro(Request $request, $token){
+        $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo],['token_numero', '=', $numero]])->orderBy('token_fecha_creacion','desc')->first();
+        
+        if($token_encontrado==null ||  count($token_encontrado)==0 || $token_encontrado[0]==null){           
+            return Error::getError(4);
+        }
+
+        $numero=$token_encontrado->token_numero;
+
+        $tokens=Token::where([['token_numero',$numero],['token','<>',$token]])->get();
+
+        $tieneUsuarioAsociado=false;
+        foreach ($tokens as $token) {
+            $tokenusers = TokenUsuario::where('token_token_id',$token->token_id)->get();
+            foreach($tokenusers as $tokenuser){
+                $usuarioTok = Usuario::where('usuario_id',$tokenuser->usuario_usuario_id)->get();
+                if(count( $usuarioTok)>0){
+                    $tieneUsuarioAsociado=true;
+                    break;
+                }
+            }
+        }
+        
+        $token_rpta = new Token;
+        $token_rpta->necesitaRegistro=!$tieneUsuarioAsociado;
+        return $token_rpta; 
+        
+    }
+
     public function solicitaRegistro(Request $request, $numero,$codigo){
        
         if($codigo==null|| $numero==null || $codigo==""|| $numero==""){            
             return Error::getError(3);
         }
-
 
         $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo],['token_numero', '=', $numero]])->orderBy('token_fecha_creacion','desc')->take(1)->get();
         
