@@ -19,17 +19,17 @@ class UsuarioController extends Controller
             return Error::getError(5);
         }
 
-        $validatedData = $request->validate([
-            'nombre' => 'required|max:250',
-            'apellido_pa' => 'required|max:250',
-            'apellido_ma' => 'required|max:250',
-            'email' => 'required|max:250',
-            'codigo_ref' => 'integer',
-        ]);
+        // $validatedData = $request->validate([
+        //     'nombre' => 'required|max:250',
+        //     'apellido_pa' => 'required|max:250',
+        //     'apellido_ma' => 'required|max:250',
+        //     'email' => 'required|max:250',
+        //     'codigo_ref' => 'integer',
+        // ]);
 
-        if(count($validatedData->errors())>0){
-            return Error::getError(6);
-        }
+        // if(count($validatedData->errors())>0){
+        //     return Error::getError(6);
+        // }
 
         $usuario_reg = new Usuario;
         $usuario_reg->usuario_nombre= $request->input('nombre');
