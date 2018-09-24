@@ -48,10 +48,10 @@ class TokenController extends Controller
         $tieneUsuarioAsociado=false;
         foreach ($tokens as $token) {
             $tokenusers = TokenUsuario::where('token_token_id',$token->token_id)->get();
-            echo (json_encode($tokenusers));
+            echo ($tokenusers);
             foreach($tokenusers as $tokenuser){
                 $usuarioTok = Usuario::where('usuario_id',$tokenuser->usuario_usuario_id)->first();
-                echo (json_encode($usuarioTok));
+                echo (($usuarioTok));
                 if(count( $usuarioTok)!=null){
                     $tieneUsuarioAsociado=true;
                     break;
