@@ -47,9 +47,10 @@ class TokenController extends Controller
         }
 
         if($token_encontrado[0]->token_id>0){
+            $token_encontrado[0]->csrf = csrf_token();
             return $token_encontrado[0];
         }
-
+        $token_encontrado->csrf = csrf_token();
         return $token_encontrado;
 
     }
