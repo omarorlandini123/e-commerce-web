@@ -33,8 +33,8 @@ class UsuarioController extends Controller
 
         $usuario_reg = new Usuario;
         $usuario_reg->usuario_nombre= $request->input('nombre');
-        $usuario_reg->usuario_apelidoPa= $request->input('apellido_pa');
-        $usuario_reg->usuario_apelidoMa= $request->input('apellido_ma');
+        $usuario_reg->usuario_apellidoPa= $request->input('apellido_pa');
+        $usuario_reg->usuario_apellidoMa= $request->input('apellido_ma');
         $usuario_reg->usuario_email= $request->input('email');
         $usuario_reg->usuario_codigoref= $request->input('codigo_ref');    
         $usuario_reg->save();
