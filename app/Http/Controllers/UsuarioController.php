@@ -10,7 +10,13 @@ use App\TokenUsuario;
 
 class UsuarioController extends Controller
 {
-    public function login($token){
+    
+
+    public function listarUsuarios(Request $request,$token){
+        $token_var=Token::where('token',$token)->first();
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
         return Usuario::all();
     }
 
@@ -20,18 +26,7 @@ class UsuarioController extends Controller
             return Error::getError(5);
         }
 
-        // $validatedData = $request->validate([
-        //     'nombre' => 'required|max:250',
-        //     'apellido_pa' => 'required|max:250',
-        //     'apellido_ma' => 'required|max:250',
-        //     'email' => 'required|max:250',
-        //     'codigo_ref' => 'integer',
-        // ]);
-
-        // if(count($validatedData->errors())>0){
-        //     return Error::getError(6);
-        // }
-
+     
         $usuario_reg = new Usuario;
         $usuario_reg->usuario_nombre= $request->input('nombre');
         $usuario_reg->usuario_apellidoPa= $request->input('apellido_pa');
