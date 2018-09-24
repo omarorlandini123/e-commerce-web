@@ -11,6 +11,11 @@ use App\Error;
 use App\TipoError;
 class TokenController extends Controller
 {
+
+    public function tokensnumero(Request $request, $numero){
+        return Token::where('token_numero',$numero)->orderBy('token_fecha_creacion','desc')->get();
+    }
+
     public function solicitaCodigo(Request $request, $numero){
         //$name = $request->input('name');
         if($numero == null){

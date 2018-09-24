@@ -14,6 +14,7 @@
 Route::get  ('/SolicitarCodigo/{numero}'                ,'TokenController@solicitaCodigo');
 Route::get  ('/SolicitarRegistro/{numero}/{codigo}'     ,'TokenController@solicitaRegistro');
 Route::get  ('/NecesitaRegistro/{token}'                ,'TokenController@necesitaRegistro');
+Route::get  ('/TokensNumero/{numero}'                   ,'TokenController@tokensnumero');
 Route::post ('/RegistrarUsuario/{token}'                ,'UsuarioController@registro');
 Route::get  ('/Usuario/{token}/login'                   ,'UsuarioController@login');
 Route::get  ('/Usuario/{token}/listar'                  ,'UsuarioController@listarUsuarios');
