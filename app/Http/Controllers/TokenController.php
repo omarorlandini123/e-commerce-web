@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Token;
+use App\TokenUsuario;
+use App\Usuario;
 use App\Error;
 use App\TipoError;
 class TokenController extends Controller
