@@ -13,7 +13,7 @@
 
 Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
-Route::get('/RegistrarUsuario/{token}','UsuarioController@registro');
+Route::post('/RegistrarUsuario/{token}','UsuarioController@registro');
 Route::get('/Usuario/{token}/login', 'UsuarioController@login');
 
 Route::get('/Producto', 'ProductoController@index');
