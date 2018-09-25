@@ -20,4 +20,6 @@ class Token extends Model
                 'token_usuario_activo');
     }
 
+   
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\UsuarioController;
 use App\Usuario;
 use App\Token;
 use App\TokenUsuario;
@@ -12,20 +13,13 @@ use App\Documento;
 class EmpresaController extends Controller
 {
     public function listar(Request $request, $token){
-
-        if(!TokenController::isValido($token)){
-            return Error::getError(5);
-        }    
-
-        return Empresa::where('usuario_id',$usuario->usuario_id);
+        
+        return Empresa::all();
 
     }
 
     public function registrar(Request $request, $token){
-        if(!TokenController::isValido($token)){
-            return Error::getError(5);
-        }  
-        
+     
         $usuarioController = new UsuarioController;
         $usuariofind=$usuarioController->getUsuario($request,$token);
         

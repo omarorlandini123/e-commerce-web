@@ -13,14 +13,22 @@
 
 Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
-Route::get('/NecesitaRegistro/{token}','TokenController@necesitaRegistro');
 Route::get('/TokensNumero/{numero}','TokenController@tokensnumero');
 
-Route::post('/RegistrarUsuario/{token}','UsuarioController@registro');
-Route::get('/Usuario/{token}/login','UsuarioController@login');
-Route::get('/Usuario/{token}/listar','UsuarioController@listarUsuarios');
+Route::group(['middleware' => 'verificar.token'], function () {
 
-Route::post('/Empresa/{token}/Registrar','EmpresaController@registrar');
+    Route::get('/NecesitaRegistro/{token}','TokenController@necesitaRegistro');
+
+    Route::post('/Usuario/Registrar/{token}','UsuarioController@registro');
+    Route::get('/Usuario/Login/{token}','UsuarioController@login');
+    Route::get('/Usuario/Listar/{token}','UsuarioController@listarUsuarios');
+    
+    Route::post('/Empresa/Registrar/{token}','EmpresaController@registrar');
+    Route::post('/Empresa/Actualizar/{token}','EmpresaController@actualizar');
+    Route::get('/Empresa/Listar/{token}','EmpresaController@listar');
+    Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
+
+});
 
 
 Route::get('/Producto','ProductoController@index');

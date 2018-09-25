@@ -14,11 +14,8 @@ class UsuarioController extends Controller
 {
     public function registro(Request $request, $token){
 
-        if(!TokenController::isValido($token)){
-            return Error::getError(5);
-        }
-
         $token_var=Token::where('token',$token)->first();
+
 
         $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
         if($documentoExiste!=null || count($documentoExiste)!=0){
@@ -67,17 +64,12 @@ class UsuarioController extends Controller
         }
     }
 
-    public function listarUsuarios(Request $request,$token){
-         if(!TokenController::isValido($token)){
-            return Error::getError(5);
-        }
+    public function listarUsuarios(Request $request,$token){      
         return Usuario::all();
     }
 
     public function getUsuario(Request $request, $token){
-        if(!TokenController::isValido($token)){
-            return Error::getError(5);
-        }
+    
         $token_var=Token::where('token',$token)->first();
         if($token_var!=null){
             $tokenuser=TokenUsuario::where('token_token_id',$token_var->token_id)->first();
