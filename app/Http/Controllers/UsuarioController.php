@@ -1,22 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Controllers\TokenController;
 use Carbon\Carbon;
 use App\Usuario;
 use App\Token;
 use App\TokenUsuario;
 use App\Documento;
 
+
 class UsuarioController extends Controller
 {
     public function registro(Request $request, $token){
 
-        $token_var=Token::where('token',$token)->first();
-        if($token_var==null || count($token_var)==0){
+        if(!TokenController::isValido($token)){
             return Error::getError(5);
         }
+
+        $token_var=Token::where('token',$token)->first();
 
         $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
         if($documentoExiste!=null || count($documentoExiste)!=0){
@@ -66,11 +68,29 @@ class UsuarioController extends Controller
     }
 
     public function listarUsuarios(Request $request,$token){
-        $token_var=Token::where('token',$token)->first();
-        if($token_var==null || count($token_var)==0){
+         if(!TokenController::isValido($token)){
             return Error::getError(5);
         }
         return Usuario::all();
+    }
+
+    public function getUsuario(Request $request, $token){
+        if(!TokenController::isValido($token)){
+            return Error::getError(5);
+        }
+        $token_var=Token::where('token',$token)->first();
+        if($token_var!=null){
+            $tokenuser=TokenUsuario::where('token_token_id',$token_var->token_id)->first();
+            if($tokenuser!=null){
+                $usuario = Usuario::where('usuario_id',$tokenuser->usuario_usuario_id)->first();
+                if($usuario!=null){
+                    return $usuario;
+                }
+            }
+        }
+
+        return null;
+
     }
 
 

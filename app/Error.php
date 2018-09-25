@@ -35,7 +35,11 @@ class Error
             case 7:
                 return new Error("E_0007","No se pudo guardar el usuario");
             case 8:
-                return new Error("E_0007","El DNI ya se encuentra registrado");
+                return new Error("E_0008","El DNI ya se encuentra registrado");
+            case 9:
+                return new Error("E_0009","No se ha encontrado un usuario asociado");
+            case 10:
+                return new Error("E_0010", "No se pudo guardar la empresa");
         }
     }
 

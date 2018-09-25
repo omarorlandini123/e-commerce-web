@@ -12,6 +12,14 @@ use App\TipoError;
 class TokenController extends Controller
 {
 
+    public static function isValido($token){
+        $token_var=Token::where('token',$token)->first();
+        if($token_var==null || count($token_var)==0){
+            return false;
+        }
+        return true;
+    }
+
     public function tokensnumero(Request $request, $numero){
         return Token::where('token_numero',$numero)->orderBy('token_fecha_creacion','desc')->get();
     }
@@ -59,6 +67,8 @@ class TokenController extends Controller
                
                 if(count( $usuarioTok)!=null){
                     $tieneUsuarioAsociado=true;
+
+                    Usuario::
                     break;
                 }
             }

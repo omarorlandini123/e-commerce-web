@@ -20,4 +20,7 @@ Route::post('/RegistrarUsuario/{token}','UsuarioController@registro');
 Route::get('/Usuario/{token}/login','UsuarioController@login');
 Route::get('/Usuario/{token}/listar','UsuarioController@listarUsuarios');
 
+Route::post('/Empresa/{token}/Registrar','EmpresaController@registrar');
+
+
 Route::get('/Producto','ProductoController@index');
