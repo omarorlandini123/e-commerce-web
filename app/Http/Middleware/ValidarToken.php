@@ -15,7 +15,7 @@ class ValidarToken
      */
     public function handle($request, Closure $next,$token)
     {
-        if(!isValido($token)){
+        if(!$this->isValido($token)){
             return Error::getError(5);
         }
         return $next($request);
