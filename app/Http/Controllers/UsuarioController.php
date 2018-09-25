@@ -19,7 +19,7 @@ class UsuarioController extends Controller
         }
 
         $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
-        if($token_var!=null || count($token_var)!=0){
+        if($documentoExiste!=null || count($documentoExiste)!=0){
             return Error::getError(8);
         }
      
