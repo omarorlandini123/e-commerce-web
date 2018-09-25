@@ -13,14 +13,7 @@ class UsuarioController extends Controller
 {
     
 
-    public function listarUsuarios(Request $request,$token){
-        $token_var=Token::where('token',$token)->first();
-        if($token_var==null || count($token_var)==0){
-            return Error::getError(5);
-        }
-        return Usuario::all();
-    }
-
+   
     public function registro(Request $request, $token){
         $token_var=Token::where('token',$token)->first();
         if($token_var==null || count($token_var)==0){
@@ -74,5 +67,14 @@ class UsuarioController extends Controller
             return Error::getError(7);
         }
     }
+
+    public function listarUsuarios(Request $request,$token){
+        $token_var=Token::where('token',$token)->first();
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
+        return Usuario::all();
+    }
+
 
 }
