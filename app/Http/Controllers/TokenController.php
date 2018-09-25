@@ -48,7 +48,7 @@ class TokenController extends Controller
         if($token_var==null || count($token_var)==0){
             return Error::getError(5);
         }
-        
+
         $token_encontrado = Token::where('token', $token)->orderBy('token_fecha_creacion','desc')->first();
         
         if($token_encontrado==null ){           
@@ -67,9 +67,9 @@ class TokenController extends Controller
                 $usuarioTok = Usuario::where('usuario_id',$tokenuser->usuario_usuario_id)->first();
                
                 if(count( $usuarioTok)!=null){
-                    $tieneUsuarioAsociado=true;
-
-                    Usuario::
+                    $tieneUsuarioAsociado=true;                    
+                    $tokenuser->token_token_id=$token_var->token_id;
+                    $tokenuser->save();
                     break;
                 }
             }
