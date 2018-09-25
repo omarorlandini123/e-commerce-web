@@ -15,7 +15,6 @@ Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
 Route::get('/TokensNumero/{numero}','TokenController@tokensnumero');
 
-Route::group(['middleware' => 'verificar.token:token'], function () {
 
     Route::get('/NecesitaRegistro/{token}','TokenController@necesitaRegistro');
 
@@ -28,7 +27,6 @@ Route::group(['middleware' => 'verificar.token:token'], function () {
     Route::get('/Empresa/Listar/{token}','EmpresaController@listar');
     Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
 
-});
 
 
 Route::get('/Producto','ProductoController@index');

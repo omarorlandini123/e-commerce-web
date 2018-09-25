@@ -13,12 +13,23 @@ use App\Documento;
 class EmpresaController extends Controller
 {
     public function listar(Request $request, $token){
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
         
         return Empresa::all();
 
     }
 
     public function registrar(Request $request, $token){
+
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
      
         $usuarioController = new UsuarioController;
         $usuariofind=$usuarioController->getUsuario($request,$token);

@@ -16,6 +16,12 @@ class UsuarioController extends Controller
 
         $token_var=Token::where('token',$token)->first();
 
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
+
+        $token_var=Token::where('token',$token)->first();
+
 
         $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
         if($documentoExiste!=null || count($documentoExiste)!=0){
@@ -64,11 +70,21 @@ class UsuarioController extends Controller
         }
     }
 
-    public function listarUsuarios(Request $request,$token){      
+    public function listarUsuarios(Request $request,$token){  
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }    
         return Usuario::all();
     }
 
     public function getUsuario(Request $request, $token){
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
     
         $token_var=Token::where('token',$token)->first();
         if($token_var!=null){

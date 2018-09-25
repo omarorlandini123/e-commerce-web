@@ -42,6 +42,13 @@ class TokenController extends Controller
     }
 
     public function necesitaRegistro(Request $request, $token){
+
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
+        
         $token_encontrado = Token::where('token', $token)->orderBy('token_fecha_creacion','desc')->first();
         
         if($token_encontrado==null ){           
