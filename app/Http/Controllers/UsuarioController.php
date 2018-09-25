@@ -6,6 +6,7 @@ use App\Http\Controllers\TokenController;
 use Carbon\Carbon;
 use App\Usuario;
 use App\Token;
+use App\Error;
 use App\TokenUsuario;
 use App\Documento;
 

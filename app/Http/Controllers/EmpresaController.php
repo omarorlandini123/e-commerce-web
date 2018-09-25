@@ -7,6 +7,7 @@ use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UsuarioController;
 use App\Usuario;
 use App\Token;
+use App\Error;
 use App\TokenUsuario;
 use App\Documento;
 
