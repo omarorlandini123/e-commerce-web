@@ -11,10 +11,8 @@ use App\Documento;
 
 class UsuarioController extends Controller
 {
-    
-
-   
     public function registro(Request $request, $token){
+
         $token_var=Token::where('token',$token)->first();
         if($token_var==null || count($token_var)==0){
             return Error::getError(5);
@@ -62,7 +60,6 @@ class UsuarioController extends Controller
             }else{
                 return Error::getError(7);
             }
-
         }else{
             return Error::getError(7);
         }
