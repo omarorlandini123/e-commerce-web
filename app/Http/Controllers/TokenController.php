@@ -19,7 +19,7 @@ class TokenController extends Controller
     }
 
     public function solicitaCodigo(Request $request, $numero){
-        //$name = $request->input('name');
+        
         if($numero == null){
             return Error::getError(1);
         }
