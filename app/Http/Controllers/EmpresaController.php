@@ -61,7 +61,7 @@ class EmpresaController extends Controller
         if($usuariofind==null){
             return Error::getError(9);
         }
-        return Empresa::where([['usuario_id',$usuariofind->usuario_id],['activo',1]]);
+        return Empresa::where([['usuario_id',$usuariofind->usuario_id],['activo',1]])->get();
 
     }
 
