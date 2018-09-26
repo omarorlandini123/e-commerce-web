@@ -10,6 +10,7 @@ use App\Token;
 use App\Error;
 use App\TokenUsuario;
 use App\Documento;
+use App\Empresa;
 
 class EmpresaController extends Controller
 {
