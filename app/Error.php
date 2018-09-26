@@ -40,6 +40,8 @@ class Error
                 return new Error("E_0009","No se ha encontrado un usuario asociado");
             case 10:
                 return new Error("E_0010", "No se pudo guardar la empresa");
+            case 11:
+                return new Error("E_0011", "No se encuentra el código de empresa");
         }
     }
 

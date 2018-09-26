@@ -14,6 +14,20 @@ use App\Empresa;
 
 class EmpresaController extends Controller
 {
+    public function obtener(Request $request, $idEmpresa, $token){
+        $token_var=Token::where('token',$token)->first();
+
+        if($token_var==null || count($token_var)==0){
+            return Error::getError(5);
+        }
+
+        $empresa= Empresa::where('empresa_id',$idEmpresa)->first();
+        if($empresa==null){
+            return Error::getError(11);
+        }
+        return $empresa;
+    }
+
     public function listar(Request $request, $token){
         $token_var=Token::where('token',$token)->first();
 
