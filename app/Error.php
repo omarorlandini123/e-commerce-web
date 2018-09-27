@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Error 
 {
-    public  $codigo;
+    public  $codigo_error;
     public  $descripcion;
 
     function __toString(){

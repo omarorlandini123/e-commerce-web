@@ -23,7 +23,7 @@ Route::get('/Usuario/Listar/{token}','UsuarioController@listarUsuarios');
 
 Route::post('/Empresa/Registrar/{token}','EmpresaController@registrar');
 Route::post('/Empresa/Actualizar/{idEmpresa}/{token}','EmpresaController@actualizar');
-Route::get('/Empresa/Listar/{token}','EmpresaController@listar');
+Route::get('/Empresa/Listar/{token}/{condicion}','EmpresaController@listar');
 Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
 Route::get('/Empresa/Obtener/{idEmpresa}/{token}','EmpresaController@obtener');
 
