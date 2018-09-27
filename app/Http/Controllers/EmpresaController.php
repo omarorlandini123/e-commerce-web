@@ -64,7 +64,7 @@ class EmpresaController extends Controller
         if ($usuariofind == null) {
             return Error::getError(9);
         }
-        if($condicion==null || $condicion==""){
+        if($condicion==null || $condicion=="_"){
             return Empresa::where([['usuario_id', $usuariofind->usuario_id], ['activo', 1]])->get();    
         }
         return Empresa::where([['usuario_id', $usuariofind->usuario_id], ['activo', 1],['empresa_nombre','like','%'.$condicion.'%']])->get();
