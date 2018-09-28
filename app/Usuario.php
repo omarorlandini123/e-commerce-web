@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Empresa;
 
 class Usuario extends Model
 {
@@ -20,5 +21,8 @@ class Usuario extends Model
                 'token_usuario_activo');
     }
     
-
+    public function empresas(){
+        return $this->hasMany('App\Empresa','usuario_id','usuario_id');        
+    }
+   
 }
