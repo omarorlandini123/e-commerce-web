@@ -78,26 +78,25 @@ class ItemAlmacenController extends Controller
             return Error::getError(9);
         }
 
+        session(['usuario_id' => $usuariofind->usuario_id]);
+
         if ($condicion == null || $condicion == "_") {
-            return ItemAlmacen::whereHas('almacen', function ($q) {
+            return ItemAlmacen::whereHas('almacen', function ($q) { 
                 $q->whereHas('empresa', function ($a) {
                     $a->whereHas('usuario_empresa', function ($b) {
-                        $b->where('usuario_id', $usuariofind->usuario_id);
+                        $b->where('usuario_id', session('usuario_id'));
                     });
                 });
             })->where('activo', 1)->get();
-
-
-        }
-
-        return ItemAlmacen::whereHas('almacen', function ($q) {
-            $q->whereHas('empresa', function ($a) {
-                $a->whereHas('usuario_empresa', function ($b) {
-                    $b->where('usuario_id', $usuariofind->usuario_id);
+        }else{
+            return ItemAlmacen::whereHas('almacen', function ($q) {
+                $q->whereHas('empresa', function ($a) {
+                    $a->whereHas('usuario_empresa', function ($b) {
+                        $b->where('usuario_id', session('usuario_id'));
+                    });
                 });
-            });
-        })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->get();
-
+            })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->get();
+        }
 
     }
 
