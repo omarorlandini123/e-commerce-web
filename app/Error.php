@@ -68,7 +68,16 @@ class Error
             case 17:
                 return new Error(Error::getErrorCode($E_code), "No se pudo registrar el almacen");
             case 18:
-                return new Error(Error::getErrorCode($E_code), "No se ha encontrado el item");                    
+                return new Error(Error::getErrorCode($E_code), "No se ha encontrado el item");
+            case 19:
+                return new Error(Error::getErrorCode($E_code), "La empresa no te pertenece");
+            case 20:
+                return new Error(Error::getErrorCode($E_code), "Debes asignar el item a un almacén");
+            case 21:
+                return new Error(Error::getErrorCode($E_code), "No puedes agregar items a una empresa que no es tuya");
+            case 22:
+                return new Error(Error::getErrorCode($E_code), "No se pudo guardar el item en el almacén");
+
         }
     }
 

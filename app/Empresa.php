@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Usuario;
+use App\UsuarioEmpresa;
 use App\Almacen;
 
 class Empresa extends Model
@@ -12,8 +12,8 @@ class Empresa extends Model
     protected $table = 'empresa';
     protected $primaryKey = "empresa_id";
 
-    public function usuario(){
-        return $this->belongsTo("App\Usuario","usuario_id","usuario_id");
+    public function usuario_empresa(){
+        return $this->hasMany("App\UsuarioEmpresa","empresa_id","empresa_id");
     }
 
     public function almacenes(){

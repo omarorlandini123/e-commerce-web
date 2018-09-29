@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Empresa;
+use App\TokenUsuario;
+use App\UsuarioEmpresa;
+use App\Documento;
 
 class Usuario extends Model
 {
@@ -11,18 +13,14 @@ class Usuario extends Model
     protected $table = 'usuario';
     protected $primaryKey = "usuario_id";
 
-    public function tokens(){
-        return $this->belongsToMany(
-            "App\Token",
-            'token_usuario',
-            "usuario_usuario_id","token_token_id")
-            ->withPivot(
-                'token_usuario_fecha_upd',
-                'token_usuario_activo');
+    public function token_usuario(){
+        return $this->hasMany('App\TokenUsuario','usuario_usuario_id','usuario_id');      
     }
-    
-    public function empresas(){
-        return $this->hasMany('App\Empresa','usuario_id','usuario_id');        
+    public function usuario_empresa(){
+        return $this->hasMany('App\UsuarioEmpresa','usuario_id','usuario_id');      
+    }
+    public function documento(){
+        return $this->hasMany('App\Documento','usuario_id','usuario_id');      
     }
    
 }

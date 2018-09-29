@@ -22,10 +22,29 @@ class EmpresaController extends Controller
             return Error::getError(5);
         }
 
-        $empresaFind = Empresa::where('empresa_id', $idEmpresa)->first();
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(9);
+        }
 
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $empresaFind = Empresa::where('empresa_id', $idEmpresa)->first();
         if ($empresaFind == null) {
             return Error::getError(11);
+        }
+
+        $usuarioEmpresaFind = UsuarioEmpresa::where([
+            ['usuario_id', $usuariofind->usuario_id],
+            ['empresa_id', $idEmpresa],
+            ['is_empresa_propia', 1],
+        ])->first();
+
+        if ($empresaFind == null) {
+            return Error::getError(19);
         }
 
         $empresaFind->activo = 0;
@@ -44,14 +63,35 @@ class EmpresaController extends Controller
             return Error::getError(5);
         }
 
-        $empresa = Empresa::where([['empresa_id', $idEmpresa], ['activo', 1]])->first();
-        if ($empresa == null) {
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(9);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $empresaFind = Empresa::where([['empresa_id', $idEmpresa], ['activo', 1]])->first();
+        if ($empresaFind == null) {
             return Error::getError(11);
         }
+
+        $usuarioEmpresaFind = UsuarioEmpresa::where([
+            ['usuario_id', $usuariofind->usuario_id],
+            ['empresa_id', $idEmpresa],
+            ['is_empresa_propia', 1],
+        ])->first();
+
+        if ($empresaFind == null) {
+            return Error::getError(19);
+        }
+
         return $empresa;
     }
 
-    public function listar(Request $request, $token,$condicion)
+    public function listar(Request $request, $token, $condicion)
     {
         $token_var = Token::where('token', $token)->first();
 
@@ -59,15 +99,25 @@ class EmpresaController extends Controller
             return Error::getError(5);
         }
 
-        $usuarioController = new UsuarioController;
-        $usuariofind = $usuarioController->getUsuario($request, $token);
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(9);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
         if ($usuariofind == null) {
             return Error::getError(9);
         }
-        if($condicion==null || $condicion=="_"){
-            return Empresa::where([['usuario_id', $usuariofind->usuario_id], ['activo', 1]])->get();    
+
+        if ($condicion == null || $condicion == "_") {
+            return $empresas = Empresa::whereHas('usuario_empresa', function ($q) {
+                $q->where('usuario_id', $usuariofind->usuario_id);
+            })->where('activo', 1)->get();
+
         }
-        return Empresa::where([['usuario_id', $usuariofind->usuario_id], ['activo', 1],['empresa_nombre','like','%'.$condicion.'%']])->get();
+        return $empresas = Empresa::whereHas('usuario_empresa', function ($q) {
+            $q->where('usuario_id', $usuariofind->usuario_id);
+        })->where([['activo', 1], ['empresa_nombre', 'like', '%' . $condicion . '%']])->get();
 
     }
 
@@ -106,19 +156,19 @@ class EmpresaController extends Controller
             return Error::getError(5);
         }
 
-        $usuarioController = new UsuarioController;
-        $usuariofind = $usuarioController->getUsuario($request, $token);
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(9);
+        }
 
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
         if ($usuariofind == null) {
             return Error::getError(9);
         }
 
-        if (!$request->has('ruc')) {
-            return Error::getError(12);
-        }
 
         $empresaFind = Empresa::where('empresa_RUC', $request->input('ruc'))->get();
-        if ($empresaFind != null && count( $empresaFind)>0) {
+        if ($empresaFind != null && count($empresaFind) > 0) {
             return Error::getError(13);
         }
 
@@ -132,9 +182,18 @@ class EmpresaController extends Controller
         $empresa_reg->save();
 
         if ($empresa_reg->empresa_id > 0) {
-            $token_usuario_rpta = new TokenUsuario;
-            $token_usuario_rpta->registrado = true;
-            return $token_usuario_rpta;
+
+            $empresaUsuario_reg = new UsaurioEmpresa;
+            $empresaUsuario_reg->empresa_id = $empresa_reg->empresa_id;
+            $empresaUsuario_reg->usuario_id = $usuariofind->usuario_id;
+            $empresaUsuario_reg->is_empresa_propia = 1;
+            $empresaUsuario_reg->save();
+
+            if ($empresaUsuario_reg->usuario_empresa_id > 0) {
+                $token_usuario_rpta = new TokenUsuario;
+                $token_usuario_rpta->registrado = true;
+                return $token_usuario_rpta;
+            }
         }
 
         return Error::getError(10);
