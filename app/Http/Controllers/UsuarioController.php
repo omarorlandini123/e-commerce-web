@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TokenController;
 use Carbon\Carbon;
-use App\Usuario;
-use App\Token;
-use App\Error;
-use App\TokenUsuario;
+use App\Almacen;
 use App\Documento;
-
+use App\Empresa;
+use App\Error;
+use App\ItemAlmacen;
+use App\Producto;
+use App\Token;
+use App\TokenUsuario;
+use App\User;
+use App\Usuario;
+use App\UsuarioEmpresa;
 
 class UsuarioController extends Controller
 {
