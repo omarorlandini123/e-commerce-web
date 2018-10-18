@@ -108,19 +108,19 @@ class EmpresaController extends Controller
             return Error::getError(9);
         }
 
-        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
-        if ($usuariofind == null) {
+        $this->usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($this->usuariofind == null) {
             return Error::getError(9);
         }
 
         if ($condicion == null || $condicion == "_") {
             return $empresas = Empresa::whereHas('freeler', function ($q) {
-                $q->where('usuario_id', $usuariofind->usuario_id);
+                $q->where('usuario_id', $this->usuariofind->usuario_id);
             })->where('activo', 1)->get();
 
         }
         return $empresas = Empresa::whereHas('freeler', function ($q) {
-            $q->where('usuario_id', $usuariofind->usuario_id);
+            $q->where('usuario_id', $this->usuariofind->usuario_id);
         })->where([['activo', 1], ['empresa_nombre', 'like', '%' . $condicion . '%']])->get();
 
     }
