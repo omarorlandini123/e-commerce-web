@@ -160,7 +160,7 @@ class EmpresaController extends Controller
             return Error::getError(9);
         }
 
-        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
         if ($usuariofind == null) {
             return Error::getError(9);
         }
