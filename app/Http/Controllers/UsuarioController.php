@@ -15,6 +15,7 @@ use App\TokenUsuario;
 use App\User;
 use App\Usuario;
 use App\UsuarioEmpresa;
+use App\Freeler;
 
 class UsuarioController extends Controller
 {
