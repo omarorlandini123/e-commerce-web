@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\TokenController;
-use App\Http\Controllers\UsuarioController;
 use App\Almacen;
-use App\Documento;
 use App\Empresa;
 use App\Error;
-use App\ItemAlmacen;
-use App\Producto;
+use App\Freeler;
 use App\Token;
 use App\TokenUsuario;
-use App\User;
 use App\Usuario;
 use App\UsuarioEmpresa;
+use Illuminate\Http\Request;
+
 class EmpresaController extends Controller
 {
     public function eliminar(Request $request, $idEmpresa, $token)
@@ -144,7 +140,6 @@ class EmpresaController extends Controller
         $empresaFind->empresa_RUC = $request->input('ruc');
         $empresaFind->save();
 
-
         $token_usuario_rpta = new TokenUsuario;
         $token_usuario_rpta->actualizado = true;
         return $token_usuario_rpta;
@@ -170,6 +165,10 @@ class EmpresaController extends Controller
             return Error::getError(9);
         }
 
+        $freelerFind = Freeler::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
+        if ($freelerFind == null) {
+            return Error::getError(9);
+        }
 
         $empresaFind = Empresa::where('empresa_RUC', $request->input('ruc'))->get();
         if ($empresaFind != null && count($empresaFind) > 0) {
@@ -182,30 +181,23 @@ class EmpresaController extends Controller
         $empresa_reg->empresa_RUC = $request->input('ruc');
         $empresa_reg->empresa_tipo = 3;
         $empresa_reg->activo = 1;
-        $empresa_reg->usuario_id = $usuariofind->usuario_id;
+        $empresa_reg->freeler_id = $freelerFind->freeler_id;
         $empresa_reg->save();
 
         if ($empresa_reg->empresa_id > 0) {
 
-            $empresaUsuario_reg = new UsuarioEmpresa;
-            $empresaUsuario_reg->empresa_id = $empresa_reg->empresa_id;
-            $empresaUsuario_reg->usuario_id = $usuariofind->usuario_id;
-            $empresaUsuario_reg->is_empresa_propia = 1;
-            $empresaUsuario_reg->save();
-
-            if ($empresaUsuario_reg->usuario_empresa_id > 0) {
-                $almacenInicialAPP = new Almacen;
-                $almacenInicialAPP->almacen_nombre = "Almacen - ".$request->input('nombre');
-                $almacenInicialAPP->almacen_detalle = "Almacen de APP para ". $request->input('nombre');
-                $almacenInicialAPP->is_almacen_app = 1;
-                $almacenInicialAPP->empresa_id = $empresa_reg->empresa_id;
-                $almacenInicialAPP->activo = 1;
-                if($almacenInicialAPP->almacen_id){
-                    $token_usuario_rpta = new TokenUsuario;
-                    $token_usuario_rpta->registrado = true;
-                    return $token_usuario_rpta;
-                }                
+            $almacenInicialAPP = new Almacen;
+            $almacenInicialAPP->almacen_nombre = "Almacen - " . $request->input('nombre');
+            $almacenInicialAPP->almacen_detalle = "Almacen de APP para " . $request->input('nombre');
+            $almacenInicialAPP->is_almacen_app = 1;
+            $almacenInicialAPP->empresa_id = $empresa_reg->empresa_id;
+            $almacenInicialAPP->activo = 1;
+            if ($almacenInicialAPP->almacen_id) {
+                $token_usuario_rpta = new TokenUsuario;
+                $token_usuario_rpta->registrado = true;
+                return $token_usuario_rpta;
             }
+
         }
 
         return Error::getError(10);
