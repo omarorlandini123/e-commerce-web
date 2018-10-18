@@ -12,8 +12,12 @@ class Empresa extends Model
     protected $table = 'empresa';
     protected $primaryKey = "empresa_id";
 
-    public function usuario_empresa(){
-        return $this->hasMany("App\UsuarioEmpresa","empresa_id","empresa_id");
+    public function freeler(){
+        return $this->belongsTo("App\Freeler","freeler_id","freeler_id");
+    }
+
+    public function productos(){
+        return $this->hasMany("App\Producto","empresa_id","empresa_id");
     }
 
     public function almacenes(){
