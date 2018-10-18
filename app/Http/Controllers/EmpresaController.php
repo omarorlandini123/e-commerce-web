@@ -160,12 +160,9 @@ class EmpresaController extends Controller
             return Error::getError(9);
         }
 
-        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
-        if ($usuariofind == null) {
-            return Error::getError(9);
-        }
+       
 
-        $freelerFind = Freeler::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();
+        $freelerFind = Freeler::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
         if ($freelerFind == null) {
             return Error::getError(9);
         }
