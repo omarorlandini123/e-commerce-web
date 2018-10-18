@@ -9,6 +9,8 @@ use App\TokenUsuario;
 use App\Usuario;
 use App\Error;
 use App\TipoError;
+use App\Freeler;
+
 class TokenController extends Controller
 {
 
@@ -65,13 +67,17 @@ class TokenController extends Controller
             
             foreach($tokenusers as $tokenuser){
                 $usuarioTok = Usuario::where('usuario_id',$tokenuser->usuario_usuario_id)->first();
-               
-                if(count( $usuarioTok)!=null){
-                    $tieneUsuarioAsociado=true;                    
-                    $tokenuser->token_token_id=$token_var->token_id;
-                    $tokenuser->save();
-                    break;
+                if($usuarioTok!=null){
+                    $freeler_exists = Freeler::where('usuario_id',$usuarioTok->usuario_id)->first();
+                    if(count( $freeler_exists)!=null){
+                        $tieneUsuarioAsociado=true;                    
+                        $tokenuser->token_token_id=$token_var->token_id;
+                        $tokenuser->save();
+                        break;
+                    }
                 }
+                
+                
             }
         }
         

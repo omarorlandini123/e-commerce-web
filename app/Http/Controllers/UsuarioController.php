@@ -57,13 +57,19 @@ class UsuarioController extends Controller
                 $dni_reg->documento_tipo = 0;
                 $dni_reg->documento_defecto = 1;
                 $dni_reg->usuario_usuario_id= $usuario_reg->usuario_id;
-
                 $dni_reg->save();
 
                 if($dni_reg->documento_id>0){
-                    $token_usuario_rpta = new TokenUsuario;
-                    $token_usuario_rpta->registrado = true;
-                    return $token_usuario_rpta;
+                    $freeler = new Freeler;                    
+                    $freeler->usuario_id=$usuario_reg->usuario_id;
+                    $freeler->codigo_ref= $request->input('codigo_ref');    
+                    $freeler->save();
+                    if($freeler->freeler_id>0){
+                        $token_usuario_rpta = new TokenUsuario;
+                        $token_usuario_rpta->registrado = true;
+                        return $token_usuario_rpta;
+                    }
+                    
                 }else{
                     return Error::getError(7);
                 }
