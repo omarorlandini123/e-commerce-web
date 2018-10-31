@@ -189,6 +189,7 @@ class EmpresaController extends Controller
             $almacenInicialAPP->is_almacen_app = 1;
             $almacenInicialAPP->empresa_id = $empresa_reg->empresa_id;
             $almacenInicialAPP->activo = 1;
+            $almacenInicialAPP->save();
             if ($almacenInicialAPP->almacen_id) {
                 $token_usuario_rpta = new TokenUsuario;
                 $token_usuario_rpta->registrado = true;
