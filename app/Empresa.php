@@ -24,4 +24,8 @@ class Empresa extends Model
         return $this->hasMany('App\Almacen','empresa_id','empresa_id');        
     }
 
+    public function usuario_empresa(){
+        return $this->belongsTo('App\Usuario','usuario_id','usuario_id');
+    }
+
 }
