@@ -71,7 +71,7 @@ class AlmacenController extends Controller
         }
         if ($condicion == null || $condicion == "_") {
             $almacenes = Almacen::whereHas('empresa', function ($a) {
-                $a->whereHas('usuario', function ($b) {
+                $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id', $usuariofind->usuario_id);
                 });
             })->where('activo', '=', '1')->orderBy('almacen_nombre')->get();
@@ -79,7 +79,7 @@ class AlmacenController extends Controller
             return $almacenes;
         }
         $almacenes = Almacen::whereHas('empresa', function ($a) {
-            $a->whereHas('usuario', function ($b) {
+            $a->whereHas('freeler', function ($b) {
                 $b->where('usuario_id', $usuariofind->usuario_id);
             });
         })->where([['activo', '=', '1'],['almacen_nombre', 'like', '%' . $condicion . '%']])->orderBy('almacen_nombre')->get();

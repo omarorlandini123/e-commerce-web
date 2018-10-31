@@ -34,4 +34,6 @@ Route::get('/ItemAlmacen/Listar/{token}/{condicion}','ItemAlmacenController@list
 Route::get('/ItemAlmacen/Eliminar/{idItemAlmacen}/{token}','ItemAlmacenController@eliminar');
 Route::get('/ItemAlmacen/Obtener/{idItemAlmacen}/{token}','ItemAlmacenController@obtener');
 
+Route::get('/Almacen/Usuario/{token}','AlmacenController@listar');
+
 Route::get('/Producto','ProductoController@index');
