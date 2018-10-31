@@ -58,17 +58,23 @@ class AlmacenController extends Controller
 
     public function listar(Request $request, $token, $condicion)
     {
+      
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
             return Error::getError(5);
         }
 
-        $usuarioController = new UsuarioController;
-        $usuariofind = $usuarioController->getUsuario($request, $token);
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(9);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
         if ($usuariofind == null) {
             return Error::getError(9);
         }
+
         if ($condicion == null || $condicion == "_") {
             $almacenes = Almacen::whereHas('empresa', function ($a) {
                 $a->whereHas('freeler', function ($b) {
