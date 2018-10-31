@@ -75,10 +75,12 @@ class AlmacenController extends Controller
             return Error::getError(9);
         }
 
+        session(['usuario_id' => $usuariofind->usuario_id]);
+
         if ($condicion == null || $condicion == "_") {
             $almacenes = Almacen::whereHas('empresa', function ($a) {
                 $a->whereHas('freeler', function ($b) {
-                    $b->where('usuario_id', $usuariofind->usuario_id);
+                    $b->where('usuario_id',session('usuario_id'));
                 });
             })->where('activo', '=', '1')->orderBy('almacen_nombre')->get();
 
@@ -86,7 +88,7 @@ class AlmacenController extends Controller
         }
         $almacenes = Almacen::whereHas('empresa', function ($a) {
             $a->whereHas('freeler', function ($b) {
-                $b->where('usuario_id', $usuariofind->usuario_id);
+                $b->where('usuario_id', session('usuario_id'));
             });
         })->where([['activo', '=', '1'],['almacen_nombre', 'like', '%' . $condicion . '%']])->orderBy('almacen_nombre')->get();
 
