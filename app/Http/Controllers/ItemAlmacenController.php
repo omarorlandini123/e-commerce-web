@@ -83,7 +83,7 @@ class ItemAlmacenController extends Controller
         if ($condicion == null || $condicion == "_") {
             return ItemAlmacen::whereHas('almacen', function ($q) { 
                 $q->whereHas('empresa', function ($a) {
-                    $a->whereHas('usuario_empresa', function ($b) {
+                    $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
                     });
                 });
@@ -91,7 +91,7 @@ class ItemAlmacenController extends Controller
         }else{
             return ItemAlmacen::whereHas('almacen', function ($q) {
                 $q->whereHas('empresa', function ($a) {
-                    $a->whereHas('usuario_empresa', function ($b) {
+                    $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
                     });
                 });
