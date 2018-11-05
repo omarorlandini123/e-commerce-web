@@ -79,6 +79,8 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "No se pudo guardar el item en el almacén");
             case 23:
                 return new Error(Error::getErrorCode($E_code), "No se encuentra el usuario relacionado al token");
+            case 24:
+                return new Error(Error::getErrorCode($E_code), "No es un freeler");
 
         }
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Almacen;
 use App\Documento;
 use App\Empresa;
+use App\Freeler;
 use App\Error;
 use App\ItemAlmacen;
 use App\Producto;
@@ -13,7 +14,7 @@ use App\Token;
 use App\TokenUsuario;
 use App\User;
 use App\Usuario;
-use App\UsuarioEmpresa;
+
 
 class ItemAlmacenController extends Controller
 {
@@ -169,14 +170,9 @@ class ItemAlmacenController extends Controller
             return Error::getError(11);
         }
 
-        $usuarioEmpresaFind = UsuarioEmpresa::where([
-            ['empresa_id', $empresaFind->empresa_id],
-            ['usuario_id', $usuariofind->usuario_id],
-            ['is_empresa_propia', 1],
-        ])->first();
-
-        if ($empresaFind == null) {
-            return Error::getError(21);
+        $freeler = Freeler::where([['freeler_id',$empresa->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
+        if ($freeler == null) {
+            return Error::getError(11);
         }
 
         $itemAlmacen = new ItemAlmacen;
