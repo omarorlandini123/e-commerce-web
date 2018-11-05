@@ -136,16 +136,10 @@ class ItemAlmacenController extends Controller
         if ($token_var == null || count($token_var) == 0) {
             return Error::getError(5);
         }
-
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
-            return Error::getError(5);
-        }
-
+     
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
-            return Error::getError(9);
+            return Error::getError(23);
         }
 
         $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_id)->first();

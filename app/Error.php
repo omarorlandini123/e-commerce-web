@@ -77,6 +77,8 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "No puedes agregar items a una empresa que no es tuya");
             case 22:
                 return new Error(Error::getErrorCode($E_code), "No se pudo guardar el item en el almacén");
+            case 23:
+                return new Error(Error::getErrorCode($E_code), "No se encuentra el usuario relacionado al token");
 
         }
     }
