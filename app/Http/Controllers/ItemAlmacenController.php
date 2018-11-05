@@ -170,7 +170,7 @@ class ItemAlmacenController extends Controller
             return Error::getError(11);
         }
 
-        $freeler = Freeler::where([['freeler_id',$empresa->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
+        $freeler = Freeler::where([['freeler_id',$empresaFind->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
         if ($freeler == null) {
             return Error::getError(11);
         }
