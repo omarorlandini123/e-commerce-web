@@ -151,10 +151,10 @@ class ItemAlmacenController extends Controller
             return Error::getError(9);
         }
 
-        if (!$request->has('almacen_id')) {
-            echo $request->input('almacen_id');
-            return Error::getError(20);
-        }
+        // if (!$request->has('almacen_id')) {
+            
+        //     return Error::getError(20);
+        // }
 
         $almacenFind = Almacen::where([
             ['almacen_id', $request->input('almacen_id')],
