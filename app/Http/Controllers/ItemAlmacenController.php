@@ -184,7 +184,7 @@ class ItemAlmacenController extends Controller
         
 
         if($request->hasFile('preview')){
-            $nombrePreview=md5(uniqid(rand(), true)).'jpg' ;
+            $nombrePreview=md5(uniqid(rand(), true)).'.jpg' ;
             $path = $request->file('preview')->storeAs('preview_item_almacen', $nombrePreview);
             $itemAlmacen->preview_img = $nombrePreview;
         }
