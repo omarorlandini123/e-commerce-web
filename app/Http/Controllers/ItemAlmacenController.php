@@ -101,7 +101,7 @@ class ItemAlmacenController extends Controller
 
     }
     public function getPreview(Request $request,$idItemAlmacen, $token){
-        
+
     }
 
     public function actualizar(Request $request, $idItemAlmacen, $token)
@@ -152,6 +152,7 @@ class ItemAlmacenController extends Controller
         }
 
         if (!$request->has('almacen_id')) {
+            echo $request;
             return Error::getError(20);
         }
 
