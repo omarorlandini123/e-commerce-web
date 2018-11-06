@@ -181,6 +181,13 @@ class ItemAlmacenController extends Controller
         $itemAlmacen->item_almacen_cantidad= $request->input('cantidad');
         $itemAlmacen->almacen_id=  $almacenFind->almacen_id;
         $itemAlmacen->activo= 1;
+        
+
+        if($request->hasFile('preview')){
+            $nombrePreview=md5(uniqid(rand(), true)).'jpg' ;
+            $path = $request->photo->storeAs('preview_item_almacen', $nombrePreview);
+        }
+        $itemAlmacen->preview_img = $nombrePreview;
         $itemAlmacen->save();
 
         if ($itemAlmacen->almacen_id > 0) {
