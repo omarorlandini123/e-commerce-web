@@ -88,7 +88,7 @@ class ItemAlmacenController extends Controller
                         $b->where('usuario_id', session('usuario_id'));
                     });
                 });
-            })->where('activo', 1)->with('almacen')->get();
+            })->where('activo', 1)->get();
         }else{
             return ItemAlmacen::whereHas('almacen', function ($q) {
                 $q->whereHas('empresa', function ($a) {
