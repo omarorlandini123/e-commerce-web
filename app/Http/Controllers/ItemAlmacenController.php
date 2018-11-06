@@ -152,7 +152,7 @@ class ItemAlmacenController extends Controller
         }
 
         if (!$request->has('almacen_id')) {
-            echo $request;
+            echo $request->input('almacen_id');
             return Error::getError(20);
         }
 
