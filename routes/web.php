@@ -11,6 +11,12 @@
 |
 */
 
+Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
+Route::post('/ItemAlmacen/Actualizar/{idItemAlmacen}/{token}','ItemAlmacenController@actualizar');
+Route::get('/ItemAlmacen/Listar/{token}/{condicion}','ItemAlmacenController@listar');
+Route::get('/ItemAlmacen/Eliminar/{idItemAlmacen}/{token}','ItemAlmacenController@eliminar');
+Route::get('/ItemAlmacen/Obtener/{idItemAlmacen}/{token}','ItemAlmacenController@obtener');
+
 Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
 Route::get('/TokensNumero/{numero}','TokenController@tokensnumero');
@@ -28,11 +34,7 @@ Route::get('/Empresa/Listar/{token}/{condicion}','EmpresaController@listar');
 Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
 Route::get('/Empresa/Obtener/{idEmpresa}/{token}','EmpresaController@obtener');
 
-Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
-Route::post('/ItemAlmacen/Actualizar/{idItemAlmacen}/{token}','ItemAlmacenController@actualizar');
-Route::get('/ItemAlmacen/Listar/{token}/{condicion}','ItemAlmacenController@listar');
-Route::get('/ItemAlmacen/Eliminar/{idItemAlmacen}/{token}','ItemAlmacenController@eliminar');
-Route::get('/ItemAlmacen/Obtener/{idItemAlmacen}/{token}','ItemAlmacenController@obtener');
+
 
 Route::get('/Almacen/Usuario/{token}/{condicion}','AlmacenController@listar');
 
