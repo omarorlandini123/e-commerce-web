@@ -12,6 +12,8 @@
 */
 
 Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
+Route::put('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
+Route::get('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::post('/ItemAlmacen/Actualizar/{idItemAlmacen}/{token}','ItemAlmacenController@actualizar');
 Route::get('/ItemAlmacen/Listar/{token}/{condicion}','ItemAlmacenController@listar');
 Route::get('/ItemAlmacen/Eliminar/{idItemAlmacen}/{token}','ItemAlmacenController@eliminar');

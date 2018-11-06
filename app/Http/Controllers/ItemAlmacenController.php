@@ -100,6 +100,9 @@ class ItemAlmacenController extends Controller
         }
 
     }
+    public function getPreview(Request $request,$idItemAlmacen, $token){
+        
+    }
 
     public function actualizar(Request $request, $idItemAlmacen, $token)
     {
