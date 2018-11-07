@@ -101,6 +101,29 @@ class ItemAlmacenController extends Controller
 
     }
     public function getPreview(Request $request,$idItemAlmacen, $token){
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $itemAlmacenFind = ItemAlmacen::where([['item_almacen_id', $idItemAlmacen], ['activo', 1]])->first();
+        if ($itemAlmacenFind == null) {
+            return Error::getError(18);
+        }
+
+        return response()->file(storage_path('app/public/preview_item_almacen').$itemAlmacenFind->preview_img);
+
 
     }
 
