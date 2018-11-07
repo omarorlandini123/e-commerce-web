@@ -135,6 +135,21 @@ class ItemAlmacenController extends Controller
         if ($token_var == null || count($token_var) == 0) {
             return Error::getError(5);
         }
+     
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        // if (!$request->has('almacen_id')) {
+            
+        //     return Error::getError(20);
+        // }
 
         $almacenFind = Almacen::where([
             ['almacen_id', $request->input('almacen_id')],
@@ -158,6 +173,7 @@ class ItemAlmacenController extends Controller
         if ($freeler == null) {
             return Error::getError(11);
         }
+
 
         $itemAlmacenFind = ItemAlmacen::where([['item_almacen_id', $idItemAlmacen], ['activo', 1]])->first();
         if ($itemAlmacenFind == null) {
