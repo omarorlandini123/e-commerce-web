@@ -121,11 +121,8 @@ class ItemAlmacenController extends Controller
         if ($itemAlmacenFind == null) {
             return Error::getError(18);
         }
-        if(Storage::disk('public')->exists( storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img )){
             return response()->file(storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img);
-        }else{
-            return Error::getError(19);
-        }
+        
 
 
     }
