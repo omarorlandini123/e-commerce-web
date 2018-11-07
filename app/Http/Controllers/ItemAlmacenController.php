@@ -122,7 +122,7 @@ class ItemAlmacenController extends Controller
             return Error::getError(18);
         }
 
-        return response()->file(storage_path('app/public/preview_item_almacen').$itemAlmacenFind->preview_img);
+        return response()->file(storage_path('app/public/preview_item_almacen/').$itemAlmacenFind->preview_img);
 
 
     }
