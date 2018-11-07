@@ -18,6 +18,7 @@ Route::post('/ItemAlmacen/Actualizar/{idItemAlmacen}/{token}','ItemAlmacenContro
 Route::get('/ItemAlmacen/Listar/{token}/{condicion}','ItemAlmacenController@listar');
 Route::get('/ItemAlmacen/Eliminar/{idItemAlmacen}/{token}','ItemAlmacenController@eliminar');
 Route::get('/ItemAlmacen/Obtener/{idItemAlmacen}/{token}','ItemAlmacenController@obtener');
+Route::get('/ItemAlmacen/Preview/{idItemAlmacen}/{token}','ItemAlmacenController@getPreview');
 
 Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
