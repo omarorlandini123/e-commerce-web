@@ -121,8 +121,11 @@ class ItemAlmacenController extends Controller
         if ($itemAlmacenFind == null) {
             return Error::getError(18);
         }
-
-        return response()->file(storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img);
+        if(Storage::disk('public')->exists( storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img )){
+            return response()->file(storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img);
+        }else{
+            return Error::getError(19);
+        }
 
 
     }
@@ -136,6 +139,29 @@ class ItemAlmacenController extends Controller
             return Error::getError(5);
         }
 
+        $almacenFind = Almacen::where([
+            ['almacen_id', $request->input('almacen_id')],
+            ['activo', 1],
+        ])->first();
+
+        if ($almacenFind == null) {
+            return Error::getError(15);
+        }
+
+        $empresaFind = Empresa::where([
+            ['empresa_id', $almacenFind->empresa_id],
+            ['activo', 1],
+        ])->first();
+
+        if ($empresaFind == null) {
+            return Error::getError(11);
+        }
+
+        $freeler = Freeler::where([['freeler_id',$empresaFind->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
+        if ($freeler == null) {
+            return Error::getError(11);
+        }
+
         $itemAlmacenFind = ItemAlmacen::where([['item_almacen_id', $idItemAlmacen], ['activo', 1]])->first();
         if ($itemAlmacenFind == null) {
             return Error::getError(18);
@@ -144,6 +170,13 @@ class ItemAlmacenController extends Controller
         $itemAlmacenFind->item_almacen_titulo = $request->input('titulo');
         $itemAlmacenFind->item_almacen_descripcion = $request->input('descripcion');
         $itemAlmacenFind->item_almacen_cantidad = $request->input('cantidad');
+
+        if($request->hasFile('preview')){
+            $nombrePreview=md5(uniqid(rand(), true)).'.jpg' ;
+            $path = $request->file('preview')->storeAs('preview_item_almacen', $nombrePreview);
+            $itemAlmacenFind->preview_img = $nombrePreview;
+        }
+
         $itemAlmacenFind->save();
 
 
