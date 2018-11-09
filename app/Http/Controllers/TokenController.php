@@ -9,6 +9,7 @@ use App\TokenUsuario;
 use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Respuesta;
 
 class TokenController extends Controller
 {
