@@ -21,10 +21,15 @@ class UsuarioController extends Controller
 {
     public function registro(Request $request, $token){
 
+        $rpta = new Respuesta;
+
         $token_var=Token::where('token',$token)->first();
 
         if($token_var==null || count($token_var)==0){
-            return Error::getError(5);
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         $token_var=Token::where('token',$token)->first();
@@ -32,7 +37,10 @@ class UsuarioController extends Controller
 
         $documentoExiste=Documento::where('documento_numero',$request->input('dni'))->first();
         if($documentoExiste!=null || count($documentoExiste)!=0){
-            return Error::getError(8);
+            $contenidoError = Error::getError(8);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
      
         $usuario_reg = new Usuario;
@@ -66,20 +74,30 @@ class UsuarioController extends Controller
                     $freeler->codigo_ref= $request->input('codigo_ref');    
                     $freeler->save();
                     if($freeler->freeler_id>0){
-                        $token_usuario_rpta = new TokenUsuario;
-                        $token_usuario_rpta->registrado = true;
-                        return $token_usuario_rpta;
+
+                        $rpta->tieneError = false;
+                        $rpta->objeto = true;
+                        return $rpta;
                     }
                     
                 }else{
-                    return Error::getError(7);
+                    $contenidoError = Error::getError(7);
+                    $rpta->tieneError = true;
+                    $rpta->error = $contenidoError;
+                    return $rpta;
                 }
 
             }else{
-                return Error::getError(7);
+                $contenidoError = Error::getError(7);
+                $rpta->tieneError = true;
+                $rpta->error = $contenidoError;
+                return $rpta;
             }
         }else{
-            return Error::getError(7);
+            $contenidoError = Error::getError(7);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
     }
 

@@ -45,6 +45,8 @@ class TokenController extends Controller
     public function necesitaRegistro(Request $request, $token)
     {
 
+        $rpta = new Respuesta;
+
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
@@ -96,6 +98,8 @@ class TokenController extends Controller
 
     public function solicitaRegistro(Request $request, $numero, $codigo)
     {
+
+        $rpta = new Respuesta;
 
         if ($codigo == null || $numero == null || $codigo == "" || $numero == "") {
             $contenidoError = Error::getError(3);
