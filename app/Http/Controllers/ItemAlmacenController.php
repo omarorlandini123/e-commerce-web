@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Almacen;
-use App\Documento;
 use App\Empresa;
-use App\Freeler;
 use App\Error;
+use App\Freeler;
 use App\ItemAlmacen;
-use App\Producto;
+use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
-use App\User;
 use App\Usuario;
-
+use Illuminate\Http\Request;
 
 class ItemAlmacenController extends Controller
 {
@@ -57,40 +54,54 @@ class ItemAlmacenController extends Controller
 
     public function listar(Request $request, $token, $condicion)
     {
+        $rpta = new Respuesta;
+
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
-            return Error::getError(5);
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
-            return Error::getError(5);
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
-            return Error::getError(9);
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
         if ($usuariofind == null) {
-            return Error::getError(9);
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         session(['usuario_id' => $usuariofind->usuario_id]);
-
+        $items = array();
         if ($condicion == null || $condicion == "_") {
-            return ItemAlmacen::whereHas('almacen', function ($q) { 
+            $items = ItemAlmacen::whereHas('almacen', function ($q) {
                 $q->whereHas('empresa', function ($a) {
                     $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
                     });
                 });
             })->where('activo', 1)->get();
-        }else{
-            return ItemAlmacen::whereHas('almacen', function ($q) {
+        } else {
+            $items = ItemAlmacen::whereHas('almacen', function ($q) {
                 $q->whereHas('empresa', function ($a) {
                     $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
@@ -99,8 +110,13 @@ class ItemAlmacenController extends Controller
             })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->get();
         }
 
+        $rpta->objeto = $items;
+        $rpta->tieneError = false;
+        return $rpta;
+
     }
-    public function getPreview(Request $request,$idItemAlmacen, $token){
+    public function getPreview(Request $request, $idItemAlmacen, $token)
+    {
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
@@ -121,9 +137,7 @@ class ItemAlmacenController extends Controller
         if ($itemAlmacenFind == null) {
             return Error::getError(18);
         }
-            return response()->file(storage_path('app/preview_item_almacen/').$itemAlmacenFind->preview_img);
-        
-
+        return response()->file(storage_path('app/preview_item_almacen/') . $itemAlmacenFind->preview_img);
 
     }
 
@@ -135,7 +149,7 @@ class ItemAlmacenController extends Controller
         if ($token_var == null || count($token_var) == 0) {
             return Error::getError(5);
         }
-     
+
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
             return Error::getError(23);
@@ -147,7 +161,7 @@ class ItemAlmacenController extends Controller
         }
 
         // if (!$request->has('almacen_id')) {
-            
+
         //     return Error::getError(20);
         // }
 
@@ -169,11 +183,10 @@ class ItemAlmacenController extends Controller
             return Error::getError(11);
         }
 
-        $freeler = Freeler::where([['freeler_id',$empresaFind->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
+        $freeler = Freeler::where([['freeler_id', $empresaFind->freeler_id], ['usuario_id', $usuariofind->usuario_id]]);
         if ($freeler == null) {
             return Error::getError(11);
         }
-
 
         $itemAlmacenFind = ItemAlmacen::where([['item_almacen_id', $idItemAlmacen], ['activo', 1]])->first();
         if ($itemAlmacenFind == null) {
@@ -184,22 +197,19 @@ class ItemAlmacenController extends Controller
         $itemAlmacenFind->item_almacen_descripcion = $request->input('descripcion');
         $itemAlmacenFind->item_almacen_cantidad = $request->input('cantidad');
 
-        if($request->hasFile('preview')){
-            $nombrePreview=md5(uniqid(rand(), true)).'.jpg' ;
+        if ($request->hasFile('preview')) {
+            $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
             $path = $request->file('preview')->storeAs('preview_item_almacen', $nombrePreview);
             $itemAlmacenFind->preview_img = $nombrePreview;
         }
 
         $itemAlmacenFind->save();
 
-
         $token_usuario_rpta = new TokenUsuario;
         $token_usuario_rpta->actualizado = true;
         return $token_usuario_rpta;
 
     }
-
-
 
     public function registrar(Request $request, $token)
     {
@@ -209,7 +219,7 @@ class ItemAlmacenController extends Controller
         if ($token_var == null || count($token_var) == 0) {
             return Error::getError(5);
         }
-     
+
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
             return Error::getError(23);
@@ -221,7 +231,7 @@ class ItemAlmacenController extends Controller
         }
 
         // if (!$request->has('almacen_id')) {
-            
+
         //     return Error::getError(20);
         // }
 
@@ -243,25 +253,24 @@ class ItemAlmacenController extends Controller
             return Error::getError(11);
         }
 
-        $freeler = Freeler::where([['freeler_id',$empresaFind->freeler_id],['usuario_id',$usuariofind->usuario_id]]);
+        $freeler = Freeler::where([['freeler_id', $empresaFind->freeler_id], ['usuario_id', $usuariofind->usuario_id]]);
         if ($freeler == null) {
             return Error::getError(11);
         }
 
         $itemAlmacen = new ItemAlmacen;
-        $itemAlmacen->item_almacen_titulo= $request->input('titulo');
-        $itemAlmacen->item_almacen_descripcion= $request->input('descripcion');
-        $itemAlmacen->item_almacen_cantidad= $request->input('cantidad');
-        $itemAlmacen->almacen_id=  $almacenFind->almacen_id;
-        $itemAlmacen->activo= 1;
-        
+        $itemAlmacen->item_almacen_titulo = $request->input('titulo');
+        $itemAlmacen->item_almacen_descripcion = $request->input('descripcion');
+        $itemAlmacen->item_almacen_cantidad = $request->input('cantidad');
+        $itemAlmacen->almacen_id = $almacenFind->almacen_id;
+        $itemAlmacen->activo = 1;
 
-        if($request->hasFile('preview')){
-            $nombrePreview=md5(uniqid(rand(), true)).'.jpg' ;
+        if ($request->hasFile('preview')) {
+            $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
             $path = $request->file('preview')->storeAs('preview_item_almacen', $nombrePreview);
             $itemAlmacen->preview_img = $nombrePreview;
         }
-        
+
         $itemAlmacen->save();
 
         if ($itemAlmacen->almacen_id > 0) {
