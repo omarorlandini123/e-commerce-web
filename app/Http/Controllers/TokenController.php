@@ -22,7 +22,7 @@ class TokenController extends Controller
     public function solicitaCodigo(Request $request, $numero)
     {
         $rpta = new Respuesta;
-        if ($numero == null) {
+        if ($numero == null || trim($numero)=="") {
             $contenidoError = Error::getError(1);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
