@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Error;
 use App\Freeler;
+use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Respuesta;
 
 class TokenController extends Controller
 {
@@ -21,9 +21,12 @@ class TokenController extends Controller
 
     public function solicitaCodigo(Request $request, $numero)
     {
-
+        $rpta = new Respuesta;
         if ($numero == null) {
-            return Error::getError(1);
+            $contenidoError = Error::getError(1);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
         $token_var = new Token;
@@ -36,10 +39,17 @@ class TokenController extends Controller
         if ($token_var->token_id > 0) {
             $token_rpta = new Token;
             $token_rpta->token_codigo_sms = true;
-            return $token_rpta;
+            
+            $rpta->tieneError = false;
+            $rpta->objeto = $token_rpta;
+            return $rpta;
+
         }
 
-        return Error::getError(2);
+        $contenidoError = Error::getError(2);
+        $rpta->tieneError = true;
+        $rpta->error = $contenidoError;
+        return $rpta;
 
     }
 
