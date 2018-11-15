@@ -196,6 +196,7 @@ class ItemAlmacenController extends Controller
         $itemAlmacenFind->item_almacen_titulo = $request->input('titulo');
         $itemAlmacenFind->item_almacen_descripcion = $request->input('descripcion');
         $itemAlmacenFind->item_almacen_cantidad = $request->input('cantidad');
+        $itemAlmacenFind->almacen_id = $almacenFind->almacen_id;
 
         if ($request->hasFile('preview')) {
             $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
