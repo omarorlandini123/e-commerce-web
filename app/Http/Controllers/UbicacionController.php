@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Error;
 use App\Respuesta;
 use App\Ubicaciones;
+use App\Token;
+use App\TokenUsuario;
+use App\Usuario;
 use Illuminate\Http\Request;
 
 class UbicacionController extends Controller
@@ -12,7 +15,7 @@ class UbicacionController extends Controller
     public function listarUbicaciones(Request $request, $token)
     {
         $rpta = new Respuesta;
-        
+
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
