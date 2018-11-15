@@ -8,6 +8,6 @@ class Ubicaciones extends Model
 {
     public $timestamps = false;
     protected $table = 'ubicaciones';
-    protected $primaryKey = "id";
+    
 
 }
