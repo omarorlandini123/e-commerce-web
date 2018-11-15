@@ -41,7 +41,7 @@ class UbicacionController extends Controller
             return $rpta;
         }
 
-        $ubicaciones = Ubicaciones::where('ubicacion','like',"'%Lima%'")->get();
+        $ubicaciones = Ubicaciones::where('ubicacion','like',"%Lima%")->get();
 
         $rpta->tieneError = false;
         $rpta->objeto = $ubicaciones;
