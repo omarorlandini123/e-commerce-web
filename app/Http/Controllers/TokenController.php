@@ -19,10 +19,9 @@ class TokenController extends Controller
         return Token::where('token_numero', $numero)->orderBy('token_fecha_creacion', 'desc')->get();
     }
 
-    public function CodigoCelular(Request $request, $numero){
+    public function codigoCelular(Request $request, $numero){
         $token= Token::where('token_numero', $numero)->orderBy('token_fecha_creacion', 'desc')->get()->first();
         return "El codigo de seguridad telefónico es: ".$token->token_codigo_sms. " y el token es: ".$token->token;
-
     }
 
     public function solicitaCodigo(Request $request, $numero)
