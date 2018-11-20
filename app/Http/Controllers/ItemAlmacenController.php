@@ -32,9 +32,9 @@ class ItemAlmacenController extends Controller
 
         $itemsEliminar = $request->input('lista_items');
 
-        return $itemsEliminar;
+        
 
-        $items = ItemAlmacen::where('item_almacen_id','in',$itemsEliminar)->get();
+        $items = ItemAlmacen::whereRaw("item_almacen_id in '".$itemsEliminar."'")->get();
 
         if(count($items)>0){
             foreach ($items as $item ) {
