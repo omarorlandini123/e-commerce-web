@@ -81,6 +81,8 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "No es un freeler");
             case 25:
                 return new Error(Error::getErrorCode($E_code), "No se encuentran ítems a eliminar");
+            case 26:
+                return new Error(Error::getErrorCode($E_code), "Debes especificar al menos un ítem a eliminar");
         }
     }
 

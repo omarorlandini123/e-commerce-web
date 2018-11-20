@@ -30,11 +30,16 @@ class ItemAlmacenController extends Controller
             return $rpta;
         }
 
+        if(!$request->has('lista_items')){
+            $contenidoError = Error::getError(26);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
         $itemsEliminar = $request->input('lista_items');
 
-        
-
-        $items = ItemAlmacen::whereRaw("item_almacen_id in '".$itemsEliminar."'")->get();
+        $items = ItemAlmacen::whereRaw("item_almacen_id in (".$itemsEliminar.")")->get();
 
         if(count($items)>0){
             foreach ($items as $item ) {
