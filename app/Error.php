@@ -2,26 +2,24 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Error
 {
     public $codigo_error;
     public $descripcion;
 
-    function __toString()
+    public function __toString()
     {
         return json_encode($this);
     }
 
-    function __construct($codigo, $descripcion)
+    public function __construct($codigo, $descripcion)
     {
         $this->codigo = $codigo;
         $this->descripcion = $descripcion;
 
     }
 
-    static function getErrorCode($E_code)
+    public static function getErrorCode($E_code)
     {
         $codebase = "00000000";
         $codigo = $codebase . $E_code;
@@ -30,7 +28,7 @@ class Error
         return $codigorpta;
     }
 
-    static function getError($E_code)
+    public static function getError($E_code)
     {
         switch ($E_code) {
             case 1:
@@ -81,11 +79,9 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "No se encuentra el usuario relacionado al token");
             case 24:
                 return new Error(Error::getErrorCode($E_code), "No es un freeler");
-
+            case 25:
+                return new Error(Error::getErrorCode($E_code), "No se encuentran ítems a eliminar");
         }
     }
 
-
 }
-
-

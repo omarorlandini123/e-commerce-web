@@ -18,6 +18,38 @@ use Illuminate\Http\Request;
 
 class ItemAlmacenController extends Controller
 {
+
+    public function eliminar_varios(Request $request, $token){
+        $rpta = new Respuesta;
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $itemsEliminar = $request->input('lista_items');
+
+        $items = ItemAlmacen::where('item_almacen_id','in',$itemsEliminar)->get();
+
+        if(count($items)>0){
+            foreach ($items as $item ) {
+                $item->activo=0;
+                $item->save();
+            }
+        }else{
+            $contenidoError = Error::getError(25);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+        
+        $rpta->c = false;
+        return $rpta; 
+    }
+
     public function eliminar(Request $request, $idItemAlmacen, $token)
     {
         $token_var = Token::where('token', $token)->first();
@@ -145,7 +177,9 @@ class ItemAlmacenController extends Controller
 
         if (file_exists($path)) {
             $img = Image::make($path);
-            $img->resize(300, 300);
+            $img->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
     
             return $img->response();
         }
