@@ -53,7 +53,7 @@ class ItemAlmacenController extends Controller
             return $rpta;
         }
         
-        $rpta->c = false;
+        $rpta->tieneError = false;
         return $rpta; 
     }
 
