@@ -140,7 +140,7 @@ class ItemAlmacenController extends Controller
 
         $path = storage_path('app/preview_item_almacen/') . $itemAlmacenFind->preview_img;
 
-        if (File::exists($path)) {
+        if (file_exists($path)) {
             $img = Image::make($path);
             $img->resize(300, 300);
     
