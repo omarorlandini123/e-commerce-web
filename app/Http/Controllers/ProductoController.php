@@ -68,7 +68,7 @@ class ProductoController extends Controller
                 ->get();
             for($i=0;$i<count($items);$i++){
                 $detalles=$items[$i]->producto_detalle;
-                for($r=0;$r<count($detalles);$r){
+                for($r=0;$r<count($detalles);$r++){
                     $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almcen_id)->first();
 
                 }
