@@ -43,4 +43,4 @@ Route::get('/Ubicacion/Listar/{token}','UbicacionController@listarUbicaciones');
 
 Route::get('/Almacen/Usuario/{token}/{condicion}','AlmacenController@listar');
 
-Route::get('/Producto','ProductoController@index');
+Route::post('/Producto/Crear','ProductoController@crear');
