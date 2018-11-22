@@ -159,18 +159,18 @@ class ProductoController extends Controller
             return Error::getError(18);
         }
 
-        $image_preview_final = "";
+        $path = "";
         if ($productoFind->preview_img == null) {
             if (count($productoFind->producto_detalle) == 1) {
-                $image_preview_final = $productoFind->producto_detalle[0]->item_almacen->preview_img;
+                $path = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
             }
         } else {
-            $image_preview_final = $productoFind->preview_img;
+            $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
         }
 
-        if ($image_preview_final != "") {
+        if ($path != "") {
 
-            $path = storage_path('app/preview_producto/') . $image_preview_final;
+            
 
             if (file_exists($path)) {
                 $img = Image::make($path);
