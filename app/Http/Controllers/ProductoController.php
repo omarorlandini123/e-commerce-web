@@ -168,9 +168,7 @@ class ProductoController extends Controller
             $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
         }
 
-        if ($path != "") {
-
-            
+        if ($path != "") {            
 
             if (file_exists($path)) {
                 $img = Image::make($path);
