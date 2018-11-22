@@ -57,7 +57,7 @@ class ProductoController extends Controller
 
         session(['usuario_id' => $usuariofind->usuario_id]);
         $items = array();
-        
+
         if ($condicion == null || $condicion == "_") {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
@@ -65,8 +65,14 @@ class ProductoController extends Controller
                 });
             })->where('activo', 1)
                 ->with('producto_detalle')
-                ->with('item_almacen')
                 ->get();
+            for($i=0;$i<count($items);$i++){
+                $detalles=$items[$i]->producto_detalle;
+                for($r=0;$r<count($detalles);$r){
+                    $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almcen_id)->first();
+
+                }
+            }
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
@@ -79,7 +85,6 @@ class ProductoController extends Controller
                 ]
             )
                 ->with('producto_detalle')
-                ->with('item_almacen')
                 ->get();
         }
 
