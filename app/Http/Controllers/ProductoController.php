@@ -32,7 +32,7 @@ class ProductoController extends Controller
         $producto->desde = Carbon::now();
         
         $format = 'd/m/Y';
-        $date = Carbon\Carbon::createFromFormat($format, $valido);
+        $date = Carbon::createFromFormat($format, $valido);
         $producto->hasta = $date;
         $producto->empresa_id = 1;
         $producto->save();
