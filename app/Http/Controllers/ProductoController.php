@@ -15,7 +15,7 @@ use Intervention\Image\Facades\Image;
 
 class ProductoController extends Controller
 {
-    public function listar_mis_productos(Request $request, $token)
+    public function listar_mis_productos(Request $request, $token,$condicion)
     {
         $rpta = new Respuesta;
 
