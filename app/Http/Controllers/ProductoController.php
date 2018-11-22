@@ -7,12 +7,14 @@ use App\ProductoDetalle;
 use App\Token;
 use Carbon\Carbon;
 use App\ItemAlmacen;
+use App\Respuesta;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
     public function crear(Request $request, $token)
     {
+        $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
