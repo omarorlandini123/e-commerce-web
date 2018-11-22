@@ -66,13 +66,7 @@ class ProductoController extends Controller
             })->where('activo', 1)
                 ->with('producto_detalle')
                 ->get();
-            for($i=0;$i<count($items);$i++){
-                $detalles=$items[$i]->producto_detalle;
-                for($r=0;$r<count($detalles);$r++){
-                    $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
-
-                }
-            }
+            
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
@@ -86,6 +80,14 @@ class ProductoController extends Controller
             )
                 ->with('producto_detalle')
                 ->get();
+        }
+
+        for($i=0;$i<count($items);$i++){
+            $detalles=$items[$i]->producto_detalle;
+            for($r=0;$r<count($detalles);$r++){
+                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
+
+            }
         }
 
         $rpta->objeto = $items;
