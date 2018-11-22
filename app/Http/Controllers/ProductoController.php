@@ -100,10 +100,12 @@ class ProductoController extends Controller
         $producto->producto_fec_creacion = Carbon::now();
         $producto->producto_es_tercerizable = $tercerizable; // entero
         $producto->producto_desde = Carbon::now();
-
-        $format = 'd/m/Y';
-        $date = Carbon::createFromFormat($format, $valido);
-        $producto->producto_hasta = $date;
+        if($request->has('fecha_hasta')){
+            $format = 'd/m/Y';
+            $date = Carbon::createFromFormat($format, $valido);
+            $producto->producto_hasta = $date;
+        }
+       
         $producto->empresa_id = 1;
         $producto->activo = 1;
         if ($request->hasFile('preview')) {
