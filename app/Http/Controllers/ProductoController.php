@@ -72,7 +72,7 @@ class ProductoController extends Controller
             
         }
 
-        $rpta->objeto = $items;
+        $rpta->objeto = $items->with('producto_detalle')->with('item_almacen');
         $rpta->tieneError = false;
         return $rpta;
     }
