@@ -61,7 +61,6 @@ class ProductoController extends Controller
         }
 
         $rpta->tieneError = false;
-        $rpta->error = $contenidoError;
         return $rpta;
 
     }
