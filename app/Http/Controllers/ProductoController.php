@@ -29,12 +29,13 @@ class ProductoController extends Controller
         $producto->producto_precio = $precio;
         $producto->producto_fec_creacion = Carbon::now();
         $producto->producto_es_tercerizable = $tercerizable; // entero
-        $producto->desde = Carbon::now();
+        $producto->producto_desde = Carbon::now();
         
         $format = 'd/m/Y';
         $date = Carbon::createFromFormat($format, $valido);
-        $producto->hasta = $date;
+        $producto->producto_hasta = $date;
         $producto->empresa_id = 1;
+        $producto->activo= 1;
         $producto->save();
 
         $items_arr = explode($items,",");
