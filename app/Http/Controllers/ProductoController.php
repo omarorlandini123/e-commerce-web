@@ -86,6 +86,47 @@ class ProductoController extends Controller
             return Error::getError(5);
         }
 
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $freeler = Freeler::where ('usuario_id',$usuariofind->usuario_id)->first();
+        if ($freeler == null) {
+            $contenidoError = Error::getError(24);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $empresa = Empresa::where([['freeler_id',$freeler->freeler_id],['activo',1]])->first();
+        if ($empresa == null) {
+            $contenidoError = Error::getError(27);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
         $nombre = $request->input('nombre');
         $descripcion = $request->input('descripcion');
         $precio = $request->input('precio');
@@ -106,7 +147,7 @@ class ProductoController extends Controller
             $producto->producto_hasta = $date;
         }
 
-        $producto->empresa_id = 1;
+        $producto->empresa_id = $empresa->empresa_id;
         $producto->activo = 1;
         if ($request->hasFile('preview')) {
             $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
