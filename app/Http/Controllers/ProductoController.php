@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Producto;
-use App\Token;
 use App\ProductoDetalle;
+use App\Token;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 class ProductoController extends Controller
 {
-    public function crear(Request $request,$token){
+    public function crear(Request $request, $token)
+    {
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
@@ -30,25 +32,34 @@ class ProductoController extends Controller
         $producto->producto_fec_creacion = Carbon::now();
         $producto->producto_es_tercerizable = $tercerizable; // entero
         $producto->producto_desde = Carbon::now();
-        
+
         $format = 'd/m/Y';
         $date = Carbon::createFromFormat($format, $valido);
         $producto->producto_hasta = $date;
         $producto->empresa_id = 1;
-        $producto->activo= 1;
+        $producto->activo = 1;
         $producto->save();
 
-        $items_arr = explode($items,",");
+        $items_arr = ItemAlmacen::whereRaw(" item_almacen_id in (" . $items . ") ")->get();
 
-        foreach ($items_arr as  $item) {
-            $detalleProducto = new ProductoDetalle;
-            $detalleProducto->producto_detalle_cantidad=1;
-            $detalleProducto->producto_id=$producto->producto_id;
-            $detalleProducto->item_almacen_id=$item;
-            $detalleProducto->save();
+        if (count($items_arr) > 0) {
+            foreach ($items_arr as $item) {
+                $detalleProducto = new ProductoDetalle;
+                $detalleProducto->producto_detalle_cantidad = 1;
+                $detalleProducto->producto_id = $producto->producto_id;
+                $detalleProducto->item_almacen_id = $item->item_almacen_id;
+                $detalleProducto->save();
+            }
+        } else {
+            $contenidoError = Error::getError(25);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
         }
 
-        return true;
+        $rpta->tieneError = false;
+        $rpta->error = $contenidoError;
+        return $rpta;
 
     }
 }
