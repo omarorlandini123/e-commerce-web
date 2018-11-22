@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Producto;
+use App\Token;
+use App\ProductoDetalle;
+use Carbon\Carbon;
 class ProductoController extends Controller
 {
     public function crear(Request $request,$token){
