@@ -6,6 +6,7 @@ use App\Producto;
 use App\ProductoDetalle;
 use App\Token;
 use Carbon\Carbon;
+use App\ItemAlmacen;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
