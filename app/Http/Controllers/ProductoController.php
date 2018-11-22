@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+
+use App\ItemAlmacen;
 use App\Producto;
 use App\ProductoDetalle;
-use App\Token;
-use Carbon\Carbon;
-use App\ItemAlmacen;
-use App\TokenUsuario;
 use App\Respuesta;
+use App\Token;
+use App\TokenUsuario;
 use App\Usuario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductoController extends Controller
 {
@@ -100,12 +100,12 @@ class ProductoController extends Controller
         $producto->producto_fec_creacion = Carbon::now();
         $producto->producto_es_tercerizable = $tercerizable; // entero
         $producto->producto_desde = Carbon::now();
-        if($request->has('fecha_hasta')){
+        if ($request->has('fecha_hasta')) {
             $format = 'd/m/Y';
             $date = Carbon::createFromFormat($format, $valido);
             $producto->producto_hasta = $date;
         }
-       
+
         $producto->empresa_id = 1;
         $producto->activo = 1;
         if ($request->hasFile('preview')) {
@@ -159,15 +159,27 @@ class ProductoController extends Controller
             return Error::getError(18);
         }
 
-        $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
+        $image_preview_final = "";
+        if ($productoFind->preview_img == null) {
+            if (count($productoFind->producto_detalle) == 1) {
+                $image_preview_final = $productoFind->producto_detalle[0]->item_almacen->preview_img;
+            }
+        } else {
+            $image_preview_final = $productoFind->preview_img;
+        }
 
-        if (file_exists($path)) {
-            $img = Image::make($path);
-            $img->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-    
-            return $img->response();
+        if ($image_preview_final != "") {
+
+            $path = storage_path('app/preview_producto/') . $image_preview_final;
+
+            if (file_exists($path)) {
+                $img = Image::make($path);
+                $img->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                return $img->response();
+            }
         }
 
         return "";
