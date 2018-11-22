@@ -17,7 +17,7 @@ class ProductoController extends Controller
         $descripcion = $request->input('descripcion');
         $precio = $request->input('precio');
         $valido = $request->input('fecha_hasta');
-        $tercerizable = $request->input('$tercerizable');
+        $tercerizable = $request->input('tercerizable');
         $items = $request->input('items');
 
         $producto = new Producto;
