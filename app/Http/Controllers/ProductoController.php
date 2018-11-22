@@ -56,21 +56,18 @@ class ProductoController extends Controller
         session(['usuario_id' => $usuariofind->usuario_id]);
         $items = array();
         if ($condicion == null || $condicion == "_") {
-            $items = Producto::whereHas('producto_detalle', function ($q) {
-                $q->whereHas('empresa', function ($a) {
-                    $a->whereHas('freeler', function ($b) {
-                        $b->where('usuario_id', session('usuario_id'));
-                    });
+            $items = Producto::whereHas('empresa', function ($q) {
+                $q->whereHas('freeler', function ($a) {
+                    $a->where('usuario_id', session('usuario_id'));
                 });
             })->where('activo', 1)->get();
         } else {
-            $items = ItemAlmacen::whereHas('almacen', function ($q) {
-                $q->whereHas('empresa', function ($a) {
-                    $a->whereHas('freeler', function ($b) {
-                        $b->where('usuario_id', session('usuario_id'));
-                    });
+            $items = Producto::whereHas('empresa', function ($q) {
+                $q->whereHas('freeler', function ($a) {
+                    $a->where('usuario_id', session('usuario_id'));
                 });
-            })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->get();
+            })->where([['activo', 1], ['producto_nombre', 'like', '%' . $condicion . '%']])->get();
+            
         }
 
         $rpta->objeto = $items;
@@ -111,7 +108,7 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        $freeler = Freeler::where ('usuario_id',$usuariofind->usuario_id)->first();
+        $freeler = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
         if ($freeler == null) {
             $contenidoError = Error::getError(24);
             $rpta->tieneError = true;
@@ -119,7 +116,7 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        $empresa = Empresa::where([['freeler_id',$freeler->freeler_id],['activo',1]])->first();
+        $empresa = Empresa::where([['freeler_id', $freeler->freeler_id], ['activo', 1]])->first();
         if ($empresa == null) {
             $contenidoError = Error::getError(27);
             $rpta->tieneError = true;
@@ -209,7 +206,7 @@ class ProductoController extends Controller
             $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
         }
 
-        if ($path != "") {            
+        if ($path != "") {
 
             if (file_exists($path)) {
                 $img = Image::make($path);
