@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Empresa;
+use App\Freeler;
 use App\ItemAlmacen;
 use App\Producto;
 use App\ProductoDetalle;
@@ -9,15 +11,13 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
-use App\Freeler;
-use App\Empresa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 class ProductoController extends Controller
 {
-    public function listar_mis_productos(Request $request, $token,$condicion)
+    public function listar_mis_productos(Request $request, $token, $condicion)
     {
         $rpta = new Respuesta;
 
@@ -57,22 +57,33 @@ class ProductoController extends Controller
 
         session(['usuario_id' => $usuariofind->usuario_id]);
         $items = array();
+        
         if ($condicion == null || $condicion == "_") {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
                     $a->where('usuario_id', session('usuario_id'));
                 });
-            })->where('activo', 1)->get();
+            })->where('activo', 1)
+                ->with('producto_detalle')
+                ->with('item_almacen')
+                ->get();
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
                     $a->where('usuario_id', session('usuario_id'));
                 });
-            })->where([['activo', 1], ['producto_nombre', 'like', '%' . $condicion . '%']])->get();
-            
+            })->where(
+                [
+                    ['activo', 1],
+                    ['producto_nombre', 'like', '%' . $condicion . '%'],
+                ]
+            )
+                ->with('producto_detalle')
+                ->with('item_almacen')
+                ->get();
         }
 
-        $rpta->objeto = $items->with('producto_detalle')->get()->with('item_almacen')->get();
+        $rpta->objeto = $items;
         $rpta->tieneError = false;
         return $rpta;
     }
