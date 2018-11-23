@@ -11,6 +11,7 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
+use App\Error;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -84,6 +85,17 @@ class ProductoController extends Controller
 
         for($i=0;$i<count($items);$i++){
             $detalles=$items[$i]->producto_detalle;
+
+            $path = null;
+            if ($items[$i]->preview_img == null) {
+                if (count($productoFind->producto_detalle) == 1) {
+                    $path = $productoFind->producto_detalle[0]->item_almacen->preview_img;
+                }
+            } else {
+                $path = $productoFind->preview_img;
+            }
+    
+            $productoFind->preview_img=$path;
             for($r=0;$r<count($detalles);$r++){
                 $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
 
