@@ -62,7 +62,7 @@ class ProductoController extends Controller
         if ($condicion == null || $condicion == "_") {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
-                    $a->where('usuario_id','<>', session('usuario_id'));
+                    $a->whereRaw('usuario_id not in ('.session('usuario_id').')');
                 });
             })->where([['activo', 1],['producto_es_tercerizable',1]])
                 ->with('producto_detalle')
@@ -71,7 +71,7 @@ class ProductoController extends Controller
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
-                    $a->where('usuario_id','<>', session('usuario_id'));
+                    $a->whereRaw('usuario_id not in ('.session('usuario_id').')');
                 });
             })->where(
                 [
