@@ -19,7 +19,7 @@ use Intervention\Image\Facades\Image;
 class ProductoController extends Controller
 {
 
-    public function listar_productos_terceros(Resquest $request, $token, $condicion){
+    public function listar_productos_terceros(Request $request, $token, $condicion){
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
