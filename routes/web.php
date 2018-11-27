@@ -45,4 +45,5 @@ Route::get('/Almacen/Usuario/{token}/{condicion}','AlmacenController@listar');
 
 Route::post('/Producto/Crear/{token}','ProductoController@crear');
 Route::get('/Producto/Listar/{token}/{condicion}','ProductoController@listar_mis_productos');
+Route::get('/Producto/Terceros/{token}/{condicion}','ProductoController@listar_productos_terceros');
 Route::get('/Producto/Preview/{idProducto}/{token}','ProductoController@getPreview');

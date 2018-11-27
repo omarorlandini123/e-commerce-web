@@ -18,6 +18,96 @@ use Intervention\Image\Facades\Image;
 
 class ProductoController extends Controller
 {
+
+    public function listar_productos_terceros(Resquest $request, $token, $condicion){
+        $rpta = new Respuesta;
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        session(['usuario_id' => $usuariofind->usuario_id]);
+        $items = array();
+
+        if ($condicion == null || $condicion == "_") {
+            $items = Producto::whereHas('empresa', function ($q) {
+                $q->whereHas('freeler', function ($a) {
+                    $a->where('usuario_id','<>', session('usuario_id'));
+                });
+            })->where([['activo', 1],['producto_es_tercerizable',1]])
+                ->with('producto_detalle')
+                ->get();
+            
+        } else {
+            $items = Producto::whereHas('empresa', function ($q) {
+                $q->whereHas('freeler', function ($a) {
+                    $a->where('usuario_id','<>', session('usuario_id'));
+                });
+            })->where(
+                [
+                    ['activo', 1],
+                    ['producto_es_tercerizable',1],
+                    ['producto_nombre', 'like', '%' . $condicion . '%'],
+                ]
+            )
+                ->with('producto_detalle')
+                ->get();
+        }
+
+        for($i=0;$i<count($items);$i++){
+            $detalles=$items[$i]->producto_detalle;
+
+            $path = null;
+            if ($items[$i]->preview_img == null) {
+                if (count($items[$i]->producto_detalle) == 1) {
+                    $path = $items[$i]->producto_detalle[0]->item_almacen->preview_img;
+                }
+            } else {
+                $path = $items[$i]->preview_img;
+            }
+    
+            $items[$i]->preview_img=$path;
+            for($r=0;$r<count($detalles);$r++){
+                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
+
+            }
+        }
+
+        $rpta->objeto = $items;
+        $rpta->tieneError = false;
+        return $rpta;
+    }
+
     public function listar_mis_productos(Request $request, $token, $condicion)
     {
         $rpta = new Respuesta;
