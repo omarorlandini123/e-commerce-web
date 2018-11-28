@@ -47,3 +47,9 @@ Route::post('/Producto/Crear/{token}','ProductoController@crear');
 Route::get('/Producto/Terceros/{token}/{condicion}','ProductoController@listar_productos_terceros');
 Route::get('/Producto/Listar/{token}/{condicion}','ProductoController@listar_mis_productos');
 Route::get('/Producto/Preview/{idProducto}/{token}','ProductoController@getPreview');
+Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
+
+Route::post('/Afiche/Crear/{token}','AficheController@crear');
+Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
+Route::get('/Afiche/Preview/{idAfiche}/{token}','AficheController@getPreview');
+Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');

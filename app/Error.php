@@ -85,6 +85,10 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "Debes especificar al menos un ítem a eliminar");
             case 27:
                 return new Error(Error::getErrorCode($E_code), "No tienes empresas registradas");
+            case 28:
+                return new Error(Error::getErrorCode($E_code), "No se ha encontrado el afiche");
+            case 29:
+                return new Error(Error::getErrorCode($E_code), "No se ha encontrado el producto");
         }
     }
 

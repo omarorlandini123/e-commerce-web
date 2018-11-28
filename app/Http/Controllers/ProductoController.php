@@ -296,6 +296,37 @@ class ProductoController extends Controller
         return $rpta;
 
     }
+    
+    public function eliminar(Request $request, $idProducto, $token)
+    {
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $productoFind = Producto::where('producto_id',$idProducto)->first();
+        if ($productoFind == null) {
+            return Error::getError(29);
+        }
+
+        $productoFind->activo = 0;
+        $productoFind->save();
+        
+        $rpta->tieneError = false;
+        return $rpta;
+
+    }
     public function getPreview(Request $request, $idProducto, $token)
     {
         $token_var = Token::where('token', $token)->first();
