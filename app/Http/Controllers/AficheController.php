@@ -63,7 +63,7 @@ class AficheController extends Controller
                 $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id', session('usuario_id'));
                 });
-            })->where('activo', 1)->with('afiche_detalle')->get();
+            })->where('activo', 1)->get();
 
         } else {
 
@@ -71,15 +71,16 @@ class AficheController extends Controller
                 $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id', session('usuario_id'));
                 });
-            })->where([['activo', 1], ['afiche_nombre', 'like', '%' . $condicion . '%']])->with('afiche_detalle')->get();
+            })->where([['activo', 1], ['afiche_nombre', 'like', '%' . $condicion . '%']])->get();
 
         }
 
-        // for ($i = 0; $i < count($afiches); $i++) {
-        //     for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
-        //         $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
-        //     }
-        // }
+        for ($i = 0; $i < count($afiches); $i++) {
+            $afiches[$i]->afiche_detalle = Afiche::where('afiche_id', $afiches[$i]->afiche_id)->get();
+            for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
+                $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
+            }
+        }
 
         $rpta->objeto =  $afiches;
         $rpta->tieneError = false;
