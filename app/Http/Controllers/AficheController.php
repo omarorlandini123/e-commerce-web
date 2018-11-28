@@ -76,7 +76,7 @@ class AficheController extends Controller
         }
 
         for ($i = 0; $i < count($afiches); $i++) {
-            $afiches[$i]->afiche_detalle = Afiche::where('afiche_id', $afiches[$i]->afiche_id)->get();
+            $afiches[$i]->afiche_detalle = AficheDetalle::where('afiche_id', $afiches[$i]->afiche_id)->get();
             for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
                 $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
             }
