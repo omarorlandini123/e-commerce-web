@@ -12,6 +12,7 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AficheController extends Controller
