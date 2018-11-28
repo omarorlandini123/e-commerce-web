@@ -80,7 +80,7 @@ class AficheController extends Controller
             }
         }
 
-        $rpta->objeto = $items;
+        $rpta->objeto =  $afiches;
         $rpta->tieneError = false;
         return $rpta;
     }
