@@ -75,11 +75,11 @@ class AficheController extends Controller
 
         }
 
-        for ($i = 0; $i < count($afiches); $i++) {
-            for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
-                $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
-            }
-        }
+        // for ($i = 0; $i < count($afiches); $i++) {
+        //     for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
+        //         $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
+        //     }
+        // }
 
         $rpta->objeto =  $afiches;
         $rpta->tieneError = false;
