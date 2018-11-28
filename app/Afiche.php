@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Afiche extends Model
 {
     public $timestamps = false;
-    protected $table = 'afche';
+    protected $table = 'afiche';
     protected $primaryKey = "afiche_id";
 
     public function empresa()

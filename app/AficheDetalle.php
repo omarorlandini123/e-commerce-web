@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class AficheDetalle extends Model
 {
     public $timestamps = false;
-    protected $table = 'afche';
-    protected $primaryKey = "afiche_id";
+    protected $table = 'afiche_detalle';
+    protected $primaryKey = "afiche_detalle_id";
 
     public function afiche(){
         return $this->belongsTo('App\Afiche', 'afiche_id','afiche_id');
