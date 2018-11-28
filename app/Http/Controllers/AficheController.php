@@ -225,7 +225,7 @@ class AficheController extends Controller
         }
         $afiche->save();
 
-        $productos_arr = Producto::whereRaw(" producto_id in (" . $items . ") ")->get();
+        $productos_arr = Producto::whereRaw(" producto_id in (" . $productos . ") ")->get();
 
         if (count($productos_arr) > 0) {
             foreach ($productos_arr as $producto) {
