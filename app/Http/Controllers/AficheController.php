@@ -215,7 +215,7 @@ class AficheController extends Controller
 
         $afiche = new Afiche;
         $afiche->afiche_nombre = $nombre;
-        $afiche->afiche_detalle = $descripcion;
+        $afiche->afiche_descripcion = $descripcion;
         $afiche->afiche_fecha_creacion = Carbon::now();
         $afiche->empresa_id = $empresa->empresa_id;
         $afiche->activo = 1;
