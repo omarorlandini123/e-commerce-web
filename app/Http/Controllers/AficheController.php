@@ -79,10 +79,29 @@ class AficheController extends Controller
             $afiches[$i]->afiche_detalle = AficheDetalle::where('afiche_id', $afiches[$i]->afiche_id)->get();
             for ($j = 0; $j < count($afiches[$i]->afiche_detalle); $j++) {
                 $afiches[$i]->afiche_detalle[$j]->producto = Producto::where('producto_id', $afiches[$i]->afiche_detalle[$j]->producto_id)->first();
+                $productoSE = $afiches[$i]->afiche_detalle[$j]->producto;
+
+                $detallesSE = $productoSE->producto_detalle;
+
+                $path = null;
+                if ($productoSE->preview_img == null) {
+                    if (count($productoSE->producto_detalle) == 1) {
+                        $path = $productoSE->producto_detalle[0]->item_almacen->preview_img;
+                    }
+                } else {
+                    $path = $productoSE->preview_img;
+                }
+
+                $productoSE->preview_img = $path;
+                for ($r = 0; $r < count($detallesSE); $r++) {
+                    $detallesSE[$r]->item_almacen = ItemAlmacen::where('item_almacen_id', $detallesSE[$r]->item_almacen_id)->with('almacen')->first();
+
+                }
+
             }
         }
 
-        $rpta->objeto =  $afiches;
+        $rpta->objeto = $afiches;
         $rpta->tieneError = false;
         return $rpta;
     }
@@ -105,7 +124,7 @@ class AficheController extends Controller
             return Error::getError(9);
         }
 
-        $aficheFind = Afiche::where('afiche_id',$idAfiche)->first();
+        $aficheFind = Afiche::where('afiche_id', $idAfiche)->first();
         if ($aficheFind == null) {
             return Error::getError(28);
         }
