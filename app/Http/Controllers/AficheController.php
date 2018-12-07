@@ -109,6 +109,8 @@ class AficheController extends Controller
 
     public function eliminar(Request $request, $idAfiche, $token)
     {
+        $rpta = new Respuesta;
+        
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
