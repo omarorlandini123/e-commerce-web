@@ -11,6 +11,8 @@ use App\TokenUsuario;
 use App\Usuario;
 use App\UsuarioEmpresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class EmpresaController extends Controller
 {
@@ -53,6 +55,44 @@ class EmpresaController extends Controller
         $token_usuario_rpta = new TokenUsuario;
         $token_usuario_rpta->eliminado = true;
         return $token_usuario_rpta;
+    }
+
+    public function getPreview(Request $request, $idEmpresa, $token)
+    {
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $empresaFind = Empresa::where('empresa_id', $idEmpresa)->first();
+        if ($empresaFind == null) {
+            return Error::getError(11);
+        }
+
+        $path = storage_path('app/preview_empresa/') . $empresaFind->preview_img;
+
+        if (file_exists($path)) {
+            $img = Image::make($path);
+            $img->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+    
+            return $img->response();
+        }
+
+        return "";
+
     }
 
     public function obtener(Request $request, $idEmpresa, $token)
@@ -138,6 +178,13 @@ class EmpresaController extends Controller
         $empresaFind->empresa_nombre = $request->input('nombre');
         $empresaFind->empresa_detalle = $request->input('detalle');
         $empresaFind->empresa_RUC = $request->input('ruc');
+
+        if ($request->hasFile('preview')) {
+            $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
+            $path = $request->file('preview')->storeAs('preview_empresa', $nombrePreview);
+            $empresaFind->preview_img = $nombrePreview;
+        }
+
         $empresaFind->save();
 
         $token_usuario_rpta = new TokenUsuario;
@@ -179,6 +226,13 @@ class EmpresaController extends Controller
         $empresa_reg->empresa_tipo = 3;
         $empresa_reg->activo = 1;
         $empresa_reg->freeler_id = $freelerFind->freeler_id;
+
+        if ($request->hasFile('preview')) {
+            $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
+            $path = $request->file('preview')->storeAs('preview_empresa', $nombrePreview);
+            $empresa_reg->preview_img = $nombrePreview;
+        }
+
         $empresa_reg->save();
 
         if ($empresa_reg->empresa_id > 0) {
