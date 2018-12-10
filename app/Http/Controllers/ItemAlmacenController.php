@@ -140,8 +140,8 @@ class ItemAlmacenController extends Controller
                     $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
                     });
-                });
-            })->where('activo', 1)->get();
+                })->with('empresa');
+            })->where('activo', 1)->with('almacen')->get();
         } else {
             $items = ItemAlmacen::whereHas('almacen', function ($q) {
                 $q->whereHas('empresa', function ($a) {
