@@ -140,7 +140,7 @@ class ItemAlmacenController extends Controller
                     $a->whereHas('freeler', function ($b) {
                         $b->where('usuario_id', session('usuario_id'));
                     });
-                })->with('empresa');
+                });
             })->where('activo', 1)->with('almacen')->get();
         } else {
             $items = ItemAlmacen::whereHas('almacen', function ($q) {
@@ -149,7 +149,12 @@ class ItemAlmacenController extends Controller
                         $b->where('usuario_id', session('usuario_id'));
                     });
                 });
-            })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->get();
+            })->where([['activo', 1], ['item_almacen_titulo', 'like', '%' . $condicion . '%']])->with('almacen')->get();
+        }
+
+        foreach ($items as $item ) {
+            $almacen=$item->almacen;
+            $almacen->empresa=Empresa::where('empresa_id',$almcen->empresa_id)->first();
         }
 
         $rpta->objeto = $items;
