@@ -82,7 +82,7 @@ class AlmacenController extends Controller
                 $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id',session('usuario_id'));
                 });
-            })->where('activo', '=', '1')->orderBy('almacen_nombre')->get();
+            })->where('activo', '=', '1')->orderBy('almacen_nombre')->with('empresa')->get();
 
             return $almacenes;
         }
@@ -90,7 +90,7 @@ class AlmacenController extends Controller
             $a->whereHas('freeler', function ($b) {
                 $b->where('usuario_id', session('usuario_id'));
             });
-        })->where([['activo', '=', '1'],['almacen_nombre', 'like', '%' . $condicion . '%']])->orderBy('almacen_nombre')->get();
+        })->where([['activo', '=', '1'],['almacen_nombre', 'like', '%' . $condicion . '%']])->orderBy('almacen_nombre')->with('empresa')->get();
 
         return $almacenes;
         

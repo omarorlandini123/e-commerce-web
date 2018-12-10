@@ -57,6 +57,49 @@ class EmpresaController extends Controller
         return $token_usuario_rpta;
     }
 
+    public function getPreviewFromAlmacen(Request $request, $idAlmacen, $token)
+    {
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $almacenFind = Almacen::where('almacen_id',$idAlmacen)->first();
+        if ($almacenFind == null) {
+            return Error::getError(11);
+        }
+
+        $empresaFind = Empresa::where('empresa_id', $almacenFind->empresa_id)->first();
+        if ($empresaFind == null) {
+            return Error::getError(11);
+        }
+
+        $path = storage_path('app/preview_empresa/') . $empresaFind->preview_img;
+
+        if (file_exists($path)) {
+            $img = Image::make($path);
+            $img->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+    
+            return $img->response();
+        }
+
+        return "";
+
+    }
+
     public function getPreview(Request $request, $idEmpresa, $token)
     {
         $token_var = Token::where('token', $token)->first();

@@ -39,6 +39,7 @@ Route::get('/Empresa/Listar/{token}/{condicion}','EmpresaController@listar');
 Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
 Route::get('/Empresa/Obtener/{idEmpresa}/{token}','EmpresaController@obtener');
 Route::get('/Empresa/Preview/{idEmpresa}/{token}','EmpresaController@getPreview');
+Route::get('/Empresa/PreviewAlmacen/{idAlmacen}/{token}','EmpresaController@getPreviewFromAlmacen');
 
 Route::get('/Ubicacion/Listar/{token}','UbicacionController@listarUbicaciones');
 
