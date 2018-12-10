@@ -154,7 +154,7 @@ class ItemAlmacenController extends Controller
 
         foreach ($items as $item ) {
             $almacen=$item->almacen;
-            $almacen->empresa=Empresa::where('empresa_id',$almcen->empresa_id)->first();
+            $almacen->empresa=Empresa::where('empresa_id',$almacen->empresa_id)->first();
         }
 
         $rpta->objeto = $items;
