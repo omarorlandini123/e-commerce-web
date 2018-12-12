@@ -8,6 +8,7 @@ use App\ItemAlmacen;
 use App\Producto;
 use App\ProductoDetalle;
 use App\Respuesta;
+use App\Almacen;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
