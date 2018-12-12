@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Almacen;
 use App\Empresa;
+use App\Error;
 use App\Freeler;
 use App\ItemAlmacen;
 use App\Producto;
 use App\ProductoDetalle;
 use App\Respuesta;
-use App\Almacen;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
-use App\Error;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -20,7 +20,8 @@ use Intervention\Image\Facades\Image;
 class ProductoController extends Controller
 {
 
-    public function listar_productos_terceros(Request $request, $token, $condicion){
+    public function listar_productos_terceros(Request $request, $token, $condicion)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -63,21 +64,21 @@ class ProductoController extends Controller
         if ($condicion == null || $condicion == "_") {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
-                    $a->whereRaw('usuario_id not in ('.session('usuario_id').')');
+                    $a->whereRaw('usuario_id not in (' . session('usuario_id') . ')');
                 });
-            })->where([['activo', 1],['producto_es_tercerizable',1]])
+            })->where([['activo', 1], ['producto_es_tercerizable', 1]])
                 ->with('producto_detalle')
                 ->get();
-            
+
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
-                    $a->whereRaw('usuario_id not in ('.session('usuario_id').')');
+                    $a->whereRaw('usuario_id not in (' . session('usuario_id') . ')');
                 });
             })->where(
                 [
                     ['activo', 1],
-                    ['producto_es_tercerizable',1],
+                    ['producto_es_tercerizable', 1],
                     ['producto_nombre', 'like', '%' . $condicion . '%'],
                 ]
             )
@@ -85,8 +86,8 @@ class ProductoController extends Controller
                 ->get();
         }
 
-        for($i=0;$i<count($items);$i++){
-            $detalles=$items[$i]->producto_detalle;
+        for ($i = 0; $i < count($items); $i++) {
+            $detalles = $items[$i]->producto_detalle;
 
             $path = null;
             if ($items[$i]->preview_img == null) {
@@ -96,12 +97,12 @@ class ProductoController extends Controller
             } else {
                 $path = $items[$i]->preview_img;
             }
-    
-            $items[$i]->preview_img=$path;
-            for($r=0;$r<count($detalles);$r++){
-                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$detalles[$r]->item_almacen->almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen->empresa= Empresa::where('empresa_id',$detalles[$r]->item_almacen->almacen->empresa_id)->first();
+
+            $items[$i]->preview_img = $path;
+            for ($r = 0; $r < count($detalles); $r++) {
+                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id', $detalles[$r]->item_almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen = Almacen::where('almacen_id', $detalles[$r]->item_almacen->almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen->empresa = Empresa::where('empresa_id', $detalles[$r]->item_almacen->almacen->empresa_id)->first();
             }
         }
 
@@ -159,7 +160,7 @@ class ProductoController extends Controller
             })->where('activo', 1)
                 ->with('producto_detalle')
                 ->get();
-            
+
         } else {
             $items = Producto::whereHas('empresa', function ($q) {
                 $q->whereHas('freeler', function ($a) {
@@ -175,8 +176,13 @@ class ProductoController extends Controller
                 ->get();
         }
 
-        for($i=0;$i<count($items);$i++){
-            $detalles=$items[$i]->producto_detalle;
+        for ($i = 0; $i < count($items); $i++) {
+            $detalles = $items[$i]->producto_detalle;
+            for ($r = 0; $r < count($detalles); $r++) {
+                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id', $detalles[$r]->item_almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen = Almacen::where('almacen_id', $detalles[$r]->item_almacen->almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen->empresa = Empresa::where('empresa_id', $detalles[$r]->item_almacen->almacen->empresa_id)->first();
+            }
 
             $path = null;
             if ($items[$i]->preview_img == null) {
@@ -186,13 +192,9 @@ class ProductoController extends Controller
             } else {
                 $path = $items[$i]->preview_img;
             }
-    
-            $items[$i]->preview_img=$path;
-            for($r=0;$r<count($detalles);$r++){
-                $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$detalles[$r]->item_almacen->almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen->empresa= Empresa::where('empresa_id',$detalles[$r]->item_almacen->almacen->empresa_id)->first();
-            }
+
+            $items[$i]->preview_img = $path;
+
         }
 
         $rpta->objeto = $items;
@@ -299,7 +301,7 @@ class ProductoController extends Controller
         return $rpta;
 
     }
-    
+
     public function eliminar(Request $request, $idProducto, $token)
     {
         $token_var = Token::where('token', $token)->first();
@@ -318,14 +320,14 @@ class ProductoController extends Controller
             return Error::getError(9);
         }
 
-        $productoFind = Producto::where('producto_id',$idProducto)->first();
+        $productoFind = Producto::where('producto_id', $idProducto)->first();
         if ($productoFind == null) {
             return Error::getError(29);
         }
 
         $productoFind->activo = 0;
         $productoFind->save();
-        
+
         $rpta->tieneError = false;
         return $rpta;
 
