@@ -100,7 +100,7 @@ class ProductoController extends Controller
             $items[$i]->preview_img=$path;
             for($r=0;$r<count($detalles);$r++){
                 $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$$detalles[$r]->item_almacen->almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$detalles[$r]->item_almacen->almacen_id)->first();
                 $detalles[$r]->item_almacen->almacen->empresa= Empresa::where('empresa_id',$detalles[$r]->item_almacen->almacen->empresa_id)->first();
             }
         }
@@ -190,7 +190,7 @@ class ProductoController extends Controller
             $items[$i]->preview_img=$path;
             for($r=0;$r<count($detalles);$r++){
                 $detalles[$r]->item_almacen = ItemAlmacen::where('item_almacen_id',$detalles[$r]->item_almacen_id)->first();
-                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$$detalles[$r]->item_almacen->almacen_id)->first();
+                $detalles[$r]->item_almacen->almacen=Almacen::where('almacen_id',$detalles[$r]->item_almacen->almacen_id)->first();
                 $detalles[$r]->item_almacen->almacen->empresa= Empresa::where('empresa_id',$detalles[$r]->item_almacen->almacen->empresa_id)->first();
             }
         }
