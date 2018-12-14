@@ -14,8 +14,9 @@
             <p class="card-text"></p>
         </div>
     </div>
+    <br><br>
     <div class="row">
-        <br><br>
+       
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
