@@ -9,12 +9,44 @@
     <div class="card bg-dark text-white">
         <img class="card-img" src="/Producto/Preview/{{$rpta->objeto->producto_id}}/{{$token}}" alt="Card image">
         <div class="card-img-overlay">
-            <h5 class="card-title">{{$rpta->objeto->producto_nombre}}</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-            <p class="card-text">Last updated 3 mins ago</p>
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+            <p class="card-text"></p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Nombre</label>
+                <input type="text" disabled class="form-control" id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_nombre}}"placeholder="Example input">
+              </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripcion</label>
+                <textarea class="form-control" disabled id="exampleFormControlTextarea1" rows="3">{{$rpta->objeto->producto_descripcion}}</textarea>
+              </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Precio</label>
+                <input type="text" class="form-control"  disabled id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_precio}}"placeholder="Example input">
+              </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Precio</label>
+                <input type="text" class="form-control" disabled id="formGroupExampleInput"  value ="{{\Carbon\Carbon::parse($rpta->objeto->producto_hasta)->format('m/d/Y')}}"placeholder="Example input">
+              </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Cantidad</label>
+                <input type="number" class="form-control text-success" id="txt_cantidad" name="txt_cantidad"  placeholder="¿Cuantos quieres?" value ="">
+              </div>
+        </div>
+    </div>
+
     @endif
 
 
