@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-9">
                     
-
+                    <strong>Nombre:</strong>{{$rpta->objeto->producto_nombre}} 
                 </div>
 
             </div>
