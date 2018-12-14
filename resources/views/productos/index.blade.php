@@ -5,6 +5,7 @@
     @if ($rpta->tieneError)
     <h3>{{$rpta->error}}</h3>
     @else
+     <center><h3>{{$rpta->objeto->producto_nombre}}</h3></center> 
     <div class="card bg-dark text-white">
         <img class="card-img" src="/Producto/Preview/{{$rpta->objeto->producto_id}}/{{$token}}" alt="Card image">
         <div class="card-img-overlay">
