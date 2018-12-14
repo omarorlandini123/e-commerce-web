@@ -15,6 +15,7 @@
         </div>
     </div>
     <div class="row">
+        <br><br>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
@@ -35,7 +36,7 @@
         </div>
         <div class="col-sm-12">
             <div class="form-group">
-                <label for="formGroupExampleInput">Precio</label>
+                <label for="formGroupExampleInput">Válido Hasta</label>
                 <input type="text" class="form-control" disabled id="formGroupExampleInput"  value ="{{\Carbon\Carbon::parse($rpta->objeto->producto_hasta)->format('m/d/Y')}}"placeholder="Example input">
               </div>
         </div>
