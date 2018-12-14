@@ -51,9 +51,10 @@
         <div class="col-sm-12">
                 <div class="form-group" style="float:right;">
                     <label for="formGroupExampleInput">Cantidad</label>
-                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-success">Pedir</button>
                   </div>
             </div>
+            <br>
     </div>
 
     @endif
