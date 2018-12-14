@@ -39,7 +39,7 @@ Route::get('/Empresa/Listar/{token}/{condicion}','EmpresaController@listar');
 Route::get('/Empresa/Eliminar/{idEmpresa}/{token}','EmpresaController@eliminar');
 Route::get('/Empresa/Obtener/{idEmpresa}/{token}','EmpresaController@obtener');
 Route::get('/Empresa/Preview/{idEmpresa}/{token}','EmpresaController@getPreview');
-Route::get('/Empresa/PreviewTiny/{idEmpresa}/{token}','EmpresaController@getPreviewTiny');
+
 Route::get('/Empresa/PreviewAlmacen/{idAlmacen}/{token}','EmpresaController@getPreviewFromAlmacen');
 
 Route::get('/Ubicacion/Listar/{token}','UbicacionController@listarUbicaciones');
@@ -50,6 +50,7 @@ Route::post('/Producto/Crear/{token}','ProductoController@crear');
 Route::get('/Producto/Terceros/{token}/{condicion}','ProductoController@listar_productos_terceros');
 Route::get('/Producto/Listar/{token}/{condicion}','ProductoController@listar_mis_productos');
 Route::get('/Producto/Preview/{idProducto}/{token}','ProductoController@getPreview');
+Route::get('/Producto/PreviewTiny/{idProducto}/{token}','ProductoController@getPreviewTiny');
 Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
 //------
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
