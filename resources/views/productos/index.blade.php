@@ -42,7 +42,7 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Cantidad</label>
-                <input type="number" class="form-control text-success" id="txt_cantidad" name="txt_cantidad"  placeholder="¿Cuantos quieres?" value ="">
+                <input type="number" class="form-control bg-success" id="txt_cantidad" name="txt_cantidad"  placeholder="¿Cuantos quieres?" value ="">
               </div>
         </div>
     </div>
