@@ -38,7 +38,7 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Válido hasta</label>
-                <input type="text" class="form-control" disabled id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_hasta ==null? \Carbon\Carbon::parse($rpta->objeto->producto_hasta)->format('d/m/Y'): "Sin límite"}}"placeholder="Example input">
+                <input type="text" class="form-control" disabled id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_hasta !=null? \Carbon\Carbon::parse($rpta->objeto->producto_hasta)->format('d/m/Y'): "Sin límite"}}"placeholder="Example input">
               </div>
         </div>
         <div class="col-sm-12">
