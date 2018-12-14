@@ -50,6 +50,8 @@ Route::get('/Producto/Terceros/{token}/{condicion}','ProductoController@listar_p
 Route::get('/Producto/Listar/{token}/{condicion}','ProductoController@listar_mis_productos');
 Route::get('/Producto/Preview/{idProducto}/{token}','ProductoController@getPreview');
 Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
+//------
+Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
 
 Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
