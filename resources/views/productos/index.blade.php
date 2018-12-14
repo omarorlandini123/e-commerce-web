@@ -32,7 +32,7 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Precio</label>
-                <input type="text" class="form-control"  disabled id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_precio}}"placeholder="Example input">
+                <input type="text" class="form-control"  disabled id="formGroupExampleInput"  value ="S/ {{number_format( $rpta->objeto->producto_precio, 2)   }}"placeholder="Example input">
               </div>
         </div>
         <div class="col-sm-12">
