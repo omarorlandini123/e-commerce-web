@@ -439,4 +439,51 @@ class ProductoController extends Controller
         return "";
 
     }
+    public function getPreviewTiny(Request $request, $idProducto, $token)
+    {
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            return Error::getError(23);
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            return Error::getError(9);
+        }
+
+        $productoFind = Producto::where([['producto_id', $idProducto], ['activo', 1]])->first();
+        if ($productoFind == null) {
+            return Error::getError(18);
+        }
+
+        $path = "";
+        if ($productoFind->preview_img == null) {
+            if (count($productoFind->producto_detalle) == 1) {
+                $path = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
+            }
+        } else {
+            $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
+        }
+
+        if ($path != "") {
+
+            if (file_exists($path)) {
+                $img = Image::make($path);
+                $img->resize(300, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                return $img->response();
+            }
+        }
+
+        return "";
+
+    }
 }
