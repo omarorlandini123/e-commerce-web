@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Software Ambulatorio">
-    <meta name="author" content="Anthony Diaz Chinchay">
-    <title>Sistema Ambulatorio</title>
+    <meta property=”og:image” content="/Producto/Preview/{{$rpta->objeto->producto_id}}/{{$token}}" />
+    <meta name="description" content="{{$data->objeto->producto_descripcion}}">
+    <meta name="author" content="Freeler ">
+    <title>{{$data->objeto->producto_nombre}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/app.css" >
     <link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
