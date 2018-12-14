@@ -73,7 +73,8 @@ class ProductoController extends Controller
         $rpta->tieneError = false;
 
         $data=array(
-            'rpta'=>$rpta
+            'rpta'=>$rpta,
+            'token'=>$token
         );
         
         return view('productos.index')->with($data);
