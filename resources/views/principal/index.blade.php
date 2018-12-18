@@ -5,11 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <meta property="og:image" content="http://test.exac-tic.com/Producto/PreviewTiny/{{$rpta->objeto->producto_id}}/{{$token}}" />
-    <meta name="description" content="{{$rpta->objeto->producto_nombre}} :: {{$rpta->objeto->producto_descripcion}} ">
     <meta name="author" content="Freeler ">
-    <title>{{$rpta->objeto->empresa->empresa_nombre}}</title>
+    @if (!empty($rpta))
+      <meta property="og:image" content="http://test.exac-tic.com/Producto/PreviewTiny/{{$rpta->objeto->producto_id}}/{{$token}}" />
+      <meta name="description" content="{{$rpta->objeto->producto_nombre}} :: {{$rpta->objeto->producto_descripcion}} ">
+      <title>{{$rpta->objeto->empresa->empresa_nombre}}</title>
+    @endif
+    
+    
+    
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="/css/app.css" >
     <link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
