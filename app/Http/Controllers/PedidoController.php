@@ -60,16 +60,17 @@ class PedidoController extends Controller
         }
         $this->usuario_id=$usuariofind->usuario_id;
 
-        $compras = Compra::whereHas('compra_detalle',function($a){
-            $a->whereHas('producto',function($b){
-                $b->whereHas('empresa',function($c){
-                    $c->whereHas('freeler',function($d){
-                       // $d->where('usuario_id',$this->usuario_id);
-                    });
-                });
-            });
-        })->get();
+        // $compras = Compra::whereHas('compra_detalle',function($a){
+        //     $a->whereHas('producto',function($b){
+        //         $b->whereHas('empresa',function($c){
+        //             $c->whereHas('freeler',function($d){
+        //                // $d->where('usuario_id',$this->usuario_id);
+        //             });
+        //         });
+        //     });
+        // })->get();
 
+            $compras=Compra::all();
         return $compras;
 
 
