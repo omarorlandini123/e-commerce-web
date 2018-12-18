@@ -68,7 +68,7 @@ class PedidoController extends Controller
                     });
                 });
             });
-        })->with('compra_detalle')->get();
+        })->get();
 
         return $compras;
 
