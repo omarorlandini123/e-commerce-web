@@ -71,7 +71,9 @@ class PedidoController extends Controller
         // })->get();
 
             $compras=Compra::whereHas('compra_detalle',function($a){
-                
+                $a->whereHas('producto',function($b){
+
+                });
             })->get();
         return $compras;
 
