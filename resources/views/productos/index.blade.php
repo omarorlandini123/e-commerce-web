@@ -17,6 +17,7 @@
     <br><br>
     <div class="row">
         <form action="{{route('producto.ofrecer',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
+            @csrf
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
