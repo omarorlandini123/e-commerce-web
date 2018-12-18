@@ -52,6 +52,8 @@ Route::get('/Producto/Listar/{token}/{condicion}','ProductoController@listar_mis
 Route::get('/Producto/Preview/{idProducto}/{token}','ProductoController@getPreview');
 Route::get('/Producto/PreviewTiny/{idProducto}/{token}','ProductoController@getPreviewTiny');
 Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
+Route::get('/Producto/Ofrecer/{idProducto}/{token}','ProductoController@ofrecer')->name('producto.ofrecer');
+Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');
 //------
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
 
@@ -59,3 +61,4 @@ Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
 Route::get('/Afiche/Preview/{idAfiche}/{token}','AficheController@getPreview');
 Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
+

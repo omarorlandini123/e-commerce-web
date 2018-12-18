@@ -89,6 +89,8 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "No se ha encontrado el afiche");
             case 29:
                 return new Error(Error::getErrorCode($E_code), "No se ha encontrado el producto");
+            case 30:
+                return new Error(Error::getErrorCode($E_code), "Ya existe un usuario con ese correo");
         }
     }
 

@@ -16,7 +16,7 @@
     </div>
     <br><br>
     <div class="row">
-       
+        <form action="{{route('producto.ofrecer',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
@@ -50,9 +50,10 @@
 
         <div class="col-sm-12">
                 <div class="form-group" >                    
-                    <center><button type="button" class="btn btn-success">Pedir</button></center>
+                    <center><input type="submit" class="btn btn-success" value="Pedir" /></center>
                   </div>
             </div>
+        </form>
             <br>
     </div>
 
