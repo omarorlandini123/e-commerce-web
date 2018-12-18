@@ -121,7 +121,7 @@ class ProductoController extends Controller
         }
 
         session(['usuario_id' => $usuariofind->usuario_id]);
-        $cantidad = $request->input('cantidad');
+        $cantidad = $request->input('txt_cantidad');
 
         $producto = Producto::where('producto_id',$idProducto)->first();
         if($producto==null){
