@@ -68,7 +68,7 @@ class PedidoController extends Controller
                     });
                 });
             });
-        })->get();
+        })->with(['compra_detalle','compra_detalle.producto','compra_detalle.producto.producto_detalle','compra_detalle.producto.producto_detalle.item_almacen'])->get();
 
             
         return $compras;
