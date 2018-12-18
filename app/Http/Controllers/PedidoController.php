@@ -64,7 +64,7 @@ class PedidoController extends Controller
             $a->whereHas('producto',function($b){
                 $b->whereHas('empresa',function($c){
                     $c->whereHas('freeler',function($d){
-                        $d->where('usuario_id',$this->usuario_id);
+                       // $d->where('usuario_id',$this->usuario_id);
                     });
                 });
             });
