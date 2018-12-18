@@ -70,7 +70,9 @@ class PedidoController extends Controller
         //     });
         // })->get();
 
-            $compras=Compra::all();
+            $compras=Compra::whereHas('compra_detalle',function($a){
+                
+            })->get();
         return $compras;
 
 
