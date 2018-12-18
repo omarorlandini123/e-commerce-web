@@ -8,9 +8,10 @@
      <center><h3>Pide tu: {{$rpta->objeto->producto_nombre}}</h3></center> 
   
     <br><br>
-    <div class="row">
-       <form action="{{route('producto.pedir',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
+    <form action="{{route('producto.pedir',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
         @csrf
+    <div class="row">
+      
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
@@ -56,10 +57,10 @@
                 <center><input type="submit" class="btn btn-success" value="Pedir"/></center>
             </div>
         </div>
-        </form>
+        
             <br>
     </div>
-
+</form>
     @endif
 
 
