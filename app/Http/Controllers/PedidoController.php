@@ -60,16 +60,7 @@ class PedidoController extends Controller
         }
         $this->usuario_id=$usuariofind->usuario_id;
 
-        $pedidos = Pedido::whereHas('detalle_pedido',function($a){
-            $a->whereHas('producto',function($b){
-                $b->whereHas('empresa',function($c){
-                    $c->whereHas('freeler',function($d){
-                        $d->where('usuario_id',$this->usuario_id);
-                    });
-                });
-            });
-        })->with(['detalle_pedido','detalle_pedido.producto','detalle_pedido.producto.producto_detalle','detalle_pedido.producto.producto_detalle.item_almacen'])->get();
-
+ 
         $productos = Producto::whereHas('detalle_pedido',function($a){
             $a->whereHas('pedido',function($b){
                 $b->whereHas('freeler',function($c){
