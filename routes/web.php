@@ -55,7 +55,9 @@ Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@elimina
 //------
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
 Route::post('/Producto/Ofrecer/{idProducto}/{token}','ProductoController@ofrecer')->name('producto.ofrecer');
+Route::get('/Producto/Ofrecer/{idProducto}/{token}','ProductoController@index');
 Route::post('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');
+Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@index');
 
 Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
