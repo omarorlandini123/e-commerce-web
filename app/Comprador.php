@@ -12,11 +12,11 @@ class Comprador extends Model
     protected $primaryKey = "comprador_id";
 
     public function compras(){
-        $this->hasMany('App\Compra','comprador_id','comprador_id');
+       return  $this->hasMany('App\Compra','comprador_id','comprador_id');
     }
 
     public function usuario(){
-        $this->belongsTo('App\Usuario','usuario_id','usuario_id');
+        return $this->belongsTo('App\Usuario','usuario_id','usuario_id');
     }
 
 }
