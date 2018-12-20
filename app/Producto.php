@@ -22,7 +22,7 @@ class Producto extends Model
         return $this->hasMany('App\ProductoDetalle','producto_id','producto_id');
     }
 
-    public function compra_detalle(){
-        return $this->hasMany('App\CompraDetalle','producto_id','producto_id');
+    public function detalle_pedido(){
+        return $this->hasMany('App\PedidoDetalle','producto_id','producto_id');
     }
 }

@@ -14,8 +14,8 @@ use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
 use App\Comprador;
-use App\Compra;
-use App\CompraDetalle;
+use App\Pedido;
+use App\PedidoDetalle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -60,7 +60,7 @@ class PedidoController extends Controller
         }
         $this->usuario_id=$usuariofind->usuario_id;
 
-        $compras = Compra::whereHas('compra_detalle',function($a){
+        $pedidos = Pedido::whereHas('detalle_pedido',function($a){
             $a->whereHas('producto',function($b){
                 $b->whereHas('empresa',function($c){
                     $c->whereHas('freeler',function($d){
@@ -68,10 +68,10 @@ class PedidoController extends Controller
                     });
                 });
             });
-        })->with(['compra_detalle','compra_detalle.producto','compra_detalle.producto.producto_detalle','compra_detalle.producto.producto_detalle.item_almacen'])->get();
+        })->with(['detalle_pedido','detalle_pedido.producto','detalle_pedido.producto.producto_detalle','detalle_pedido.producto.producto_detalle.item_almacen'])->get();
 
             
-        return $compras;
+        return $pedidos;
 
 
     }
