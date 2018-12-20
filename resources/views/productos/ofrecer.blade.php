@@ -15,32 +15,32 @@
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
-                <input type="text"   class="form-control" id="txt_nombre" name="txt_nombre"  value =""placeholder="Ingresa Tu Nombre">
+                <input type="text" {{$comprador==null?"":"disabled"}}  class="form-control" id="txt_nombre" name="txt_nombre"  value ="{{$comprador==null?"":$comprador->usuario->usuario_nombre}}"placeholder="Ingresa Tu Nombre">
               </div>
         </div>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Apellido Paterno</label>
-                <input type="text"   class="form-control" id="txt_ape_pa" name="txt_ape_pa"  value =""placeholder="Ingresa tu primer apellido">
+                <input type="text" {{$comprador==null?"":"disabled"}}   class="form-control" id="txt_ape_pa" name="txt_ape_pa"  value ="{{$comprador==null?"":$comprador->usuario->usuario_apellidoPa}}" placeholder="Ingresa tu primer apellido">
               </div>
         </div>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Apellido Materno</label>
-                <input type="text"   class="form-control" id="txt_ape_ma" name="txt_ape_ma"  value =""placeholder="Ingresa tu segundo apellido">
+                <input type="text" {{$comprador==null?"":"disabled"}}   class="form-control" id="txt_ape_ma" name="txt_ape_ma"  value ="{{$comprador==null?"":$comprador->usuario->usuario_apellidoMa}}" placeholder="Ingresa tu segundo apellido">
               </div>
         </div>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Correo</label>
-                <input type="text"   class="form-control" id="txt_correo" name="txt_correo"  value =""placeholder="Ingresa tu correo">
+                <input type="text"  {{$comprador==null?"":"disabled"}}  class="form-control" id="txt_correo" name="txt_correo"  value ="{{$comprador==null?"":$comprador->usuario->usuario_email}}" placeholder="Ingresa tu correo">
               </div>
         </div>
 
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">DNI</label>
-                <input type="text"   class="form-control" id="txt_dni" name="txt_dni"  value =""placeholder="Ingresa tu DNI">
+                <input type="text"  {{$comprador==null?"":"disabled"}}   class="form-control" id="txt_dni" name="txt_dni"  value ="{{$comprador==null?"":count($comprador->usuario->documentos)>0?$comprador->usuario->documentos[0]->documento_numero:""}}" placeholder="Ingresa tu DNI">
               </div>
         </div>
         <hr>

@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Almacen;
+use App\Comprador;
+use App\Documento;
 use App\Empresa;
 use App\Error;
 use App\Freeler;
 use App\ItemAlmacen;
+use App\Pedido;
+use App\PedidoDetalle;
 use App\Producto;
 use App\ProductoDetalle;
 use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
-use App\Comprador;
-use App\Compra;
-use App\CompraDetalle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -23,8 +24,8 @@ use Intervention\Image\Facades\Image;
 class ProductoController extends Controller
 {
 
-
-    public function index(Request $request,$idProducto,$token){
+    public function index(Request $request, $idProducto, $token)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -62,27 +63,27 @@ class ProductoController extends Controller
         }
 
         session(['usuario_id' => $usuariofind->usuario_id]);
-        $producto = Producto::where('producto_id',$idProducto)->first();
-        if($producto==null){
+        $producto = Producto::where('producto_id', $idProducto)->first();
+        if ($producto == null) {
             $contenidoError = Error::getError(29);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        
 
         $rpta->objeto = $producto;
         $rpta->tieneError = false;
 
-        $data=array(
-            'rpta'=>$rpta,
-            'token'=>$token
+        $data = array(
+            'rpta' => $rpta,
+            'token' => $token,
         );
-        
+
         return view('productos.index')->with($data);
     }
 
-    public function ofrecer(Request $request, $idProducto,$token){
+    public function ofrecer(Request $request, $idProducto, $token)
+    {
 
         $rpta = new Respuesta;
 
@@ -120,31 +121,36 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        session(['usuario_id' => $usuariofind->usuario_id]);
         $cantidad = $request->input('txt_cantidad');
 
-        $producto = Producto::where('producto_id',$idProducto)->first();
-        if($producto==null){
+        $producto = Producto::where('producto_id', $idProducto)->first();
+        if ($producto == null) {
             $contenidoError = Error::getError(29);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        
+
+        $comprador = null;
+        if ($request->session()->has('comprador_id')) {
+            $comprador = Comprador::where('comprador_id', $request->session()->get('comprador_id'))->first();
+        }
 
         $rpta->objeto = $producto;
         $rpta->tieneError = false;
 
-        $data=array(
-            'rpta'=>$rpta,
-            'token'=>$token,
-            'cantidad'=>$cantidad
+        $data = array(
+            'rpta' => $rpta,
+            'token' => $token,
+            'cantidad' => $cantidad,
+            'comprador' => $comprador,
         );
-        
+
         return view('productos.ofrecer')->with($data);
     }
 
-    public function pedir(Request $request, $idProducto,$token){
+    public function pedir(Request $request, $idProducto, $token)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -181,70 +187,88 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        session(['usuario_id' => $usuariofind->usuario_id]);
+        $freelerfind = Freeler::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($freelerfind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
         $cantidad = $request->input('txt_cantidad');
         $nombre = $request->input('txt_nombre');
-        $ape_pa=$request->input('txt_ape_pa');
-        $ape_ma=$request->input('txt_ape_ma');
-        $correo=$request->input('txt_correo');
-        $dni=$request->input('txt_dni');
+        $ape_pa = $request->input('txt_ape_pa');
+        $ape_ma = $request->input('txt_ape_ma');
+        $correo = $request->input('txt_correo');
+        $dni = $request->input('txt_dni');
 
-        $producto = Producto::where('producto_id',$idProducto)->first();
-        if($producto==null){
+        $producto = Producto::where('producto_id', $idProducto)->first();
+        if ($producto == null) {
             $contenidoError = Error::getError(29);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        
-        $usuario = Usuario::where('usuario_email',$correo)->first();
-        if($usuario!=null){
-            $contenidoError = Error::getError(30);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
 
-        $usuario = new Usuario;
-        $usuario->usuario_nombre=$nombre;
-        $usuario->usuario_apellidoPa=$ape_pa;
-        $usuario->usuario_apellidoMa=$ape_ma;
-        $usuario->usuario_email=$correo;
-        $usuario->save();
-
-        if($usuario->usuario_id>0){
-            $comprador= new Comprador;
-            $comprador->usuario_id=$usuario->usuario_id;
-            $comprador->save();
-            if($comprador->comprador_id>0){
-                $compra = new Compra;
-                $compra->comprador_id=$comprador->comprador_id;
-                $compra->compra_fecha=Carbon::now();
-                $compra->compra_subtotal=0;
-                $compra->compra_IGV=0;
-                $compra->compra_total=0;
-                $compra->save();
-                if($compra->compra_id>0){
-                    $compraDetalle= new CompraDetalle;
-                    $compraDetalle->compra_id=$compra->compra_id;
-                    $compraDetalle->producto_id = $producto->producto_id;
-                    $compraDetalle->compra_detalle_cantidad=$cantidad;
-                    $compraDetalle->compra_detalle_preciounit=0;
-                    $compraDetalle->save();
-
-                    if($compraDetalle->compra_detalle_id>0){
-                        $data=array(
-                            'exito'=>'Pudimos generar tu pedido, gracias.',
-                        );
-                        return view('principal.success')->with($data);
-                    }
-                }
+        $comprador = null;
+        if ($request->session()->has('comprador_id')) {
+            $comprador = Comprador::where('comprador_id', $request->session()->get('comprador_id'))->first();
+        } else {
+            $usuario = Usuario::where('usuario_email', $correo)->first();
+            if ($usuario != null) {
+                $contenidoError = Error::getError(30);
+                $rpta->tieneError = true;
+                $rpta->error = $contenidoError;
+                return $rpta;
             }
 
-        }       
-        
-        $data=array(
-            'error'=>'No pudimos generar tu pedido :(',
+            $usuario = new Usuario;
+            $usuario->usuario_nombre = $nombre;
+            $usuario->usuario_apellidoPa = $ape_pa;
+            $usuario->usuario_apellidoMa = $ape_ma;
+            $usuario->usuario_email = $correo;
+            $usuario->save();
+
+            if ($usuario->usuario_id > 0) {
+                $documento = new Documento;
+                $documento->documento_numero = $dni;
+                $documento->documento_tipo = 1;
+                $documento->usuario_id = $usuario->usuario_id;
+                $documento->documento_defecto = 1;
+                $documento->save();
+
+                $comprador = new Comprador;
+                $comprador->usuario_id = $usuario->usuario_id;
+                $comprador->save();
+            }
+
+        }
+
+        if ($comprador->comprador_id > 0) {
+            $request->session()->put('comprador_id', $comprador->comprador_id);
+            $pedido = new Pedido;
+            $pedido->comprador_id = $comprador->comprador_id;
+            $pedido->fecha_creacion = Carbon::now();
+            $pedido->freeler_shared_id = $freelerfind->freeler_id;
+            $pedido->save();
+            if ($pedido->pedido_id > 0) {
+                $pedidoDetalle = new PedidoDetalle;
+                $pedidoDetalle->pedido_id = $pedido->pedido_id;
+                $pedidoDetalle->producto_id = $producto->producto_id;
+                $pedidoDetalle->cantidad = $cantidad;
+                $pedidoDetalle->save();
+
+                if ($pedidoDetalle->detalle_pedido_id > 0) {
+                    $data = array(
+                        'exito' => 'hemos generado tu pedido, gracias.',
+                    );
+                    return view('principal.success')->with($data);
+                }
+            }
+        }
+
+        $data = array(
+            'error' => 'no pudimos generar tu pedido :(',
         );
         return view('principal.error')->with($data);
     }
