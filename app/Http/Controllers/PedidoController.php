@@ -77,7 +77,7 @@ class PedidoController extends Controller
                 });
             });
         })
-        ->with(['detalle_pedido','detalle_pedido.pedido','detalle_pedido.pedido.freeler'])
+        ->with(['detalle_pedido','detalle_pedido.pedido','detalle_pedido.pedido.freeler','detalle_pedido.pedido.usuario'])
         ->get();
             
         return $productos;
