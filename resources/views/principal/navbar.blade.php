@@ -10,7 +10,7 @@
     <ul class="navbar-nav mr-auto">
       
     </ul>
-    @if(Session::has('usuarioLogin'))
+    @if(Session::has('comprador_id'))
 
     <span class="navbar-text">
       @inject('Comprador', 'App\Comprador')
