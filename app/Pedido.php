@@ -11,7 +11,7 @@ class Pedido extends Model
     protected $primaryKey = "pedido_id";
 
     public function detalle_pedido(){
-        return $this->hasMany('App\Pedido','pedido_id','pedido_id');
+        return $this->hasMany('App\PedidoDetalle','pedido_id','pedido_id');
     }
 
     public function comprador(){
@@ -21,6 +21,6 @@ class Pedido extends Model
     public function freeler(){
         return $this->belongsTo('App\Freeler','freeler_shared_id','freeler_id');
     }
-    
+
 
 }
