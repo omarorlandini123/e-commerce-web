@@ -77,11 +77,7 @@ class PedidoController extends Controller
                 });
             });
         })
-        ->orWhereHas('empresa',function($d){
-            $d->whereHas('freeler',function($e){
-                $e->where('usuario_id',$this->usuario_id);
-            });
-        })
+        ->with(['detalle_pedido','detalle_pedido.pedido',])
         ->get();
             
         return $productos;
