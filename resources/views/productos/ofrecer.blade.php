@@ -11,7 +11,8 @@
     <form action="{{route('producto.pedir',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
         @csrf
     <div class="row">
-      
+        @if ($comprador==null)            
+        
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
@@ -43,11 +44,17 @@
                 <input type="text"  {{$comprador==null?"":"disabled"}}   class="form-control" id="txt_dni" name="txt_dni"  value ="{{$comprador==null?"":count($comprador->usuario->documentos)>0?$comprador->usuario->documentos[0]->documento_numero:""}}" placeholder="Ingresa tu DNI">
               </div>
         </div>
+        @else
+            
+                <h3><strong>Hola de nuevo :</strong> {{$comprador->usuario->usuario_nombre}}</h3>               
+            
+        @endif
+
         <hr>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Quieres pedir</label>
-                <input type="text"   class="form-control" id="txt_cantidad" name="txt_cantidad"  value ="{{empty($cantidad)?"0":$cantidad}}"placeholder="Ingresa tu DNI">
+                <input type="text"   class="form-control" id="txt_cantidad" name="txt_cantidad"  value ="{{empty($cantidad)?"0":$cantidad}}"placeholder="¿Cuántos quieres?">
               </div>
         </div>
       

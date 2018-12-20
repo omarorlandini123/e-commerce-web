@@ -32,5 +32,9 @@ class Usuario extends Model
     public function ubicacion(){
         return $this->belongsTo('App\Ubicacion','id_ubicacion','id_ubicacion');
     }
+
+    public function nombre_completo(){
+        return $this->usuario_apellidoPa. " " .$this->usuario_apellidoMa.", ". $this->usuario_nombre;
+    }
    
 }
