@@ -15,9 +15,9 @@
     <span class="navbar-text">
       @inject('Comprador', 'App\Comprador')
       
-      <label style="margin-right:15px;">{{$Comprador::where('comprador_id',Session::get('comprador_id'))->first()->usuario->nombre_completo()}}</label>
+      <label style="margin-right:15px;color:white">{{$Comprador::where('comprador_id',Session::get('comprador_id'))->first()->usuario->nombre_completo()}}</label>
 
-      <a href="/logout">Cerrar Sesión</a>
+      <a href="/logout" style="color:white;">Cerrar Sesión</a>
     </span>
     @endif
   </div>
