@@ -70,8 +70,21 @@ class PedidoController extends Controller
             });
         })->with(['detalle_pedido','detalle_pedido.producto','detalle_pedido.producto.producto_detalle','detalle_pedido.producto.producto_detalle.item_almacen'])->get();
 
+        $productos = Producto::whereHas('detalle_pedido',function($a){
+            $a->whereHas('pedido',function($b){
+                $b->whereHas('freeler',function($c){
+                    $c->where('usuario_id',$this->usuario_id);
+                });
+            });
+        })
+        ->orWhereHas('empresa',function($d){
+            $d->whereHas('freeler',function($e){
+                $e->where('usuario_id',$this->usuario_id);
+            });
+        })
+        ->get();
             
-        return $pedidos;
+        return $productos;
 
 
     }
