@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 
 class TokenController extends Controller
 {
+    public function logout(Request $request){
+        $request->session()->flush();
+        return back()->withInput();
+    }
 
     public function tokensnumero(Request $request, $numero)
     {

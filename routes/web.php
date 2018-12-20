@@ -64,3 +64,5 @@ Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
 
 
 Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');
+
+Route::get('/logout','TokenController@logout')->name('logout');
