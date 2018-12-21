@@ -138,21 +138,20 @@ class UsuarioController extends Controller
         return view('usuario.login');
     }
 
-    public function messages()
-    {
-        return [
-            'usuario_email.required' => 'Escribe tu correo',
-            'usuario_email.exists' => 'Este correo no existe',
-            'usuario_password.required' => 'Escribe tu contraseña',
-            
-        ];
-    }
+ 
 
     public function validar(Request $request)
     {
+
+
         $request->validate([
             'usuario_email' => 'required|exists:usuario|max:255',
             'usuario_password' => 'required|max:255',
+        ], [
+            'usuario_email.required' => 'Escribe tu correo',
+            'usuario_email.exists' => 'Este correo no existe',
+            'usuario_password.required' => 'Escribe tu contraseña',
+
         ]);
 
         $correo = $request->input('usuario_email');
