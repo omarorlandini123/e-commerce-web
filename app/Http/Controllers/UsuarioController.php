@@ -259,7 +259,7 @@ class UsuarioController extends Controller
                 if ($request->session()->has('producto_id')) {
                     return redirect()->route('producto.pedir', [
                         'idProducto' => $request->session()->get('producto_id'),
-                        'token' => $request->session()->get('token'),
+                        'token' => $request->session()->get('producto_token'),
                     ]);
                 }else{
                     $data = array(
