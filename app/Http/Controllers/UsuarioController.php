@@ -187,6 +187,7 @@ class UsuarioController extends Controller
         if($comprador!=null){
             $request->session()->put('comprador_id', $comprador->comprador_id);
         }
+        dd($request->session());
         
 
         if ($idProducto != null && $token != null) {
