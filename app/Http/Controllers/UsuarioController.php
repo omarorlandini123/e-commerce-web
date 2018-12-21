@@ -186,6 +186,12 @@ class UsuarioController extends Controller
         $comprador = Comprador::where('usuario_id',  $usuario->usuario_id)->first();
         if($comprador!=null){
             $request->session()->put('comprador_id', $comprador->comprador_id);
+        }else{
+            $data = array(
+                'exito' =>'eres un freeler, pero no puedes comprar aún. Pronto tendremos novedades :D'
+            );
+    
+            return view('principal.success')->with($data);
         }
         
         
