@@ -16,7 +16,7 @@
                     @endforeach
                 </ul>
             </div>
-            {{dd($errors)}}
+            
             @endif
 
             <div class="col-sm-12">
