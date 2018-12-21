@@ -6,7 +6,7 @@
     <h3>{{$rpta->error}}</h3>
     @else
         @if ($comprador!=null) 
-        <h3><strong>Hola de nuevo </strong> {{$comprador->usuario->usuario_nombre}}</h3>  <br>
+        <h3><strong>Hola, </strong> {{$comprador->usuario->usuario_nombre}}</h3>  <br>
         <h4><strong>Confirma tu pedido de: </strong> {{$rpta->objeto->producto_nombre}}</h4>   
         @else
         <center><h3>Pide tu: {{$rpta->objeto->producto_nombre}}</h3></center> 
@@ -18,7 +18,14 @@
         @csrf
     <div class="row">
         @if ($comprador==null)            
-        
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Ingresa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Regístrate</a>
+            </li>           
+        </ul>
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
