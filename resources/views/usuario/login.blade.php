@@ -23,10 +23,12 @@
                 <div class="form-group">
                     
                     <label for="usuario_email">Correo</label>
-                    <input type="text" class="form-control is-invalid" id="usuario_email" name="usuario_email" placeholder="Ingresa tu correo" required>
+                    <input type="text" class="form-control {{$errors->has('usuario_email')?"is-invalid":""}}" id="usuario_email" name="usuario_email" placeholder="Ingresa tu correo" required>
+                    @if ($errors->has('usuario_email'))
                     <div class="invalid-feedback">
-                        Please provide a valid city.
+                            {{$errors->first('usuario_email')}}
                     </div>
+                    @endif
 
                 </div>
             </div>
