@@ -183,11 +183,11 @@ class UsuarioController extends Controller
         }
         
               
-        $comprador = Comprador::where('usuario_id', $request->session()->get('usuario_id'))->first();
+        $comprador = Comprador::where('usuario_id',  $usuario->usuario_id)->first();
         if($comprador!=null){
             $request->session()->put('comprador_id', $comprador->comprador_id);
         }
-        dd($request->session());
+        
         
 
         if ($idProducto != null && $token != null) {
