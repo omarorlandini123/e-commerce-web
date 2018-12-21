@@ -76,6 +76,8 @@ class ProductoController extends Controller
             'rpta' => $rpta,
             'token' => $token,
         );
+        $request->session()->put('producto_id', $idProducto);
+        $request->session()->put('producto_token', $token);
 
         return view('productos.index')->with($data);
     }

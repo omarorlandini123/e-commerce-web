@@ -182,6 +182,8 @@ class UsuarioController extends Controller
             $token = $request->session()->get('producto_token');
         }
 
+        
+
         if ($idProducto != null && $token != null) {
             return redirect()->route('producto.pedir', ['idProducto' => $idProducto, 'token' => $token]);
         }
