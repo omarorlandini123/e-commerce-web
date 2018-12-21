@@ -138,11 +138,8 @@ class UsuarioController extends Controller
         return view('usuario.login');
     }
 
- 
-
     public function validar(Request $request)
     {
-
 
         $request->validate([
             'usuario_email' => 'required|exists:usuario|max:255',
@@ -158,13 +155,12 @@ class UsuarioController extends Controller
         $password = $request->input('usuario_password');
 
         $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]])->first();
-        
 
         if ($usuario == null) {
             $data = array(
-                'errors' => array('usuario_email' => 'El usuario es incorrecto'),
+                'usuario_email' => 'El usuario es incorrecto',
             );
-            return view('usuario.login')->with($data);
+            return view('usuario.login')->withErrors($data);
         }
 
         $idProducto = null;
