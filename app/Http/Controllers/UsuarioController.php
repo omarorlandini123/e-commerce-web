@@ -247,11 +247,23 @@ class UsuarioController extends Controller
                         'idProducto' => $request->session()->get('producto_id'),
                         'token' => $request->session()->get('token'),
                     ]);
+                }else{
+                    $data = array(
+                        'exito' =>'Pronto tendremos más opciones para ti :)'
+                    );
+            
+                    return view('principal.success')->with($data);
                 }
             }
         }
 
-        return view();
+        $data = array(
+            'error' =>'No te has podido registrar :('
+        );
+
+        return view('principal.error')->with($data);
+
+       
     }
 
 }
