@@ -228,11 +228,11 @@ class PedidoController extends Controller
         }
         
         $this->usuario_id=$usuariofind->usuario_id;
-
+        $this->idProducto=$idProducto;
  
        $pedidos = Pedido::whereHas('detalle_pedido',function($a){
            $a->whereHas('producto',function($b){
-                $b->where('producto_id',$idProducto);
+                $b->where('producto_id', $this->idProducto);
            });
        })->with(['comprador','freeler','detalle_pedido','detalle_pedido.producto','comprador.usuario','freeler.usuario'])->get();
             
