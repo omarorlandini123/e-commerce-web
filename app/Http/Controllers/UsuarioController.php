@@ -12,6 +12,7 @@ use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class UsuarioController extends Controller
 {
     public function registro(Request $request, $token)
@@ -183,39 +184,64 @@ class UsuarioController extends Controller
     }
     public function crear_comprador(Request $request)
     {
-       
 
         $validator = Validator::make($request->all(),
-        [
-            'usuario_email' => 'required|unique:usuario|max:255',
-            'usuario_password' => 'required|max:255',
-            'usuario_password_rep' => 'required|max:255',
-            'usuario_nombre' => 'required|max:255',
-            'usuario_apellidoPa' => 'required|max:255',
-            'usuario_apellidoMa' => 'required|max:255',
-            'direccion' => 'required|max:255',
-        ], [
-            'usuario_email.required' => 'Escribe tu correo',
-            'usuario_email.unique' => 'El correo ya está registrado por otra persona',
-            'usuario_password.required' => 'Escribe tu contraseña',
-            'usuario_password_rep.required' => 'Confirma tu contraseña',
-            'usuario_nombre.required' => 'Escribe tu nombre',
-            'usuario_apellidoPa.required' => 'Escribe tu apellido',
-            'usuario_apellidoMa.required' => 'Escribe tu apellido',
-            'direccion.required' => 'Escribe tu dirección',
-        ]
-		);
+            [
+                'usuario_email' => 'required|unique:usuario|max:255',
+                'usuario_password' => 'required|max:255',
+                'usuario_password_rep' => 'required|max:255',
+                'usuario_nombre' => 'required|max:255',
+                'usuario_apellidoPa' => 'required|max:255',
+                'usuario_apellidoMa' => 'required|max:255',
+                'direccion' => 'required|max:255',
+            ], [
+                'usuario_email.required' => 'Escribe tu correo',
+                'usuario_email.unique' => 'El correo ya está registrado por otra persona',
+                'usuario_password.required' => 'Escribe tu contraseña',
+                'usuario_password_rep.required' => 'Confirma tu contraseña',
+                'usuario_nombre.required' => 'Escribe tu nombre',
+                'usuario_apellidoPa.required' => 'Escribe tu apellido',
+                'usuario_apellidoMa.required' => 'Escribe tu apellido',
+                'direccion.required' => 'Escribe tu dirección',
+            ]
+        );
 
-		if ($validator->fails()) {
-			return redirect()->back()->withInput()->withErrors($validator);
-		}
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator);
+        }
 
-        if ($request->input('usuario_password')!=$request->input('usuario_password_rep')) {
+        if ($request->input('usuario_password') != $request->input('usuario_password_rep')) {
             $data = array(
                 'usuario_password_rep' => 'Las contraseñas no coinciden',
             );
             return redirect()->back()->withInput()->withErrors($data);
         }
+
+        $usuario = new Usuario;
+        $usuario->usuario_nombre = $request->input('usuario_nombre');
+        $usuario->usuario_apellidoPa = $request->input('usuario_apellidoPa');
+        $usuario->usuario_apellidoMa = $request->input('usuario_apellidoMa');
+        $usuario->usuario_email = $request->input('usuario_email');
+        $usuario->direccion = $request->input('direccion');
+        $usuario->usuario_password = $request->input('usuario_password');
+        $usuario->save();
+
+        if ($usuario->usuario_id > 0) {
+            $comprador = new Comprador;
+            $comprador->usuario_id = $usuario->usuario_id;
+            $comprador->save();
+
+            if ($comprador->comprador_id > 0) {
+                $request->session()->put('comprador_id', $comprador->comprador_id);
+                if ($request->session()->has('producto_id')) {
+                    return redirect()->route('producto.pedir', [
+                        'idProducto' => $request->session()->get('producto_id'),
+                        'token' => $request->session()->get('token'),
+                    ]);
+                }
+            }
+        }
+
         return view();
     }
 

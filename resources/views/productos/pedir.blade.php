@@ -16,7 +16,7 @@
 
 
     <br>
-    <form action="{{route('producto.pedir',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
+    <form action="{{route('pedido.confirmar',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
         @csrf
         <div class="row">
 
