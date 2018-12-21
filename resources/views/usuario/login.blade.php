@@ -38,14 +38,21 @@
            
             <hr>
           
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <center>
                         <input type="submit" class="btn btn-primary" value="Ingresar" /> 
-                        <a href="{{route('usuario.registro')}}" class="btn btn-success" >Registrar</a>
                     </center>
                 </div>
             </div>
+
+            <div class="col-sm-8">
+                    <div class="form-group">
+                        <p style="float: right;">¿Aún no te has registrado? <br><a style="float: right;" href="{{route('usuario.registro')}}"  >Crea una nueva cuenta</a></p>
+                    
+                        
+                    </div>
+                </div>
 
             <br>
         </div>
