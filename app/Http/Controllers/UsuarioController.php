@@ -141,17 +141,17 @@ class UsuarioController extends Controller
     public function validar(Request $request)
     {
         $request->validate([
-            'txt_correo' => 'required|unique:usuario|max:255',
-            'txt_password' => 'required|max:255',
+            'usuario_email' => 'required|unique:usuario|max:255',
+            'usuario_password' => 'required|max:255',
         ]);
 
-        $correo = $request->input('txt_correo');
-        $password = $request->input('txt_passwod');
+        $correo = $request->input('usuario_email');
+        $password = $request->input('usuario_password');
 
         $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]]);
         if ($usuario == null) {
             $data = array(
-                'errors' => array('txt_correo' => 'El usuario es incorrecto'),
+                'errors' => array('usuario_email' => 'El usuario es incorrecto'),
             );
             return view('usuario.login')->with($data);
         }

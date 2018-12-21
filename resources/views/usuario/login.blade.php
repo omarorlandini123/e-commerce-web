@@ -21,8 +21,8 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     
-                    <label for="txt_correo">Correo</label>
-                    <input type="text" class="form-control is-invalid" id="txt_correo" name="txt_correo" placeholder="Ingresa tu correo" required>
+                    <label for="usuario_email">Correo</label>
+                    <input type="text" class="form-control is-invalid" id="usuario_email" name="usuario_email" placeholder="Ingresa tu correo" required>
                     <div class="invalid-feedback">
                         Please provide a valid city.
                     </div>
@@ -32,8 +32,8 @@
 
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="formGroupExampleInput">Contraseña</label>
-                    <input type="text" class="form-control" id="txt_password" name="txt_password" value="" placeholder="Ingresa tu contraseña">
+                    <label for="usuario_password">Contraseña</label>
+                    <input type="text" class="form-control" id="usuario_password" name="usuario_password" value="" placeholder="Ingresa tu contraseña">
                 </div>
             </div>
            
