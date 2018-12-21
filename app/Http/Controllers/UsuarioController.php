@@ -181,7 +181,12 @@ class UsuarioController extends Controller
         if ($request->session()->has('producto_token')) {
             $token = $request->session()->get('producto_token');
         }
-
+        
+              
+        $comprador = Comprador::where('usuario_id', $request->session()->get('usuario_id'))->first();
+        if($comprador!=null){
+            $request->session()->put('comprador_id', $comprador->comprador_id);
+        }
         
 
         if ($idProducto != null && $token != null) {
