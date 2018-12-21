@@ -35,7 +35,7 @@ Route::get('/Usuario/Obtener/{token}','UsuarioController@getUsuario');
 //------
 Route::get('/login','UsuarioController@login')->name('usuario.login');
 Route::post('/login','UsuarioController@validar')->name('usuario.validar');
-Route::get('/registrar','UsuarioController@registro')->name('usuario.registro');
+Route::get('/registrar','UsuarioController@registrar_comprador')->name('usuario.registro');
 Route::post('/registrar','UsuarioController@crear_comprador')->name('usuario.crear.comprador');
 
 Route::post('/Empresa/Registrar/{token}','EmpresaController@registrar');
@@ -59,10 +59,8 @@ Route::get('/Producto/PreviewTiny/{idProducto}/{token}','ProductoController@getP
 Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
 //------Producto WEB
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
-Route::post('/Producto/Ofrecer/{idProducto}/{token}','ProductoController@ofrecer')->name('producto.ofrecer');
-Route::get('/Producto/Ofrecer/{idProducto}/{token}','ProductoController@index');
-Route::post('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');
-Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@index');
+Route::post('/Producto/Pedir/{idProducto}/{token}','ProductoController@confirmar')->name('pedido.confirmar');
+Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');;
 
 Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');

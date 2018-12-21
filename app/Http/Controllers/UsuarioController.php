@@ -140,6 +140,44 @@ class UsuarioController extends Controller
 
     public function validar(Request $request)
     {
+        $this->validate([
+            'txt_correo' => 'required|unique:usuario|max:255',
+            'txt_password' => 'required|max:255',
+        ]);
+
+        $correo = $request->input('txt_correo');
+        $password = $request->input('txt_passwod');
+
+        $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]]);
+        if ($usuario == null) {
+            $data = array(
+                'errors' => array('txt_correo' => 'El usuario es incorrecto'),
+            );
+            return view('usuario.login')->with($data);
+        }
+
+        $idProducto = null;
+        if ($request->session()->has('producto_id')) {
+            $idProducto = $request->session()->get('producto_id');
+        }
+        $token = null;
+        if ($request->session()->has('producto_token')) {
+            $token = $request->session()->get('producto_token');
+        }
+
+        if ($idProducto != null && $token != null) {
+            return redirect()->route('producto.pedir', ['idProducto' => $idProducto, 'token' => $token]);
+        }
+    }
+    public function registrar_comprador(Request $request)
+    {
+        $idProducto = $request->input('idProducto');
+        $token = $request->input('token');
+
+        return view();
+    }
+    public function crear_comprador(Request $request)
+    {
         $idProducto = $request->input('idProducto');
         $token = $request->input('token');
 

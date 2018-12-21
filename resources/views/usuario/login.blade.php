@@ -8,12 +8,25 @@
         method="post">
         @csrf
         <div class="row">
-           
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="formGroupExampleInput">Correo</label>
-                    <input type="text" class="form-control" id="txt_correo" name="txt_correo" value="" placeholder="Ingresa tu correo">
+                    
+                    <label for="txt_correo">Correo</label>
+                    <input type="text" class="form-control is-invalid" id="txt_correo" name="txt_correo" placeholder="Ingresa tu correo" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid city.
+                    </div>
+
                 </div>
             </div>
 
