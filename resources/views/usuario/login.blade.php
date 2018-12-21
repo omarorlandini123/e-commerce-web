@@ -24,14 +24,8 @@
                 </div>
             </div>
            
-
-
-          
-
             <hr>
           
-
-
             <div class="col-sm-12">
                 <div class="form-group">
                     <center>
@@ -44,7 +38,6 @@
             <br>
         </div>
     </form>
-    @endif
 
 
 
