@@ -133,4 +133,17 @@ class UsuarioController extends Controller
 
     }
 
+    public function login(Request $request)
+    {
+        return view('usuario.login');
+    }
+
+    public function validar(Request $request)
+    {
+        $idProducto = $request->input('idProducto');
+        $token = $request->input('token');
+
+        return view();
+    }
+
 }

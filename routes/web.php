@@ -32,6 +32,11 @@ Route::post('/Usuario/Registrar/{token}','UsuarioController@registro');
 Route::get('/Usuario/Login/{token}','UsuarioController@login');
 Route::get('/Usuario/Listar/{token}','UsuarioController@listarUsuarios');
 Route::get('/Usuario/Obtener/{token}','UsuarioController@getUsuario');
+//------
+Route::get('/login','UsuarioController@login')->name('usuario.login');
+Route::post('/login','UsuarioController@validar')->name('usuario.validar');
+Route::get('/registrar','UsuarioController@registro')->name('usuario.registro');
+Route::post('/registrar','UsuarioController@crear_comprador')->name('usuario.crear.comprador');
 
 Route::post('/Empresa/Registrar/{token}','EmpresaController@registrar');
 Route::post('/Empresa/Actualizar/{idEmpresa}/{token}','EmpresaController@actualizar');

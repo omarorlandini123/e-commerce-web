@@ -85,6 +85,12 @@ class ProductoController extends Controller
     public function ofrecer(Request $request, $idProducto, $token)
     {
 
+        if (!$request->session()->has('comprador_id')) {
+            $request->session()->put('producto_id',$idProducto);
+            $request->session()->put('producto_token',$token);
+           return redirect()->route('usuario.login');
+        }
+
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
