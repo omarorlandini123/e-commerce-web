@@ -140,7 +140,7 @@ class UsuarioController extends Controller
 
     public function validar(Request $request)
     {
-        $this->validate([
+        $request->validate([
             'txt_correo' => 'required|unique:usuario|max:255',
             'txt_password' => 'required|max:255',
         ]);
