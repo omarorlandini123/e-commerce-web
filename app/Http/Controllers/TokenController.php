@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ColaSMS;
 use App\Error;
 use App\Freeler;
 use App\Respuesta;
@@ -13,7 +14,8 @@ use Illuminate\Http\Request;
 
 class TokenController extends Controller
 {
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->session()->flush();
         return back()->withInput();
     }
@@ -23,15 +25,16 @@ class TokenController extends Controller
         return Token::where('token_numero', $numero)->orderBy('token_fecha_creacion', 'desc')->get();
     }
 
-    public function codigoCelular(Request $request, $numero){
-        $token= Token::where('token_numero', $numero)->orderBy('token_fecha_creacion', 'desc')->get()->first();
-        return "El codigo de seguridad telefónico es: ".$token->token_codigo_sms. " y el token es: ".$token->token;
+    public function codigoCelular(Request $request, $numero)
+    {
+        $token = Token::where('token_numero', $numero)->orderBy('token_fecha_creacion', 'desc')->get()->first();
+        return "El codigo de seguridad telefónico es: " . $token->token_codigo_sms . " y el token es: " . $token->token;
     }
 
     public function solicitaCodigo(Request $request, $numero)
     {
         $rpta = new Respuesta;
-        if ($numero == null || trim($numero)=="") {
+        if ($numero == null || trim($numero) == "") {
             $contenidoError = Error::getError(1);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -45,10 +48,16 @@ class TokenController extends Controller
         $token_var->token_fecha_creacion = Carbon::now();
         $token_var->save();
 
+        $cola_sms = new ColaSMS;
+        $cola_sms->destino = $numero;
+        $cola_sms->contenido = "Bienvenido a Freeler. Codigo SMS: " . $token_var->token_codigo_sms;
+        $cola_sms->estado = 0;
+        $cola_sms->save();
+
         if ($token_var->token_id > 0) {
             $token_rpta = new Token;
             $token_rpta->token_codigo_sms = true;
-            
+
             $rpta->tieneError = false;
             $rpta->objeto = $token_rpta;
             return $rpta;
@@ -146,5 +155,20 @@ class TokenController extends Controller
         $token_encontrado->csrf = csrf_token();
         return $token_encontrado;
 
+    }
+
+    public function getSMSPendiente()
+    {
+        $colas = ColaSMS::where('estado', 0)->get();
+        return $colas;
+    }
+
+    public function updateState($idCola)
+    {
+        $cola = ColaSMS::where('cola_sms_id', $idCola)->first();
+        if ($cola != null) {
+            $cola->estado = 1;
+            $cola->save();
+        }
     }
 }

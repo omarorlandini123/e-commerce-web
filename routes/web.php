@@ -25,6 +25,8 @@ Route::get('/SolicitarCodigo/{numero}','TokenController@solicitaCodigo');
 Route::get('/SolicitarRegistro/{numero}/{codigo}','TokenController@solicitaRegistro');
 Route::get('/TokensNumero/{numero}','TokenController@tokensnumero');
 Route::get('/CodigoSeguridad/{numero}','TokenController@codigoCelular');
+Route::get('/SMS/Pendiente','TokenController@getSMSPendiente');
+Route::get('/SMS/{idCola}','TokenController@updateState');
 
 Route::get('/NecesitaRegistro/{token}','TokenController@necesitaRegistro');
 
