@@ -69,7 +69,7 @@
               </div>
               <div class="form-group">
                     <label for="txt_envio">Confirma la direccion de envío</label>
-                    <input type="text"   class="form-control" id="txt_envio" name="txt_envio"  value ="{{empty($direccion)?"0":$direccion}}"placeholder="¿Dónde lo quieres?">
+                    <input type="text"   class="form-control" id="txt_envio" name="txt_envio"  value ="{{empty($direccion)?"":$direccion}}"placeholder="¿Dónde lo quieres?">
                   </div>
         </div>
       

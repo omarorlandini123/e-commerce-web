@@ -68,5 +68,8 @@ Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
 Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');
 Route::get('/Pedido/Terceros/{token}','PedidoController@listar_terceros')->name('pedido.terceros');
 Route::get('/Pedido/Producto/{idProducto}/{token}','PedidoController@pedidos_producto')->name('pedido.producto');
+Route::get('/Pedido/Enviado/{idPedido}/{token}','PedidoController@enviar_pedido')->name('pedido.enviar');
+Route::get('/Pedido/Pagado/{idPedido}/{token}','PedidoController@pagar_pedido')->name('pedido.pagar');
+Route::get('/Pedido/Eliminar/{idPedido}/{token}','PedidoController@eliminar_pedido')->name('pedido.eliminar');
 
 Route::get('/logout','TokenController@logout')->name('logout');

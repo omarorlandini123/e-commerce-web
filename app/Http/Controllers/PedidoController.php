@@ -5,24 +5,19 @@ namespace App\Http\Controllers;
 use App\Almacen;
 use App\Empresa;
 use App\Error;
-use App\Freeler;
 use App\ItemAlmacen;
+use App\Pedido;
 use App\Producto;
-use App\ProductoDetalle;
 use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
-use App\Comprador;
-use App\Pedido;
-use App\PedidoDetalle;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
 class PedidoController extends Controller
 {
-    public function listar(Request $request, $token){
+    public function listar(Request $request, $token)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -58,23 +53,21 @@ class PedidoController extends Controller
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        $this->usuario_id=$usuariofind->usuario_id;
+        $this->usuario_id = $usuariofind->usuario_id;
 
- 
-        $productos = Producto::whereHas('detalle_pedido',function($a){
-            $a->whereHas('pedido',function($b){
-                $b->whereHas('freeler',function($c){
-                    $c->where('usuario_id',$this->usuario_id);
+        $productos = Producto::whereHas('detalle_pedido', function ($a) {
+            $a->whereHas('pedido', function ($b) {
+                $b->whereHas('freeler', function ($c) {
+                    $c->where('usuario_id', $this->usuario_id);
                 });
             });
-        })->whereHas('empresa',function($b){
-            $b->whereHas('freeler',function($c){
-                $c->where('usuario_id',$this->usuario_id);
+        })->whereHas('empresa', function ($b) {
+            $b->whereHas('freeler', function ($c) {
+                $c->where('usuario_id', $this->usuario_id);
             });
         })
-        ->with(['detalle_pedido','detalle_pedido.pedido','detalle_pedido.producto','producto_detalle','detalle_pedido.pedido.freeler','detalle_pedido.pedido.freeler.usuario'])
-        ->get();
-
+            ->with(['detalle_pedido', 'detalle_pedido.pedido', 'detalle_pedido.producto', 'producto_detalle', 'detalle_pedido.pedido.freeler', 'detalle_pedido.pedido.freeler.usuario'])
+            ->get();
 
         for ($i = 0; $i < count($productos); $i++) {
             $detalles = $productos[$i]->producto_detalle;
@@ -96,13 +89,13 @@ class PedidoController extends Controller
             $productos[$i]->preview_img = $path;
 
         }
-            
-        return $productos;
 
+        return $productos;
 
     }
 
-    public function listar_terceros(Request $request, $token){
+    public function listar_terceros(Request $request, $token)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -138,23 +131,21 @@ class PedidoController extends Controller
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        $this->usuario_id=$usuariofind->usuario_id;
+        $this->usuario_id = $usuariofind->usuario_id;
 
- 
-        $productos = Producto::whereHas('detalle_pedido',function($a){
-            $a->whereHas('pedido',function($b){
-                $b->whereHas('freeler',function($c){
-                    $c->where('usuario_id',$this->usuario_id);
+        $productos = Producto::whereHas('detalle_pedido', function ($a) {
+            $a->whereHas('pedido', function ($b) {
+                $b->whereHas('freeler', function ($c) {
+                    $c->where('usuario_id', $this->usuario_id);
                 });
             });
-        })->whereHas('empresa',function($b){
-            $b->whereHas('freeler',function($c){
-                $c->where('usuario_id','!=',$this->usuario_id);
+        })->whereHas('empresa', function ($b) {
+            $b->whereHas('freeler', function ($c) {
+                $c->where('usuario_id', '!=', $this->usuario_id);
             });
         })
-        ->with(['detalle_pedido','detalle_pedido.pedido','detalle_pedido.producto','producto_detalle','detalle_pedido.pedido.freeler','detalle_pedido.pedido.freeler.usuario'])
-        ->get();
-
+            ->with(['detalle_pedido', 'detalle_pedido.pedido', 'detalle_pedido.producto', 'producto_detalle', 'detalle_pedido.pedido.freeler', 'detalle_pedido.pedido.freeler.usuario'])
+            ->get();
 
         for ($i = 0; $i < count($productos); $i++) {
             $detalles = $productos[$i]->producto_detalle;
@@ -176,13 +167,13 @@ class PedidoController extends Controller
             $productos[$i]->preview_img = $path;
 
         }
-            
-        return $productos;
 
+        return $productos;
 
     }
 
-    public function pedidos_producto(Request $request, $idProducto,$token){
+    public function pedidos_producto(Request $request, $idProducto, $token)
+    {
         $rpta = new Respuesta;
 
         $token_var = Token::where('token', $token)->first();
@@ -226,20 +217,135 @@ class PedidoController extends Controller
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        
-        $this->usuario_id=$usuariofind->usuario_id;
-        $this->idProducto=$idProducto;
- 
-       $pedidos = Pedido::whereHas('detalle_pedido',function($a){
-           $a->whereHas('producto',function($b){
+
+        $this->usuario_id = $usuariofind->usuario_id;
+        $this->idProducto = $idProducto;
+
+        $pedidos = Pedido::whereHas('detalle_pedido', function ($a) {
+            $a->whereHas('producto', function ($b) {
                 $b->where('producto_id', $this->idProducto);
-           });
-       })->whereHas('freeler',function($a){
-            $a->where('usuario_id',$this->usuario_id);
-       })->with(['comprador','freeler','detalle_pedido','detalle_pedido.producto','comprador.usuario','freeler.usuario'])->get();
-            
+            });
+        })->whereHas('freeler', function ($a) {
+            $a->where('usuario_id', $this->usuario_id);
+        })->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])->get();
+
         return $pedidos;
 
+    }
 
+    public function enviar_pedido(Request $request, $idPedido, $token)
+    {
+        $rpta = new Respuesta;
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $pedidoFind = Pedido::where('pedido_id', $idPedido)->first();
+        if ($pedidoFind == null) {
+            $contenidoError = Error::getError(29);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        if ($pedidoFind->enviado == 0) {
+            $pedidoFind->enviado = 1;
+        } else {
+            $pedidoFind->enviado = 0;
+        }
+        $pedidoFind->save();
+
+        $contenidoError = Error::getError(29);
+        $rpta->tieneError = false;
+        return $rpta;
+    }
+
+    public function pagar_pedido(Request $request, $idPedido, $token)
+    {
+        $rpta = new Respuesta;
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $pedidoFind = Pedido::where('pedido_id', $idPedido)->first();
+        if ($pedidoFind == null) {
+            $contenidoError = Error::getError(29);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        if ($pedidoFind->pagado == 0) {
+            $pedidoFind->pagado = 1;
+        } else {
+            $pedidoFind->pagado = 0;
+        }
+        $pedidoFind->save();
+
+        $contenidoError = Error::getError(29);
+        $rpta->tieneError = false;
+        return $rpta;
     }
 }
