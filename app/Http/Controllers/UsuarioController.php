@@ -158,7 +158,7 @@ class UsuarioController extends Controller
         $password = $request->input('usuario_password');
 
         $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]])->first();
-        return $usuario;
+        
 
         if ($usuario == null) {
             $data = array(
