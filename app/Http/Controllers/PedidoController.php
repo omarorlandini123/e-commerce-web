@@ -135,6 +135,7 @@ class PedidoController extends Controller
         $productos = Producto::whereHas('detalle_pedido', function ($a) {
             $a->whereHas('pedido', function ($b) {
                 $b->whereHas('freeler', function ($c) {
+                    $c->where('usuario_id', $this->usuario_id);
                 });
             });
         })->whereHas('empresa', function ($b) {
