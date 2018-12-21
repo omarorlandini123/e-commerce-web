@@ -132,8 +132,10 @@ class ProductoController extends Controller
         }
 
         $comprador = null;
+        $direccion=null;
         if ($request->session()->has('comprador_id')) {
             $comprador = Comprador::where('comprador_id', $request->session()->get('comprador_id'))->first();
+            $direccion=$comprador->usuario->direccion;
         }
 
         $rpta->objeto = $producto;
@@ -143,6 +145,7 @@ class ProductoController extends Controller
             'rpta' => $rpta,
             'token' => $token,
             'cantidad' => $cantidad,
+            'direccion'=> $direccion,
             'comprador' => $comprador,
         );
 
@@ -201,6 +204,8 @@ class ProductoController extends Controller
         $ape_ma = $request->input('txt_ape_ma');
         $correo = $request->input('txt_correo');
         $dni = $request->input('txt_dni');
+        $direccion = $request->input('txt_direccion');
+        $envio = $request->input('txt_envio');
 
         $producto = Producto::where('producto_id', $idProducto)->first();
         if ($producto == null) {
@@ -227,6 +232,7 @@ class ProductoController extends Controller
             $usuario->usuario_apellidoPa = $ape_pa;
             $usuario->usuario_apellidoMa = $ape_ma;
             $usuario->usuario_email = $correo;
+            $usuario->direccion = $direccion;
             $usuario->save();
 
             if ($usuario->usuario_id > 0) {
@@ -249,6 +255,7 @@ class ProductoController extends Controller
             $pedido = new Pedido;
             $pedido->comprador_id = $comprador->comprador_id;
             $pedido->fecha_creacion = Carbon::now();
+            $pedido->direccion_envio=$envio;
             $pedido->freeler_shared_id = $freelerfind->freeler_id;
             $pedido->save();
             if ($pedido->pedido_id > 0) {
