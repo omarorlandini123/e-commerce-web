@@ -11,7 +11,7 @@ use App\TokenUsuario;
 use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class UsuarioController extends Controller
 {
     public function registro(Request $request, $token)
