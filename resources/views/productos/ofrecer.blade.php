@@ -13,12 +13,12 @@
         @endif
     
   
-    <br><br>
+    <br>
     <form action="{{route('producto.pedir',array('idProducto'=>$rpta->objeto->producto_id, 'token'=>$token))}}" method="post">
         @csrf
     <div class="row">
         @if ($comprador==null)            
-        <ul class="nav justify-content-center">
+        <ul class="nav nav-tabs justify-content-center">
             <li class="nav-item">
                 <a class="nav-link active" href="#">Ingresa</a>
             </li>
