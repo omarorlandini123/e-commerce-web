@@ -202,8 +202,6 @@ class UsuarioController extends Controller
             'direccion.required' => 'Escribe tu dirección',
         ]);
 
-        $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]])->first();
-
         if ($request->input('usuario_password')!=$request->input('usuario_password_rep')) {
             $data = array(
                 'usuario_password_rep' => 'Las contraseñas no coinciden',
