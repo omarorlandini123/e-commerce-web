@@ -157,8 +157,9 @@ class UsuarioController extends Controller
         $correo = $request->input('usuario_email');
         $password = $request->input('usuario_password');
 
-        $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]]);
+        $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]])->first();
         return $usuario;
+
         if ($usuario == null) {
             $data = array(
                 'errors' => array('usuario_email' => 'El usuario es incorrecto'),
