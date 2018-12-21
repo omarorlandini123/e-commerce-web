@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="form-group">
+                
                     <label for="direccion">Direccion</label>
                     <input type="text" class="form-control {{$errors->has('direccion')?"is-invalid":""}}" id="direccion"
                         name="direccion" placeholder="Ingresa tu direccion referencial">
@@ -58,7 +58,7 @@
                         Esta direccion es referencial para entregar tus productos
                     </div>
                     @endif
-                </div>
+                
             </div>
             <hr>
             <div class="col-sm-12">
