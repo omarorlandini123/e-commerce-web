@@ -18,14 +18,17 @@
         @csrf
     <div class="row">
         @if ($comprador==null)            
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Ingresa</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Regístrate</a>
-            </li>           
-        </ul>
+        <div class="col-sm-12">
+                <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Ingresa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Regístrate</a>
+                        </li>           
+                    </ul>
+        </div>
+       
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="formGroupExampleInput">Nombre</label>
