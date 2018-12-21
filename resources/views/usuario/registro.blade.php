@@ -11,7 +11,9 @@
                 <div class="form-group">
                     <label for="usuario_nombre">Nombre</label>
                     <input type="text" class="form-control {{$errors->has('usuario_nombre')?"is-invalid":""}}" id="usuario_nombre"
-                        name="usuario_nombre" placeholder="Ingresa tu nombre" required>
+                        name="usuario_nombre" placeholder="Ingresa tu nombre" 
+                        value="{{ old('usuario_nombre') }}"
+                        required>
                     @if ($errors->has('usuario_nombre'))
                     <div class="invalid-feedback">
                         {{$errors->first('usuario_nombre')}}
@@ -24,7 +26,9 @@
                 <div class="form-group">
                     <label for="usuario_apellidoPa">Apellido Paterno</label>
                     <input type="text" class="form-control {{$errors->has('usuario_apellidoPa')?"is-invalid":""}}" id="usuario_apellidoPa"
-                        name="usuario_apellidoPa" placeholder="Ingresa tu apellido" required>
+                        name="usuario_apellidoPa" placeholder="Ingresa tu apellido" 
+                        value="{{ old('usuario_apellidoPa') }}"
+                        required>
                     @if ($errors->has('usuario_apellidoPa'))
                     <div class="invalid-feedback">
                         {{$errors->first('usuario_apellidoPa')}}
@@ -36,7 +40,9 @@
                 <div class="form-group">
                     <label for="usuario_apellidoMa">Apellido Materno</label>
                     <input type="text" class="form-control {{$errors->has('usuario_apellidoMa')?"is-invalid":""}}" id="usuario_apellidoMa"
-                        name="usuario_apellidoMa" placeholder="Ingresa tu apellido" required>
+                        name="usuario_apellidoMa" placeholder="Ingresa tu apellido" 
+                        value="{{ old('usuario_apellidoMa') }}"
+                        required>
                     @if ($errors->has('usuario_apellidoMa'))
                     <div class="invalid-feedback">
                         {{$errors->first('usuario_apellidoMa')}}
@@ -48,7 +54,9 @@
                 
                     <label for="direccion">Direccion</label>
                     <input type="text" class="form-control {{$errors->has('direccion')?"is-invalid":""}}" id="direccion"
-                        name="direccion" placeholder="Ingresa tu direccion referencial">
+                        name="direccion" placeholder="Ingresa tu direccion referencial"
+                        value="{{ old('direccion') }}"
+                        >
                     @if ($errors->has('direccion'))
                     <div class="invalid-feedback">
                         {{$errors->first('direccion')}}
@@ -65,7 +73,9 @@
                 <div class="form-group">
                     <label for="usuario_email">Email</label>
                     <input type="text" class="form-control {{$errors->has('usuario_email')?"is-invalid":""}}" id="usuario_email"
-                        name="usuario_email" placeholder="Ingresa tu correo" required>
+                        name="usuario_email" placeholder="Ingresa tu correo" 
+                        value="{{ old('usuario_email') }}"
+                        required>
                     @if ($errors->has('usuario_email'))
                     <div class="invalid-feedback">
                         {{$errors->first('usuario_email')}}
@@ -77,7 +87,9 @@
                 <div class="form-group">
                     <label for="usuario_password">Contraseña</label>
                     <input type="password" class="form-control {{$errors->has('usuario_password')?"is-invalid":""}}" id="usuario_password"
-                        name="usuario_password" placeholder="Ingresa una contraseña" required>
+                        name="usuario_password" placeholder="Ingresa una contraseña"
+                        value="{{ old('usuario_password') }}"
+                        required>
                     @if ($errors->has('usuario_password'))
                     <div class="invalid-feedback">
                         {{$errors->first('usuario_password')}}
@@ -90,6 +102,7 @@
                     <label for="usuario_password_rep">Contraseña</label>
                     <input type="password" class="form-control {{$errors->has('usuario_password_rep')?"is-invalid":""}}"
                         id="usuario_password_rep" name="usuario_password_rep" placeholder="confirma la contraseña"
+                        value="{{ old('usuario_password_rep') }}"
                         required>
                     @if ($errors->has('usuario_password_rep'))
                     <div class="invalid-feedback">
