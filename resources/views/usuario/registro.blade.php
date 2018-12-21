@@ -2,63 +2,112 @@
 @section('contenido')
 
 <div class="col-sm-12 align-self-center">
-    @if ($rpta->tieneError)
-    <h3>{{$rpta->error}}</h3>
-    @else
-     <center><h3>{{$rpta->objeto->producto_nombre}}</h3></center> 
-    <div class="card bg-dark text-white">
-        <img class="card-img" src="/Producto/Preview/{{$rpta->objeto->producto_id}}/{{$token}}" alt="Card image">
-        <div class="card-img-overlay">
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-        </div>
-    </div>
-    <br><br>
+
     <form action="{{route('usuario.crear.comprador')}}" method="post">
         @csrf
-    <div class="row">
-        
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="formGroupExampleInput">Nombre</label>
-                <input type="text" disabled class="form-control" id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_nombre}}"placeholder="Example input">
-              </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Descripción</label>
-                <textarea class="form-control" disabled id="exampleFormControlTextarea1" rows="3">{{$rpta->objeto->producto_descripcion}}</textarea>
-              </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="formGroupExampleInput">Precio</label>
-                <input type="text" class="form-control"  disabled id="formGroupExampleInput"  value ="S/. {{number_format( $rpta->objeto->producto_precio, 2)   }}"placeholder="Example input">
-              </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="formGroupExampleInput">Válido hasta</label>
-                <input type="text" class="form-control" disabled id="formGroupExampleInput"  value ="{{$rpta->objeto->producto_hasta !=null? \Carbon\Carbon::parse($rpta->objeto->producto_hasta)->format('d/m/Y'): "Sin límite"}}"placeholder="Example input">
-              </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="formGroupExampleInput">Cantidad</label>
-                <input type="number" class="form-control" id="txt_cantidad" name="txt_cantidad"  placeholder="¿Cuantos quieres?" value ="">
-              </div>
-        </div>
+        <div class="row">
 
-        <div class="col-sm-12">
-                <div class="form-group" >                    
-                    <center><input type="submit" class="btn btn-success" value="Pedir" /></center>
-                  </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_nombre">Nombre</label>
+                    <input type="text" class="form-control {{$errors->has('usuario_nombre')?"is-invalid":""}}" id="usuario_nombre"
+                        name="usuario_nombre" placeholder="Ingresa tu nombre" required>
+                    @if ($errors->has('usuario_nombre'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_nombre')}}
+                    </div>
+                    @endif
+                </div>
             </div>
-       
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_apellidoPa">Apellido Paterno</label>
+                    <input type="text" class="form-control {{$errors->has('usuario_apellidoPa')?"is-invalid":""}}" id="usuario_apellidoPa"
+                        name="usuario_apellidoPa" placeholder="Ingresa tu apellido" required>
+                    @if ($errors->has('usuario_apellidoPa'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_apellidoPa')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_apellidoMa">Apellido Materno</label>
+                    <input type="text" class="form-control {{$errors->has('usuario_apellidoMa')?"is-invalid":""}}" id="usuario_apellidoMa"
+                        name="usuario_apellidoMa" placeholder="Ingresa tu apellido" required>
+                    @if ($errors->has('usuario_apellidoMa'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_apellidoMa')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" class="form-control {{$errors->has('direccion')?"is-invalid":""}}" id="direccion"
+                        name="direccion" placeholder="Ingresa tu direccion referencial">
+                    @if ($errors->has('direccion'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('direccion')}}
+                    </div>
+                    @else
+                    <div class="valid-feedback">
+                        Esta direccion es referencial para entregar tus productos
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <hr>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_email">Email</label>
+                    <input type="text" class="form-control {{$errors->has('usuario_email')?"is-invalid":""}}" id="usuario_email"
+                        name="usuario_email" placeholder="Ingresa tu correo" required>
+                    @if ($errors->has('usuario_email'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_email')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_password">Contraseña</label>
+                    <input type="password" class="form-control {{$errors->has('usuario_password')?"is-invalid":""}}" id="usuario_password"
+                        name="usuario_password" placeholder="Ingresa una contraseña" required>
+                    @if ($errors->has('usuario_password'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_password')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="usuario_password_rep">Contraseña</label>
+                    <input type="password" class="form-control {{$errors->has('usuario_password_rep')?"is-invalid":""}}"
+                        id="usuario_password_rep" name="usuario_password_rep" placeholder="confirma la contraseña"
+                        required>
+                    @if ($errors->has('usuario_password_rep'))
+                    <div class="invalid-feedback">
+                        {{$errors->first('usuario_password_rep')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <center><input type="submit" class="btn btn-success" value="Registrarme" /></center>
+                </div>
+            </div>
+
             <br>
-    </div>
-</form>
+        </div>
+    </form>
     @endif
 
 

@@ -178,16 +178,38 @@ class UsuarioController extends Controller
     }
     public function registrar_comprador(Request $request)
     {
-        $idProducto = $request->input('idProducto');
-        $token = $request->input('token');
 
-        return view();
+        return view('usuario.registro');
     }
     public function crear_comprador(Request $request)
     {
-        $idProducto = $request->input('idProducto');
-        $token = $request->input('token');
+        $request->validate([
+            'usuario_email' => 'required|unique:usuario|max:255',
+            'usuario_password' => 'required|max:255',
+            'usuario_password_rep' => 'required|max:255',
+            'usuario_nombre' => 'required|max:255',
+            'usuario_apellidoPa' => 'required|max:255',
+            'usuario_apellidoMa' => 'required|max:255',
+            'direccion' => 'required|max:255',
+        ], [
+            'usuario_email.required' => 'Escribe tu correo',
+            'usuario_email.unique' => 'El correo ya está registrado por otra persona',
+            'usuario_password.required' => 'Escribe tu contraseña',
+            'usuario_password_rep.required' => 'Confirma tu contraseña',
+            'usuario_nombre.required' => 'Escribe tu nombre',
+            'usuario_apellidoPa.required' => 'Escribe tu apellido',
+            'usuario_apellidoMa.required' => 'Escribe tu apellido',
+            'direccion.required' => 'Escribe tu dirección',
+        ]);
 
+        $usuario = Usuario::where([['usuario_email', $correo], ['usuario_password', $password]])->first();
+
+        if ($request->input('usuario_password')!=$request->input('usuario_password_rep')) {
+            $data = array(
+                'usuario_password_rep' => 'Las contraseñas no coinciden',
+            );
+            return view('usuario.registro')->withErrors($data);
+        }
         return view();
     }
 
