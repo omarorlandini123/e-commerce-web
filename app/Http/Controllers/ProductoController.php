@@ -62,7 +62,7 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        session(['usuario_id' => $usuariofind->usuario_id]);
+        
         $producto = Producto::where('producto_id', $idProducto)->first();
         if ($producto == null) {
             $contenidoError = Error::getError(29);
