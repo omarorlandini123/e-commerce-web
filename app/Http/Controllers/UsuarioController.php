@@ -158,7 +158,7 @@ class UsuarioController extends Controller
 
         if ($usuario == null) {
             $data = array(
-                'usuario_email' => 'Tu contraseña no es correcta',
+                'usuario_password' => 'Tu contraseña no es correcta',
             );
             return view('usuario.login')->withErrors($data);
         }

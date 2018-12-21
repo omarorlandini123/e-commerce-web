@@ -27,7 +27,12 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="usuario_password">Contraseña</label>
-                    <input type="text" class="form-control" id="usuario_password" name="usuario_password" value="" placeholder="Ingresa tu contraseña">
+                    <input type="text" class="form-control {{$errors->has('usuario_password')?"is-invalid":""}} " id="usuario_password" name="usuario_password" value="" placeholder="Ingresa tu contraseña">
+                    @if ($errors->has('usuario_password'))
+                    <div class="invalid-feedback">
+                            {{$errors->first('usuario_password')}}
+                    </div>
+                    @endif
                 </div>
             </div>
            
