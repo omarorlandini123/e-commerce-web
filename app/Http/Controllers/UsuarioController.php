@@ -9,8 +9,17 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
+use App\Almacen;
+use App\Comprador;
+use App\Empresa;
+use App\ItemAlmacen;
+use App\Producto;
+use App\ProductoDetalle;
+use App\Pedido;
+use App\PedidoDetalle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
