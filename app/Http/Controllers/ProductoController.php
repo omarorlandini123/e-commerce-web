@@ -14,6 +14,8 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
+use App\Pedido;
+use App\PedidoDetalle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
