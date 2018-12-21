@@ -251,7 +251,8 @@ class ProductoController extends Controller
                 $data = array(
                     'exito' =>'hemos registrado tu pedido :D'
                 );
-        
+                $request->session()->forget('producto_id');
+                $request->session()->forget('producto_token');
                 return view('principal.success')->with($data);
             }
         }
