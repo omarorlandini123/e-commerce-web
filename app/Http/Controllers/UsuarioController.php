@@ -183,7 +183,10 @@ class UsuarioController extends Controller
     }
     public function crear_comprador(Request $request)
     {
-        $request->validate([
+       
+
+        $validator = Validator::make($request->all(),
+        [
             'usuario_email' => 'required|unique:usuario|max:255',
             'usuario_password' => 'required|max:255',
             'usuario_password_rep' => 'required|max:255',
@@ -200,13 +203,18 @@ class UsuarioController extends Controller
             'usuario_apellidoPa.required' => 'Escribe tu apellido',
             'usuario_apellidoMa.required' => 'Escribe tu apellido',
             'direccion.required' => 'Escribe tu dirección',
-        ]);
+        ]
+		);
+
+		if ($validator->fails()) {
+			return redirect()->back()->withInput()->withErrors($validator);
+		}
 
         if ($request->input('usuario_password')!=$request->input('usuario_password_rep')) {
             $data = array(
                 'usuario_password_rep' => 'Las contraseñas no coinciden',
             );
-            return view('usuario.registro')->withErrors($data);
+            return redirect()->back()->withInput()->withErrors($data);
         }
         return view();
     }
