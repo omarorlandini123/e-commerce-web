@@ -234,6 +234,8 @@ class PedidoController extends Controller
            $a->whereHas('producto',function($b){
                 $b->where('producto_id', $this->idProducto);
            });
+       })->whereHas('freeler',function($a){
+            $a->where('usuario_id',$this->usuario_id);
        })->with(['comprador','freeler','detalle_pedido','detalle_pedido.producto','comprador.usuario','freeler.usuario'])->get();
             
         return $pedidos;
