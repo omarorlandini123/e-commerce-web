@@ -68,6 +68,8 @@ Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
 Route::get('/Afiche/Preview/{idAfiche}/{token}','AficheController@getPreview');
 Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
+//------Afiche WEB
+Route::get('/Afiche/{idAfiche}/{token}','AficheController@show');
 
 
 Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');

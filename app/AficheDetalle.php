@@ -18,4 +18,8 @@ class AficheDetalle extends Model
         return $this->belongsTo('App\Producto','producto_id','producto_id');
     }
 
+    public function grupo_afiche(){
+        return $this->belongsTo('App\GrupoAfiche','grupo_afiche_id','grupo_afiche_id');
+    }
+
 }

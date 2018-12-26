@@ -22,5 +22,9 @@ class Pedido extends Model
         return $this->belongsTo('App\Freeler','freeler_shared_id','freeler_id');
     }
 
+    public function afiche(){
+        return $this->belongsTo('App\Afiche','afiche_id','afiche_id');
+    }
+
 
 }
