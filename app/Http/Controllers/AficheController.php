@@ -7,11 +7,11 @@ use App\AficheDetalle;
 use App\Empresa;
 use App\Error;
 use App\Freeler;
+use App\ItemAlmacen;
 use App\Producto;
 use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
-use App\ItemAlmacen;
 use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -110,7 +110,7 @@ class AficheController extends Controller
     public function eliminar(Request $request, $idAfiche, $token)
     {
         $rpta = new Respuesta;
-        
+
         $token_var = Token::where('token', $token)->first();
 
         if ($token_var == null || count($token_var) == 0) {
@@ -235,11 +235,20 @@ class AficheController extends Controller
         $descripcion = $request->input('descripcion');
         $productos = $request->input('productos');
 
+        $productos_arr = Producto::whereRaw(" producto_id in (" . $productos . ") ")->get();
+
+        if (count($productos_arr) == 0) {
+            $contenidoError = Error::getError(25);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
         $afiche = new Afiche;
         $afiche->afiche_nombre = $nombre;
         $afiche->afiche_descripcion = $descripcion;
         $afiche->afiche_fecha_creacion = Carbon::now();
-        $afiche->empresa_id = $empresa->empresa_id;
+        $afiche->empresa_id = $productos_arr[0]->empresa->empresa_id;
         $afiche->activo = 1;
 
         if ($request->hasFile('preview')) {
@@ -248,8 +257,6 @@ class AficheController extends Controller
             $afiche->preview_img = $nombrePreview;
         }
         $afiche->save();
-
-        $productos_arr = Producto::whereRaw(" producto_id in (" . $productos . ") ")->get();
 
         if (count($productos_arr) > 0) {
             foreach ($productos_arr as $producto) {
@@ -270,7 +277,8 @@ class AficheController extends Controller
 
     }
 
-    public function show(Request $request, $idAfiche, $token){
+    public function show(Request $request, $idAfiche, $token)
+    {
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
@@ -311,22 +319,20 @@ class AficheController extends Controller
             return $rpta;
         }
 
-        
-        $afiche = Afiche::where('afiche_id',$idAfiche)->first();
-        if($afiche == null){
+        $afiche = Afiche::where('afiche_id', $idAfiche)->first();
+        if ($afiche == null) {
             $contenidoError = Error::getError(28);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
 
-        $data= array(
-            'afiche'=>$afiche,
-            'token'=>$token,
+        $data = array(
+            'afiche' => $afiche,
+            'token' => $token,
         );
 
         return view('afiches.index')->with($data);
 
     }
 }
-
