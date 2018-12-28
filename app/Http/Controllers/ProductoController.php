@@ -504,6 +504,15 @@ class ProductoController extends Controller
         $tercerizable = $request->input('tercerizable');
         $items = $request->input('items');
 
+        $items_arr = ItemAlmacen::whereRaw(" item_almacen_id in (" . $items . ") ")->get();
+
+        if (count($items_arr) ==0) {
+            $contenidoError = Error::getError(25);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
         $producto = new Producto;
         $producto->producto_nombre = $nombre;
         $producto->producto_descripcion = $descripcion;
@@ -517,7 +526,7 @@ class ProductoController extends Controller
             $producto->producto_hasta = $date;
         }
 
-        $producto->empresa_id = $empresa->empresa_id;
+        $producto->empresa_id = $items_arr[0]->empresa->empresa_id;
         $producto->activo = 1;
         if ($request->hasFile('preview')) {
             $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
@@ -526,7 +535,7 @@ class ProductoController extends Controller
         }
         $producto->save();
 
-        $items_arr = ItemAlmacen::whereRaw(" item_almacen_id in (" . $items . ") ")->get();
+        
 
         if (count($items_arr) > 0) {
             foreach ($items_arr as $item) {
