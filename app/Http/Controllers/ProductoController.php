@@ -526,7 +526,7 @@ class ProductoController extends Controller
             $producto->producto_hasta = $date;
         }
 
-        $producto->empresa_id = $items_arr[0]->empresa->empresa_id;
+        $producto->empresa_id = $items_arr[0]->almacen->empresa->empresa_id;
         $producto->activo = 1;
         if ($request->hasFile('preview')) {
             $nombrePreview = md5(uniqid(rand(), true)) . '.jpg';
