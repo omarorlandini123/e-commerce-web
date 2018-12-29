@@ -70,6 +70,7 @@ Route::get('/Afiche/Preview/{idAfiche}/{token}','AficheController@getPreview');
 Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
 Route::post('/GrupoAfiche/Crear/{token}','AficheController@crear_grupo');
 Route::post('/GrupoAfiche/Asignar/{token}','AficheController@asignar_grupo');
+Route::post('/Afiche/Producto/Quitar/{token}','AficheController@quitar_producto');
 //------Afiche WEB
 Route::get('/Afiche/{idAfiche}/{token}','AficheController@show');
 
