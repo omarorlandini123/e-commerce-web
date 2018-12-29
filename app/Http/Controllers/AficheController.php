@@ -331,7 +331,7 @@ class AficheController extends Controller
         $nombre = $request->input('nombre');
         $afiche_id = $request->input('afiche_id');
         $producto_id = $request->input('producto_id');
-        $grupo_id = $request->input('grupo_id');
+        $grupo_id = $request->input('grupo_afiche_id');
 
         $afiche = Afiche::where('afiche_id', $afiche_id)->first();
         if ($afiche == null) {
@@ -363,9 +363,7 @@ class AficheController extends Controller
 
         $afiche_detalle->grupo_afiche_id=$grupo_id;
         $afiche_detalle->save();
-        
-
-       
+               
         $rpta->tieneError = false;
         return $rpta;
     }
