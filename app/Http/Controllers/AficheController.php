@@ -64,7 +64,10 @@ class AficheController extends Controller
                 $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id', session('usuario_id'));
                 });
-            })->with('empresa')->where('activo', 1)->get();
+            })->with('empresa')
+            ->with('grupo_afiche')
+            ->with('grupo_afiche.afiche')
+            ->where('activo', 1)->get();
 
         } else {
 
@@ -72,7 +75,10 @@ class AficheController extends Controller
                 $a->whereHas('freeler', function ($b) {
                     $b->where('usuario_id', session('usuario_id'));
                 });
-            })->with('empresa')->where([['activo', 1], ['afiche_nombre', 'like', '%' . $condicion . '%']])->get();
+            })->with('empresa')
+            ->with('grupo_afiche')
+            ->with('grupo_afiche.afiche')
+            ->where([['activo', 1], ['afiche_nombre', 'like', '%' . $condicion . '%']])->get();
 
         }
 
