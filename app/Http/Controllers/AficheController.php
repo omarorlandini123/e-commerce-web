@@ -68,6 +68,7 @@ class AficheController extends Controller
             })->with('empresa')
             ->with('grupo_afiche')
             ->with('grupo_afiche.afiche_detalle')
+            ->with('grupo_afiche.afiche_detalle.producto')
             ->with('grupo_afiche.afiche')
             ->where('activo', 1)->get();
 
@@ -80,6 +81,7 @@ class AficheController extends Controller
             })->with('empresa')
             ->with('grupo_afiche')
             ->with('grupo_afiche.afiche_detalle')
+            ->with('grupo_afiche.afiche_detalle.producto')
             ->with('grupo_afiche.afiche')
             ->where([['activo', 1], ['afiche_nombre', 'like', '%' . $condicion . '%']])->get();
 
