@@ -26,6 +26,7 @@ class VerifyCsrfToken extends Middleware
         '/ItemAlmacen/Actualizar/*',
         '/Producto/Crear/*',
         '/Afiche/Crear/*',
-        '/GrupoAfiche/*'
+        '/GrupoAfiche/*',
+        '/Afiche/Producto/*'
     ];
 }
