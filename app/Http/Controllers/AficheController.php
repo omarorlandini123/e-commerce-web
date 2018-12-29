@@ -283,6 +283,91 @@ class AficheController extends Controller
         return $rpta;
 
     }
+
+    public function asignar_grupo(Request $request, $token){
+        $rpta = new Respuesta;
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            return Error::getError(5);
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $freeler = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
+        if ($freeler == null) {
+            $contenidoError = Error::getError(24);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+        
+
+        $nombre = $request->input('nombre');
+        $afiche_id = $request->input('afiche_id');
+        $producto_id = $request->input('producto_id');
+        $grupo_id = $request->input('grupo_id');
+
+        $afiche = Afiche::where('afiche_id', $afiche_id)->first();
+        if ($afiche == null) {
+            $contenidoError = Error::getError(28);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $producto = Producto::where('producto_id', $producto_id)->first();
+        if ($producto == null) {
+            $contenidoError = Error::getError(29);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $grupo = GrupoAfiche::where('grupo_afiche_id', $grupo_id)->first();
+        if ($grupo == null) {
+            $contenidoError = Error::getError(32);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+        
+        $afiche_detalle = AficheDetalle::where('afiche_id',$afiche_id)
+        ->where('producto_id', $producto_id)
+        ->first();
+
+        $afiche_detalle->grupo_afiche_id=$grupo_id;
+        $afiche_detalle->save();
+        
+
+       
+        $rpta->tieneError = false;
+        return $rpta;
+    }
+
     public function crear_grupo(Request $request, $token)
     {
         $rpta = new Respuesta;

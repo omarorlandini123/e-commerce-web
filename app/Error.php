@@ -93,6 +93,8 @@ class Error
                 return new Error(Error::getErrorCode($E_code), "Ya existe un usuario con ese correo");
             case 31:
                 return new Error(Error::getErrorCode($E_code), "No se ha encontrado el pedido");
+            case 32:
+                return new Error(Error::getErrorCode($E_code), "No existe el grupo solicitado");
         }
     }
 
