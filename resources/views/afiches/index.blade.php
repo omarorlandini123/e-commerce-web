@@ -13,6 +13,8 @@
             <p>{{$afiche->empresa->empresa_nombre}}</p>
         </div>
     </div>
+    <form action="{{route('afiche.pedir',array('idAfiche'=>$afiche->afiche_id, 'token'=>$token))}}" method="get">
+            @csrf
     <div class="row">
         <div class="col-sm-12">
             @if($afiche->afiche_detalle!=null && count($afiche->afiche_detalle)>0)
@@ -23,21 +25,31 @@
                     @endforeach 
                     <hr>
                 @endforeach
+                @php
+                    $adicionales=count($afiche->grupo_afiche)>0 && count($afiche->detalle_sin_grupo())>0;
+                @endphp
 
-                @if(count($afiche->grupo_afiche)>0 && count($afiche->detalle_sin_grupo())>0)
+                @if($adicionales)
                     <h3>Productos adicionales</h3>
                 @endif
 
                 @foreach ($afiche->detalle_sin_grupo() as $detalle)
                     @include('afiches.cardProducto')
                 @endforeach
-                          
+
+                @if($adicionales)
+                    <hr>
+                @endif         
+                
+                <h3>Total de tu Pedido</h3>
+                <p>Vas a pagar en total: S/.<strong id="total_pago">0.00</strong></p>
+                <center><input type="submit" class="btn btn-primary" value="Pedir"/></center>
             @else
             <h3>Este afiche no tiene productos :(</h3>
             @endif
         </div>
     </div>
-
+    </form>
 </div>
 
 

@@ -177,6 +177,12 @@ class UsuarioController extends Controller
         if ($request->session()->has('producto_id')) {
             $idProducto = $request->session()->get('producto_id');
         }
+
+        $idAfiche = null;
+        if ($request->session()->has('afiche_id')) {
+            $idAfiche = $request->session()->get('afiche_id');
+        }
+
         $token = null;
         if ($request->session()->has('producto_token')) {
             $token = $request->session()->get('producto_token');
@@ -194,7 +200,9 @@ class UsuarioController extends Controller
             return view('principal.success')->with($data);
         }
         
-        
+        if ($idAfiche != null && $token != null) {
+            return redirect()->route('afiche.pedir', ['idAfiche' => $idAfiche, 'token' => $token]);
+        }
 
         if ($idProducto != null && $token != null) {
             return redirect()->route('producto.pedir', ['idProducto' => $idProducto, 'token' => $token]);

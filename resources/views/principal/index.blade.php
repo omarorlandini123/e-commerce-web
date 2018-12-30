@@ -7,11 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Freeler ">
     @if (!empty($rpta))
-      <meta property="og:image" content="http://test.exac-tic.com/Producto/PreviewTiny/{{$rpta->objeto->producto_id}}/{{$token}}" />
+      <meta property="og:image" content="http://freeler.pe/Producto/PreviewTiny/{{$rpta->objeto->producto_id}}/{{$token}}" />
       <meta name="description" content="{{$rpta->objeto->producto_nombre}} :: {{$rpta->objeto->producto_descripcion}} ">
       <title>{{$rpta->objeto->empresa->empresa_nombre}}</title>
     @endif
     
+    @if (!empty($afiche))
+      <meta property="og:image" content="http://freeler.pe/Empresa/Preview/{{$afiche->empresa->empresa_id}}/{{$token}}" />
+      <meta name="description" content="{{$afiche->afiche_nombre}} :: {{$afiche->afiche_descripcion}} ">
+      <title>{{$afiche->empresa->empresa_nombre}}</title>
+    @endif
     
     
     <meta name="csrf-token" content="{{ csrf_token() }}">

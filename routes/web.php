@@ -62,7 +62,7 @@ Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@elimina
 //------Producto WEB
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
 Route::post('/Producto/Pedir/{idProducto}/{token}','ProductoController@confirmar')->name('pedido.confirmar');
-Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');;
+Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');
 
 Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
@@ -73,6 +73,8 @@ Route::post('/GrupoAfiche/Asignar/{token}','AficheController@asignar_grupo');
 Route::post('/Afiche/Producto/Quitar/{token}','AficheController@quitar_producto');
 //------Afiche WEB
 Route::get('/Afiche/{idAfiche}/{token}','AficheController@show');
+Route::post('/Afiche/Pedir/{idAfiche}/{token}','AficheController@confirmar')->name('afiche.pedido.confirmar');
+Route::get('/Afiche/Pedir/{idAfiche}/{token}','AficheController@pedir')->name('afiche.pedir');
 
 
 Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');
