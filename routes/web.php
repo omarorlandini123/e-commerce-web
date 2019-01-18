@@ -66,6 +66,7 @@ Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->n
 
 Route::post('/Afiche/Crear/{token}','AficheController@crear');
 Route::get('/Afiche/Listar/{token}/{condicion}','AficheController@listar');
+Route::get('/Afiche/ListarTerceros/{token}/{condicion}','AficheController@listar_terceros');
 Route::get('/Afiche/Preview/{idAfiche}/{token}','AficheController@getPreview');
 Route::get('/Afiche/Eliminar/{idAfiche}/{token}','AficheController@eliminar');
 Route::post('/GrupoAfiche/Crear/{token}','AficheController@crear_grupo');
