@@ -58,7 +58,7 @@ class PedidoController extends Controller
         $productos = Producto::whereHas('detalle_pedido', function ($a) {
             $a->whereHas('pedido', function ($b) {
                 $b->whereHas('freeler', function ($c) {
-                });
+                })->WhereNull('afiche_id');
             });
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
