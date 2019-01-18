@@ -230,7 +230,7 @@ class PedidoController extends Controller
             'pedido.detalle_pedido.producto.producto_detalle.item_almacen.almacen.empresa', 
             'pedido.freeler', 
             'pedido.freeler.usuario',
-            'pedido.empresa'])
+            'empresa'])
         ->get();
 
   
