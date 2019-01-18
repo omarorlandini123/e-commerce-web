@@ -10,8 +10,10 @@
         </div>
         <div class="col-7" style="margin-top: 25px;">
             <h3>{{$afiche->afiche_nombre}}</h3>
-            <p>{{$afiche->empresa->empresa_nombre}}</p>
+            <p><strong>{{$afiche->empresa->empresa_nombre}}</strong></p>
+            <p>{{$afiche->afiche_descripcion}}</p>
         </div>
+
     </div>
     <form action="{{route('afiche.pedir',array('idAfiche'=>$afiche->afiche_id, 'token'=>$token))}}" method="get">
             @csrf

@@ -15,6 +15,8 @@ use App\Respuesta;
 use App\Token;
 use App\TokenUsuario;
 use App\Usuario;
+use App\Pedido;
+use App\PedidoDetalle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -291,14 +293,41 @@ class AficheController extends Controller
 
     public function pedir(Request $request, $idAfiche, $token)
     {
+        $input = $request->all();
+        $opciones = array_keys($input);
+        $productos = array();
+        $contieneProductos=false;
+        //Si la solicitud contiene lista de productos
+        foreach ($opciones as $opcion) {
+            if (strpos($opcion, 'prod_') !== false) {
+                $contieneProductos=true;
+            }
+        }
+
+        if($contieneProductos){
+            foreach ($opciones as $opcion) {
+                if (strpos($opcion, 'prod_') !== false) {
+                    $idProducto = substr($opcion, 5);
+                    $cantidad = $request->input($opcion);
+                    $producto = Producto::where('producto_id', $idProducto)->first();
+                    if ($producto != null) {
+                        $producto->cantidad_sol = $cantidad;
+                        $productos[] = $producto;
+                    }
+                }
+            }
+            $request->session()->put('productos_cants', $productos);
+        }else{
+            if ($request->session()->has('productos_cants')) {
+                $productos = $request->session()->get('productos_cants');
+            }
+        }
+        
         if (!$request->session()->has('comprador_id')) {
             $request->session()->put('afiche_id', $idAfiche);
             $request->session()->put('producto_token', $token);
             return redirect()->route('usuario.login');
         }
-
-        $input = $request->all();
-        $opciones = array_keys($input);
 
         $rpta = new Respuesta;
 
@@ -351,19 +380,7 @@ class AficheController extends Controller
             $direccion = $comprador->usuario->direccion;
         }
 
-        $productos = array();
-
-        foreach ($opciones as $opcion) {
-            if (strpos($opcion, 'prod_') !== false) {
-                $idProducto = substr($opcion, 5);
-                $cantidad = $request->input($opcion);
-                $producto = Producto::where('producto_id', $idProducto)->first();
-                if ($producto != null) {
-                    $producto->cantidad_sol = $cantidad;
-                    $productos[] = $producto;
-                }
-            }
-        }
+        
 
         $data = array(
             'afiche' => $afiche,
@@ -373,9 +390,149 @@ class AficheController extends Controller
             'comprador' => $comprador,
         );
 
-        //dd($data);
-
         return view('afiches.pedir')->with($data);
+    }
+
+    public function confirmar(Request $request, $idAfiche, $token)
+    {
+        $input = $request->all();
+        $opciones = array_keys($input);
+        $productos = array();
+        $contieneProductos=false;
+        //Si la solicitud contiene lista de productos
+        foreach ($opciones as $opcion) {
+            if (strpos($opcion, 'prod_') !== false) {
+                $contieneProductos=true;
+            }
+        }
+
+        if($contieneProductos){
+            foreach ($opciones as $opcion) {
+                if (strpos($opcion, 'prod_') !== false) {
+                    $idProducto = substr($opcion, 5);
+                    $cantidad = $request->input($opcion);
+                    $producto = Producto::where('producto_id', $idProducto)->first();
+                    if ($producto != null) {
+                        $producto->cantidad_sol = $cantidad;
+                        $productos[] = $producto;
+                    }
+                }
+            }
+            $request->session()->put('productos_cants', $productos);
+        }else{
+            if ($request->session()->has('productos_cants')) {
+                $productos = $request->session()->get('productos_cants');
+            }
+        }
+
+        if (!$request->session()->has('comprador_id')) {
+            $request->session()->put('afiche_id', $idAfiche);
+            $request->session()->put('producto_token', $token);
+          
+            return redirect()->route('usuario.login');
+        }
+
+        $rpta = new Respuesta;
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $freeler = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
+        if ($freeler == null) {
+            $contenidoError = Error::getError(24);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $afiche = Afiche::where('afiche_id', $idAfiche)->first();
+        if ($afiche == null) {
+            $contenidoError = Error::getError(28);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $comprador = null;
+        $direccion = null;
+        if ($request->session()->has('comprador_id')) {
+            $comprador = Comprador::where('comprador_id', $request->session()->get('comprador_id'))->first();
+            $direccion = $comprador->usuario->direccion;
+        }
+
+        $pedido = new Pedido;
+        $pedido->fecha_creacion = Carbon::now();
+        $pedido->comprador_id = $comprador->comprador_id;
+        $pedido->freeler_shared_id = $freeler->freeler_id;
+        $pedido->afiche_id = $afiche->afiche_id;
+        $pedido->direccion_envio = $request->input('txt_envio');
+        $pedido->save();
+
+        if ($pedido->pedido_id > 0) {
+
+            foreach ($productos as $producto) {
+                $detPedido = new PedidoDetalle;
+                $detPedido->cantidad = $producto->cantidad_sol;
+                $detPedido->producto_id = $producto->producto_id;
+                $detPedido->pedido_id = $pedido->pedido_id;
+                $detPedido->save();
+            }
+
+            if ($detPedido->detalle_pedido_id > 0) {
+                $data = array(
+                    'exito' => 'hemos registrado tu pedido :D',
+                );
+                $request->session()->forget('producto_id');
+                $request->session()->forget('producto_token');
+                return view('principal.success')->with($data);
+            }
+        }
+
+        $data = array(
+            'error' => 'no se ha registrado tu pedido :(',
+        );
+
+        return view('principal.error')->with($data);
+
     }
 
     public function quitar_producto(Request $request, $token)
