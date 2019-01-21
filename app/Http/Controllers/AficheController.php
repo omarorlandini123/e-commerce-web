@@ -66,7 +66,6 @@ class AficheController extends Controller
 
         $afiches = Afiche::whereHas('empresa', function ($a) {
             $a->whereHas('freeler', function ($b) {
-                $b->where('usuario_id', session('usuario_id'));
             });
         })->with('empresa')
             ->with('grupo_afiche')
