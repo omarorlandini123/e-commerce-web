@@ -11,7 +11,6 @@ use App\TokenUsuario;
 use App\Usuario;
 use App\UsuarioEmpresa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class EmpresaController extends Controller
@@ -75,7 +74,7 @@ class EmpresaController extends Controller
             return Error::getError(9);
         }
 
-        $almacenFind = Almacen::where('almacen_id',$idAlmacen)->first();
+        $almacenFind = Almacen::where('almacen_id', $idAlmacen)->first();
         if ($almacenFind == null) {
             return Error::getError(11);
         }
@@ -92,7 +91,7 @@ class EmpresaController extends Controller
             $img->resize(500, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-    
+
             return $img->response();
         }
 
@@ -125,13 +124,16 @@ class EmpresaController extends Controller
 
         $path = storage_path('app/preview_empresa/') . $empresaFind->preview_img;
 
-        if (file_exists($path)) {
-            $img = Image::make($path);
-            $img->resize(500, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-    
-            return $img->response();
+        if ($path != "") {
+
+            if (file_exists($path)) {
+                $img = Image::make($path);
+                $img->resize(500, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+
+                return $img->response();
+            }
         }
 
         return "";
@@ -249,8 +251,6 @@ class EmpresaController extends Controller
         if ($tokenUsuarioFound == null) {
             return Error::getError(9);
         }
-
-       
 
         $freelerFind = Freeler::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
         if ($freelerFind == null) {

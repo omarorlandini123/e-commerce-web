@@ -13,7 +13,7 @@
     @endif
     
     @if (!empty($afiche))
-      <meta property="og:image" content="http://freeler.pe/Empresa/Preview/{{$afiche->empresa->empresa_id}}/{{$token}}" />
+      <meta property="og:image" content="http://freeler.pe/Empresa/Preview/{{$afiche->empresa_id}}/{{$token}}" />
       <meta name="description" content="{{$afiche->afiche_nombre}} :: {{$afiche->afiche_descripcion}} ">
       <title>{{$afiche->empresa->empresa_nombre}}</title>
     @endif
