@@ -277,8 +277,12 @@ class PedidoController extends Controller
         }
         $this->usuario_id = $usuariofind->usuario_id;
 
+       
+
+
         $afiches = Afiche::whereHas('pedido', function ($b) {
             $b->whereHas('freeler', function ($c) {
+                $c->where('usuario_id', $this->usuario_id);
             })->WhereNotNull('afiche_id');
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
