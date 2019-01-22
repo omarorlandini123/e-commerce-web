@@ -418,9 +418,6 @@ class PedidoController extends Controller
         $this->idAfiche = $idAfiche;
 
         $pedidos= Pedido::where('afiche_id',$idAfiche)
-        ->whereHas('detalle_pedido',function($a){
-            $a->where('cantidad','>','0');
-        })
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])
         ->get();
 
