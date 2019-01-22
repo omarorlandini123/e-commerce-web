@@ -15,7 +15,7 @@
     
     @if (!empty($afiche))
       <meta property="og:image" content="http://freeler.pe/Empresa/Preview/{{$afiche->empresa_id}}/{{$token}}" />
-      <meta name="og:title" content="{{$rpta->objeto->producto_nombre}}  ">
+      <meta name="og:title" content="{{$afiche->afiche_nombre}}  ">
       <meta name="og:description" content=" {{$afiche->afiche_descripcion}}  ">
       <title>{{$afiche->empresa->empresa_nombre}}</title>
     @endif
