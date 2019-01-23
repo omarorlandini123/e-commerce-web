@@ -78,7 +78,7 @@ Route::get('/Afiche/{idAfiche}/{token}','AficheController@show');
 Route::post('/Afiche/Pedir/{idAfiche}/{token}','AficheController@confirmar')->name('afiche.pedido.confirmar');
 Route::get('/Afiche/Pedir/{idAfiche}/{token}','AficheController@pedir')->name('afiche.pedir');
 
-
+ 
 Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');
 Route::get('/Pedido/Terceros/{token}','PedidoController@listar_terceros')->name('pedido.terceros');
 

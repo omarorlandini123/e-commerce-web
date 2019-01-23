@@ -59,7 +59,8 @@ class PedidoController extends Controller
         $productos = Producto::whereHas('detalle_pedido', function ($a) {
             $a->whereHas('pedido', function ($b) {
                 $b->whereHas('freeler', function ($c) {
-                })->WhereNull('afiche_id');
+                })->WhereNull('afiche_id')
+                ->where('eliminado',0);
             });
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
@@ -137,7 +138,7 @@ class PedidoController extends Controller
             $a->whereHas('pedido', function ($b) {
                 $b->whereHas('freeler', function ($c) {
                     $c->where('usuario_id', $this->usuario_id);
-                });
+                })->where('eliminado',0);
             });
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
@@ -214,7 +215,8 @@ class PedidoController extends Controller
 
         $afiches = Afiche::whereHas('pedido', function ($b) {
             $b->whereHas('freeler', function ($c) {
-            })->WhereNotNull('afiche_id');
+            })->WhereNotNull('afiche_id')
+            ->where('eliminado',0);
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
                 $c->where('usuario_id', $this->usuario_id);
@@ -283,7 +285,8 @@ class PedidoController extends Controller
         $afiches = Afiche::whereHas('pedido', function ($b) {
             $b->whereHas('freeler', function ($c) {
                 $c->where('usuario_id', $this->usuario_id);
-            })->WhereNotNull('afiche_id');
+            })->WhereNotNull('afiche_id')
+            ->where('eliminado',0);
         })->whereHas('empresa', function ($b) {
             $b->whereHas('freeler', function ($c) {
                 $c->where('usuario_id', '!=', $this->usuario_id);
@@ -364,7 +367,8 @@ class PedidoController extends Controller
             });
         })->whereHas('freeler', function ($a) {
             $a->where('usuario_id', $this->usuario_id);
-        })->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])->get();
+        })->where('eliminado',0)
+        ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])->get();
 
         return $pedidos;
 
@@ -422,6 +426,7 @@ class PedidoController extends Controller
         $this->idAfiche = $idAfiche;
 
         $pedidos= Pedido::where('afiche_id',$idAfiche)
+        ->where('eliminado',0)
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])
         ->get();
 
@@ -545,6 +550,64 @@ class PedidoController extends Controller
             $pedidoFind->pagado = 1;
         } else {
             $pedidoFind->pagado = 0;
+        }
+        $pedidoFind->save();
+
+        $contenidoError = Error::getError(29);
+        $rpta->tieneError = false;
+        return $rpta;
+    }
+
+    public function eliminar_pedido(Request $request, $idPedido, $token)
+    {
+        $rpta = new Respuesta;
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $token_var = Token::where('token', $token)->first();
+
+        if ($token_var == null || count($token_var) == 0) {
+            $contenidoError = Error::getError(5);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
+        if ($tokenUsuarioFound == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $usuariofind = Usuario::where('usuario_id', $tokenUsuarioFound->usuario_usuario_id)->first();
+        if ($usuariofind == null) {
+            $contenidoError = Error::getError(9);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        $pedidoFind = Pedido::where('pedido_id', $idPedido)->first();
+        if ($pedidoFind == null) {
+            $contenidoError = Error::getError(29);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+        if ($pedidoFind->eliminado == 0) {
+            $pedidoFind->eliminado = 1;
+        } else {
+            $pedidoFind->eliminado = 0;
         }
         $pedidoFind->save();
 
