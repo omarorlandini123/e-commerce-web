@@ -11,19 +11,13 @@ class Pedible extends Model
 
     public function producto()
     {
-        if ($this->tipo_pedible == 1) {
-            return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id');
-        } else {
-            return null;
-        }
+        
+            return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id')->where('tipo_pedible',1);
+        
     }
 
     public function afiche()
     {
-        if ($this->tipo_pedible == 2) {
-            return $this->belongsTo('App\Afiche', 'afiche_id', 'pedible_id');
-        } else {
-            return null;
-        }
+        return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id')->where('tipo_pedible',2);
     }
 }
