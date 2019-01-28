@@ -59,7 +59,7 @@ class PedidoController extends Controller
        
 
         $freelerFind = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
-        if ($freeler == null) {
+        if ($freelerFind == null) {
             $contenidoError = Error::getError(24);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
