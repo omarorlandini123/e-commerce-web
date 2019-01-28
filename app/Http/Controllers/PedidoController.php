@@ -161,7 +161,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id','!=',$freelerFind->freeler_id)
-        ->with(['producto','afiche'])
+        ->with(['producto','afiche','producto.producto_detalle','producto.producto_detalle.item_almacen'])
         ->get();
         return $pedibles;
 
