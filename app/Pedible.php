@@ -10,14 +10,12 @@ class Pedible extends Model
     protected $table = 'pedibles';
 
     public function producto()
-    {
-        
-            return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id')->where('tipo_pedible',1);
-        
+    {        
+        return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id');        
     }
 
     public function afiche()
     {
-        return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id')->where('tipo_pedible',2);
+        return $this->belongsTo('App\Afiche', 'producto_id', 'pedible_id');
     }
 }
