@@ -11,11 +11,11 @@ class Pedible extends Model
 
     public function producto()
     {        
-        return $this->belongsTo('App\Producto', 'producto_id', 'pedible_id');        
+        return $this->belongsTo('App\Producto',  'pedible_id','producto_id');        
     }
 
     public function afiche()
     {
-        return $this->belongsTo('App\Afiche', 'producto_id', 'pedible_id');
+        return $this->belongsTo('App\Afiche', 'pedible_id','afiche_id');
     }
 }
