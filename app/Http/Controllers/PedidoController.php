@@ -54,7 +54,16 @@ class PedidoController extends Controller
             $rpta->error = $contenidoError;
             return $rpta;
         }
-        $this->usuario_id = $usuariofind->usuario_id;
+       
+
+        $freelerFind = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
+        if ($freeler == null) {
+            $contenidoError = Error::getError(24);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
 
         $productos = Producto::whereHas('detalle_pedido', function ($a) {
             $a->whereHas('pedido', function ($b) {
