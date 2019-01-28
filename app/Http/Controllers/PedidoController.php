@@ -72,6 +72,8 @@ class PedidoController extends Controller
             'producto',
             'producto.producto_detalle',
             'producto.producto_detalle.item_almacen',
+            'producto.producto_detalle.item_almacen.almacen',
+            'producto.producto_detalle.item_almacen.almacen.empresa',
             'producto.empresa',
             'afiche',
             'afiche.empresa'])        
@@ -172,6 +174,8 @@ class PedidoController extends Controller
             'producto',
             'producto.producto_detalle',
             'producto.producto_detalle.item_almacen',
+            'producto.producto_detalle.item_almacen.almacen',
+            'producto.producto_detalle.item_almacen.almacen.empresa',
             'producto.empresa',
             'afiche',
             'afiche.empresa'])
