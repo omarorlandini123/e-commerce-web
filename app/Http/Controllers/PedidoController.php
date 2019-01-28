@@ -14,6 +14,7 @@ use App\TokenUsuario;
 use App\Usuario;
 use App\Afiche;
 use App\Pedible;
+use App\Freeler;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
