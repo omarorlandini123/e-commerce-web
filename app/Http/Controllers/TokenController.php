@@ -171,4 +171,8 @@ class TokenController extends Controller
             $cola->save();
         }
     }
+
+    public function landing(){
+        return view('welcome');
+    }
 }

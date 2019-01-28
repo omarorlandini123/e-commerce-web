@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/','TokenController@landing');
+
 Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::put('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::get('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');

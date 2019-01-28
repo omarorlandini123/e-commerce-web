@@ -173,7 +173,6 @@ class PedidoController extends Controller
 
     }
 
-
     public function listar_afiches(Request $request, $token)
     {
         $rpta = new Respuesta;
