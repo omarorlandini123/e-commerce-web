@@ -178,6 +178,14 @@ class PedidoController extends Controller
             return $rpta;
         }
 
+        $cond="";
+        if($condicion=="_" || $condicion=="") {
+            $cond="";
+        }else{
+            $cond=$condicion;
+        }
+
+
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id','!=',$freelerFind->freeler_id)
         ->where('nombre','like',$cond)    
