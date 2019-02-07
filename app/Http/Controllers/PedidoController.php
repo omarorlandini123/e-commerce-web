@@ -68,6 +68,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id',$freelerFind->freeler_id)        
+        ->orderBy('ult_pedido')
         ->with([
             'producto',
             'producto.producto_detalle',
@@ -170,6 +171,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id','!=',$freelerFind->freeler_id)
+        ->orderBy('ult_pedido')
         ->with([
             'producto',
             'producto.producto_detalle',
@@ -522,6 +524,7 @@ class PedidoController extends Controller
         $pedidos= Pedido::where('afiche_id',$idAfiche)
         ->where('eliminado',0)
         ->where('freeler_shared_id',$freelerFind->freeler_id)
+        ->orderBy('fecha_creacion')
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])
         ->get();
 
