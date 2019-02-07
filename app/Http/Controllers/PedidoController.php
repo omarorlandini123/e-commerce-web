@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
-    public function listar(Request $request, $token)
+    public function listar(Request $request,$condicion, $token)
     {
         $rpta = new Respuesta;
 
@@ -66,8 +66,17 @@ class PedidoController extends Controller
             return $rpta;
         }
 
+        $cond="";
+        if($condicion=="_" || $condicion=="") {
+            $cond="";
+        }else{
+            $cond=$condicion;
+        }
+
+
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
-        ->where('freeler_id',$freelerFind->freeler_id)        
+        ->where('freeler_id',$freelerFind->freeler_id)    
+        ->where('nombre','like',$cond)    
         ->orderBy('ult_pedido','desc')
         ->with([
             'producto',
@@ -120,7 +129,7 @@ class PedidoController extends Controller
 
     }
 
-    public function listar_terceros(Request $request, $token)
+    public function listar_terceros(Request $request, $condicion, $token)
     {
 
 
@@ -171,6 +180,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id','!=',$freelerFind->freeler_id)
+        ->where('nombre','like',$cond)    
         ->orderBy('ult_pedido','desc')
         ->with([
             'producto',

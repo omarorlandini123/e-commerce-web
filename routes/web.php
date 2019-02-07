@@ -81,8 +81,8 @@ Route::post('/Afiche/Pedir/{idAfiche}/{token}','AficheController@confirmar')->na
 Route::get('/Afiche/Pedir/{idAfiche}/{token}','AficheController@pedir')->name('afiche.pedir');
 
  
-Route::get('/Pedido/Listar/{token}','PedidoController@listar')->name('pedido.listar');
-Route::get('/Pedido/Terceros/{token}','PedidoController@listar_terceros')->name('pedido.terceros');
+Route::get('/Pedido/Listar/{condicion}/{token}','PedidoController@listar')->name('pedido.listar');
+Route::get('/Pedido/Terceros/{condicion}/{token}','PedidoController@listar_terceros')->name('pedido.terceros');
 
 Route::get('/Pedido/AfichesListar/{token}','PedidoController@listar_afiches')->name('pedido.listar.afiches');
 Route::get('/Pedido/AfichesTerceros/{token}','PedidoController@listar_terceros_afiches')->name('pedido.terceros.afiches');
