@@ -61,7 +61,6 @@ class TokenController extends Controller
             $rpta->tieneError = false;
             $rpta->objeto = $token_rpta;
             return $rpta;
-
         }
 
         $contenidoError = Error::getError(2);

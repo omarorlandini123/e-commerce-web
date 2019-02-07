@@ -497,6 +497,15 @@ class PedidoController extends Controller
             return $rpta;
         }
 
+        $freelerFind = Freeler::where('usuario_id', $usuariofind->usuario_id)->first();
+        if ($freelerFind == null) {
+            $contenidoError = Error::getError(24);
+            $rpta->tieneError = true;
+            $rpta->error = $contenidoError;
+            return $rpta;
+        }
+
+
 
         $aficheFind = Afiche::where('afiche_id',$idAfiche)->first();
         if ($aficheFind == null) {
@@ -512,6 +521,7 @@ class PedidoController extends Controller
 
         $pedidos= Pedido::where('afiche_id',$idAfiche)
         ->where('eliminado',0)
+        ->where('freeler_shared_id',$freelerFind->freeler_id)
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])
         ->get();
 
