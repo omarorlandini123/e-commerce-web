@@ -68,7 +68,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id',$freelerFind->freeler_id)        
-        ->orderBy('ult_pedido')
+        ->orderBy('ult_pedido','desc')
         ->with([
             'producto',
             'producto.producto_detalle',
@@ -171,7 +171,7 @@ class PedidoController extends Controller
 
         $pedibles = Pedible::where('freeler_shared_id',$freelerFind->freeler_id)
         ->where('freeler_id','!=',$freelerFind->freeler_id)
-        ->orderBy('ult_pedido')
+        ->orderBy('ult_pedido','desc')
         ->with([
             'producto',
             'producto.producto_detalle',
