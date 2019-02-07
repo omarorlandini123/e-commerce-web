@@ -455,6 +455,7 @@ class PedidoController extends Controller
         })->whereHas('freeler', function ($a) {
             $a->where('usuario_id', $this->usuario_id);
         })->where('eliminado',0)
+        ->orderBy('fecha_creacion','desc')
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])->get();
 
         return $pedidos;
@@ -524,7 +525,7 @@ class PedidoController extends Controller
         $pedidos= Pedido::where('afiche_id',$idAfiche)
         ->where('eliminado',0)
         ->where('freeler_shared_id',$freelerFind->freeler_id)
-        ->orderBy('fecha_creacion')
+        ->orderBy('fecha_creacion','desc')
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])
         ->get();
 
