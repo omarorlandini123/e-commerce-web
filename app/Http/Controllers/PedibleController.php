@@ -78,7 +78,7 @@ class PedibleController extends Controller
         }
 
 
-        $disponibles= PedibleDisponible::where(function($a) use ($tipo){
+        $disponibles= PedibleDisponible::where(function($a) use ($tipo,$freelerFind){
             if($tipo==1){
                 $a->where('freeler',$freelerFind->freeler_id);
             }else{
