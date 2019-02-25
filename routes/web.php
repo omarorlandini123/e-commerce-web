@@ -93,4 +93,6 @@ Route::get('/Pedido/Enviado/{idPedido}/{token}','PedidoController@enviar_pedido'
 Route::get('/Pedido/Pagado/{idPedido}/{token}','PedidoController@pagar_pedido')->name('pedido.pagar');
 Route::get('/Pedido/Eliminar/{idPedido}/{token}','PedidoController@eliminar_pedido')->name('pedido.eliminar');
 
+Route::get('/Pedibles/Listar/{token}/{tipo}/{condicion}','PedibleController@listar')->name('pedible.listar');
+
 Route::get('/logout','TokenController@logout')->name('logout');
