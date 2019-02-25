@@ -92,7 +92,8 @@ class PedibleController extends Controller
                 $a->where('nombre','like','%'.$condicion.'%')
                 ->orWhere('descripcion','like','%'.$condicion.'%');
             }
-        })        
+        })
+        ->where('activo',1)        
         ->orderBy('nombre')
         ->with('producto')        
         ->with('producto.producto_detalle')
