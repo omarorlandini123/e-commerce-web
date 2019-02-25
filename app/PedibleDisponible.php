@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PedibleDisponible extends Model
 {
     public $timestamps = false;
-    protected $table = 'pediblesdisponibles';
+    protected $table = 'PediblesDisponibles';
 
     public function producto()
     {        
