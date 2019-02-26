@@ -101,6 +101,7 @@ class PedibleController extends Controller
         ->with('producto.producto_detalle.item_almacen.almacen')
         ->with('producto.producto_detalle.item_almacen.almacen.empresa')
         ->with('afiche')
+        ->with('afiche.empresa')
         ->with('afiche.grupo_afiche')
         ->with('afiche.afiche_detalle')
         ->with('afiche.afiche_detalle.producto')
