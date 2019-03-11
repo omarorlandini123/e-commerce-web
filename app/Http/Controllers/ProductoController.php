@@ -245,7 +245,7 @@ class ProductoController extends Controller
         }
 
         $pedido = new Pedido;
-        $pedido->fecha_creacion=Carbon::now();
+        $pedido->fecha_creacion=Carbon::now()->subHours(5);
         $pedido->comprador_id=$comprador->comprador_id;
         $pedido->freeler_shared_id=$freeler->freeler_id;
         $pedido->direccion_envio=$request->input('txt_envio');
@@ -528,7 +528,7 @@ class ProductoController extends Controller
         $producto->producto_nombre = $nombre;
         $producto->producto_descripcion = $descripcion;
         $producto->producto_precio = $precio;
-        $producto->producto_fec_creacion = Carbon::now();
+        $producto->producto_fec_creacion = Carbon::now()->subHours(5);
         $producto->producto_es_tercerizable = $tercerizable; // entero
         $producto->producto_desde = Carbon::now();
         if ($request->has('fecha_hasta')) {

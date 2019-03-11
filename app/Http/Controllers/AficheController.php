@@ -441,7 +441,7 @@ class AficheController extends Controller
         $afiche = new Afiche;
         $afiche->afiche_nombre = $nombre;
         $afiche->afiche_descripcion = $descripcion;
-        $afiche->afiche_fecha_creacion = Carbon::now();
+        $afiche->afiche_fecha_creacion = Carbon::now()->subHours(5);
         $afiche->empresa_id = $productos_arr[0]->empresa->empresa_id;
         $afiche->tercerizable = $request->input('tercerizable');
         $afiche->activo = 1;
@@ -679,7 +679,7 @@ class AficheController extends Controller
         }
 
         $pedido = new Pedido;
-        $pedido->fecha_creacion = Carbon::now();
+        $pedido->fecha_creacion = Carbon::now()->subHours(5);
         $pedido->comprador_id = $comprador->comprador_id;
         $pedido->freeler_shared_id = $freeler->freeler_id;
         $pedido->afiche_id = $afiche->afiche_id;

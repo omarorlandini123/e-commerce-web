@@ -60,7 +60,7 @@ class UsuarioController extends Controller
             $token_usuario_reg = new TokenUsuario;
             $token_usuario_reg->token_token_id = $token_var->token_id;
             $token_usuario_reg->usuario_usuario_id = $usuario_reg->usuario_id;
-            $token_usuario_reg->token_usuario_fecha_upd = Carbon::now();
+            $token_usuario_reg->token_usuario_fecha_upd = Carbon::now()->subHours(5);
             $token_usuario_reg->token_usuario_activo = 1;
             $token_usuario_reg->save();
 

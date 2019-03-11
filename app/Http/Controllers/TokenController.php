@@ -45,7 +45,7 @@ class TokenController extends Controller
         $token_var->token_numero = $numero;
         $token_var->token_codigo_sms = "" . intval("" . rand(1, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9) . rand(0, 9));
         $token_var->token = md5(uniqid(rand(), true));
-        $token_var->token_fecha_creacion = Carbon::now();
+        $token_var->token_fecha_creacion = Carbon::now()->subHours(5);
         $token_var->save();
 
         $cola_sms = new ColaSMS;
