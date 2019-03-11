@@ -473,6 +473,7 @@ class PedidoController extends Controller
         })->whereHas('freeler', function ($a) {
             $a->where('usuario_id', $this->usuario_id);
         })->where('eliminado',0)
+        ->where('afiche_id','>',0)
         ->orderBy('fecha_creacion','desc')
         ->with(['comprador', 'freeler', 'detalle_pedido', 'detalle_pedido.producto', 'comprador.usuario', 'freeler.usuario'])->get();
 

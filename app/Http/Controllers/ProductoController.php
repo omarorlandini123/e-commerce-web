@@ -84,6 +84,17 @@ class ProductoController extends Controller
 
     public function pedir(Request $request, $idProducto, $token)
     {
+        $cantidad = $request->input('txt_cantidad');
+       
+        if($cantidad!=null && $cantidad>0){
+            $request->session()->put('producto_cant', $cantidad);
+        }else{
+            if ($request->session()->has('producto_cant')) {
+                $cantidad = $request->session()->get('producto_cant');
+            }
+        }
+
+
         if (!$request->session()->has('comprador_id')) {
             $request->session()->put('producto_id', $idProducto);
             $request->session()->put('producto_token', $token);
@@ -126,7 +137,7 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        $cantidad = $request->input('txt_cantidad');
+        
 
         $producto = Producto::where('producto_id', $idProducto)->first();
         if ($producto == null) {
