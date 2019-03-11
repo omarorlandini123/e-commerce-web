@@ -15,7 +15,7 @@ function calcular(var_id_prodcuto) {
     });
     $('#total_pago').html(parseFloat(var_total).toFixed(2));
 }
-
+ 
 function calcular2(var_id_prodcuto) {
     if ($('#prod_' + var_id_prodcuto).val() != "") {
         if ($('#prod_' + var_id_prodcuto).val()<0) {
