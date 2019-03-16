@@ -639,16 +639,16 @@ class ProductoController extends Controller
 
         if (count($miniaturasPaths)>0 ) {
 
-            $imgGeneral = Image::canvas(500, 500);            
+            $imgGeneral = Image::canvas(600, 400);            
             
             for ($i=0; $i <count($miniaturasPaths) ; $i++) { 
                 $path=$miniaturasPaths[$i];
                 if (file_exists($path)) {
                     $img = Image::make($path);   
-                    $img->fit(500/count($miniaturasPaths), 500, function ($constraint) {
+                    $img->fit(600/count($miniaturasPaths), 400, function ($constraint) {
                         $constraint->upsize();
                     });             
-                    $imgGeneral->insert($img, 'left',(500/count($miniaturasPaths)*$i));                   
+                    $imgGeneral->insert($img, 'left',(600/count($miniaturasPaths)*$i));                   
                    
                 }
             }    
