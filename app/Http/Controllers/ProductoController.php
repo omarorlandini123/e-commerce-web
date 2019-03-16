@@ -667,24 +667,39 @@ class ProductoController extends Controller
         }
 
         $path = "";
+        $miniaturasPaths=array();
         if ($productoFind->preview_img == null) {
             if (count($productoFind->producto_detalle) == 1) {
-                $path = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
+                $miniaturasPaths[] = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
+            }
+
+            if (count($productoFind->producto_detalle) > 1) {
+                
+                foreach ($productoFind->producto_detalle as $detalle_prod) {
+                    $miniaturasPaths[]= storage_path('app/preview_item_almacen/') . $detalle_prod->item_almacen->preview_img;
+                }
+                
             }
         } else {
-            $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
+            $miniaturasPaths[] = storage_path('app/preview_producto/') . $productoFind->preview_img;
         }
 
-        if ($path != "") {
+        if (count($miniaturasPaths)>0 ) {
+            $imgGeneral = Image::make($miniaturasPaths[0]);
+            for ($i=1; $i <count($miniaturasPaths) ; $i++) { 
+                $path=$miniaturasPaths[$i];
+                if (file_exists($path)) {
+                    $img = Image::make($path);                
+                    $imgGeneral->insert($img, 'right');                   
+                   
+                }
+            }    
+            $imgGeneral->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            return $imgGeneral->response();       
 
-            if (file_exists($path)) {
-                $img = Image::make($path);
-                $img->resize(300, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-
-                return $img->response();
-            }
+            
         }
 
         return "";
