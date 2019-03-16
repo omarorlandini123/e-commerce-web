@@ -21,7 +21,7 @@
                 <div class="form-group">
                         <label for="formGroupExampleInput">Confirma la cantidad</label>
                         <input type="number"  
-                        onkeyup="calcular2({{$rpta->objeto->producto_id}})" 
+                        onkeyup="calcular3({{$rpta->objeto->producto_id}})" 
                         class="form-control" id="txt_cantidad" 
                         name="txt_cantidad" 
                         value="{{empty($cantidad)?"0":$cantidad}}"
