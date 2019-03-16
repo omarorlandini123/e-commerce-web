@@ -693,8 +693,8 @@ class ProductoController extends Controller
                 $path=$miniaturasPaths[$i];
                 if (file_exists($path)) {
                     $img = Image::make($path);   
-                    $img->resize(300/count($miniaturasPaths), null, function ($constraint) {
-                        $constraint->aspectRatio();
+                    $img->fit(300/count($miniaturasPaths), null, function ($constraint) {
+                        $constraint->upsize();
                     });             
                     $imgGeneral->insert($img, 'left',(300/count($miniaturasPaths)*$i));                   
                    
