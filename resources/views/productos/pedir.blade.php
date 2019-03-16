@@ -27,9 +27,8 @@
                         value="{{empty($cantidad)?"0":$cantidad}}"
                         placeholder="¿Cuántos quieres?">
                     </div>
-                </div>
-                <div class="col-sm-6">
-                <div class="form-group">
+               
+                    <div class="form-group">
                         
                       <p>S/. <span id="prec_{{$rpta->objeto->producto_id}}">{{
                           number_format($rpta->objeto->producto_precio,2)
