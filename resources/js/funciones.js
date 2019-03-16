@@ -50,7 +50,7 @@ function calcular2(var_id_prodcuto) {
     $('#total_pago').html(parseFloat(var_total).toFixed(2));
 }
  
-function calcular3() {
+function calcular3(var_id_prodcuto) {
     if ($('#txt_cantidad').val() != "") {
         if ($('#txt_cantidad').val()<0) {
             $('#txt_cantidad').val(Math.abs($('#txt_cantidad').val()));
