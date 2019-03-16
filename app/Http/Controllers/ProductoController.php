@@ -686,7 +686,7 @@ class ProductoController extends Controller
 
         if (count($miniaturasPaths)>0 ) {
             $imgGeneral = Image::make($miniaturasPaths[0]);
-            $imgGeneral->fit(300, 300, function ($constraint) {
+            $imgGeneral->fit(300/count($miniaturasPaths), 300, function ($constraint) {
                 $constraint->aspectRatio();
             });
             for ($i=1; $i <count($miniaturasPaths) ; $i++) { 
