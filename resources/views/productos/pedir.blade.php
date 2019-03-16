@@ -20,7 +20,7 @@
                 <div class="col-sm-6">
                 <div class="form-group">
                         <label for="formGroupExampleInput">Confirma la cantidad</label>
-                        <input type="text"  
+                        <input type="number"  
                         onkeyup="calcular2({{$rpta->objeto->producto_id}})" 
                         class="form-control" id="txt_cantidad" 
                         name="txt_cantidad" 
