@@ -689,6 +689,7 @@ class ProductoController extends Controller
             $imgGeneral->fit(300/count($miniaturasPaths), 300, function ($constraint) {
                 $constraint->aspectRatio();
             });
+            $imgGeneral->resizeCanvas(300, null);
             for ($i=1; $i <count($miniaturasPaths) ; $i++) { 
                 $path=$miniaturasPaths[$i];
                 if (file_exists($path)) {
