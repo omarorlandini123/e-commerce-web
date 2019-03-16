@@ -696,7 +696,7 @@ class ProductoController extends Controller
                     $imgGeneral->resize(300, null, function ($constraint) {
                         $constraint->aspectRatio();
                     });             
-                    $imgGeneral->insert($img, 'right',(300/count($miniaturasPaths)*$i));                   
+                    $imgGeneral->insert($img, 'left',(300/count($miniaturasPaths)*$i));                   
                    
                 }
             }    
