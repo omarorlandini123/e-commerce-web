@@ -646,7 +646,7 @@ class ProductoController extends Controller
                 if (file_exists($path)) {
                     $img = Image::make($path);   
                     $img->fit(600/count($miniaturasPaths), 400, function ($constraint) {
-                        $constraint->upsize();
+                        //$constraint->upsize();
                     });             
                     $imgGeneral->insert($img, 'left',(600/count($miniaturasPaths)*$i));                   
                    
