@@ -685,12 +685,10 @@ class ProductoController extends Controller
         }
 
         if (count($miniaturasPaths)>0 ) {
-            $imgGeneral = Image::make($miniaturasPaths[0]);
-            $imgGeneral->fit(300/count($miniaturasPaths), 300, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+
+            $imgGeneral = Image::canvas(300, 300);            
             
-            for ($i=1; $i <count($miniaturasPaths) ; $i++) { 
+            for ($i=0; $i <count($miniaturasPaths) ; $i++) { 
                 $path=$miniaturasPaths[$i];
                 if (file_exists($path)) {
                     $img = Image::make($path);   
