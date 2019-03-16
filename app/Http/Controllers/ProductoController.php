@@ -620,27 +620,46 @@ class ProductoController extends Controller
         }
 
         $path = "";
+        $miniaturasPaths=array();
         if ($productoFind->preview_img == null) {
             if (count($productoFind->producto_detalle) == 1) {
-                $path = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
+                $miniaturasPaths[] = storage_path('app/preview_item_almacen/') . $productoFind->producto_detalle[0]->item_almacen->preview_img;
+            }
+
+            if (count($productoFind->producto_detalle) > 1) {
+                
+                foreach ($productoFind->producto_detalle as $detalle_prod) {
+                    $miniaturasPaths[]= storage_path('app/preview_item_almacen/') . $detalle_prod->item_almacen->preview_img;
+                }
+                
             }
         } else {
-            $path = storage_path('app/preview_producto/') . $productoFind->preview_img;
+            $miniaturasPaths[] = storage_path('app/preview_producto/') . $productoFind->preview_img;
         }
 
-        if ($path != "") {
+        if (count($miniaturasPaths)>0 ) {
 
-            if (file_exists($path)) {
-                $img = Image::make($path);
-                $img->resize(500, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+            $imgGeneral = Image::canvas(500, 500);            
+            
+            for ($i=0; $i <count($miniaturasPaths) ; $i++) { 
+                $path=$miniaturasPaths[$i];
+                if (file_exists($path)) {
+                    $img = Image::make($path);   
+                    $img->fit(500/count($miniaturasPaths), 500, function ($constraint) {
+                        $constraint->upsize();
+                    });             
+                    $imgGeneral->insert($img, 'left',(500/count($miniaturasPaths)*$i));                   
+                   
+                }
+            }    
+           
+            return $imgGeneral->response();       
 
-                return $img->response();
-            }
+            
         }
 
         return "";
+
 
     }
     public function getPreviewTiny(Request $request, $idProducto, $token)
