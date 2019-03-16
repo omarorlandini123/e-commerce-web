@@ -61,7 +61,7 @@ class ProductoController extends Controller
             return $rpta;
         }
 
-        $producto = Producto::where('producto_id', $idProducto)->first();
+        $producto = Producto::where('producto_id', $idProducto)->where('activo',1)->first();
         if ($producto == null) {
             $contenidoError = Error::getError(29);
             $rpta->tieneError = true;
