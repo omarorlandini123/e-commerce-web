@@ -686,17 +686,18 @@ class ProductoController extends Controller
 
         if (count($miniaturasPaths)>0 ) {
             $imgGeneral = Image::make($miniaturasPaths[0]);
+            $imgGeneral->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
             for ($i=1; $i <count($miniaturasPaths) ; $i++) { 
                 $path=$miniaturasPaths[$i];
                 if (file_exists($path)) {
                     $img = Image::make($path);                
-                    $imgGeneral->insert($img, 'right');                   
+                    $imgGeneral->insert($img, 'right',300/count($miniaturasPaths));                   
                    
                 }
             }    
-            $imgGeneral->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
+           
             return $imgGeneral->response();       
 
             
