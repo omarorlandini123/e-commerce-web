@@ -231,7 +231,15 @@ class EmpresaController extends Controller
         }
 
         $empresaFind->save();
-
+        
+$almacenInicialAPP = Almacen::where('empresa_id',$empresaFind->empresa_id)
+    ->where('is_almacen_app',1)->first();
+        if($almacenInicialAPP->almacen-id>0){
+            $almacenInicialAPP->almacen_nombre = "Almacen - " . $request->input('nombre');
+            $almacenInicialAPP->almacen_detalle = "Almacen de APP para " . $request->input('nombre');
+            $almacenInicialAPP->save();
+        }
+        
         $token_usuario_rpta = new TokenUsuario;
         $token_usuario_rpta->actualizado = true;
         return $token_usuario_rpta;
