@@ -9,7 +9,7 @@
             <div class="col-8" >
                 <h5 class="card-title">{{$detalle->producto->producto_nombre}}</h5>
                 <div class="form-group">                                
-                    <input type="number" onkeyup="calcular3({{$detalle->producto->producto_id}})" class="form-control producto" id_producto="{{$detalle->producto->producto_id}}" name="prod_{{$detalle->producto->producto_id}}" id="prod_{{$detalle->producto->producto_id}}" aria-describedby="cantidad" placeholder="¿Cuántos quieres?">
+                    <input type="number" onkeyup="calcular4({{$detalle->producto->producto_id}})" class="form-control producto" id_producto="{{$detalle->producto->producto_id}}" name="prod_{{$detalle->producto->producto_id}}" id="prod_{{$detalle->producto->producto_id}}" aria-describedby="cantidad" placeholder="¿Cuántos quieres?">
                     <small id="cantidad" class="form-text text-muted">Coloca la cantidad que deseas</small>
                 </div>
                 <div class="row">
