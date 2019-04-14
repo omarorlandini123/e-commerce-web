@@ -81,7 +81,7 @@ function calcular3(var_id_prodcuto) {
         var_total = parseFloat(var_total) + parseFloat($(this).html());
 
     });
-    
+    $('#total_pago').html(parseFloat(var_total).toFixed(2));
 }
 
 function calcular4(var_id_prodcuto) {
@@ -115,7 +115,7 @@ function calcular4(var_id_prodcuto) {
         var_total = parseFloat(var_total) + parseFloat($(this).html());
 
     });
-    
+    $('#total_pago').html(parseFloat(var_total).toFixed(2));
 }
 
 
