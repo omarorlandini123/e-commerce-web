@@ -934,7 +934,7 @@ class AficheController extends Controller
         if($grupo->grupo_afiche_id>0){
             
            
-            $afiche = Afiche::where('afiche_id', $afiche_id)->first();
+            $afiche = Afiche::where('afiche_id',$afiche->afiche_id)->first();
             if ($afiche == null) {
                 $contenidoError = Error::getError(28);
                 $rpta->tieneError = true;
@@ -950,8 +950,8 @@ class AficheController extends Controller
                 return $rpta;
             }
 
-            $afiche_detalle = AficheDetalle::where('afiche_id', $afiche_id)
-                ->where('producto_id', $producto_id)
+            $afiche_detalle = AficheDetalle::where('afiche_id', $afiche->afiche_id)
+                ->where('producto_id', $producto->producto_id)
                 ->first();
 
             $afiche_detalle->grupo_afiche_id = $grupo->grupo_afiche_id;
