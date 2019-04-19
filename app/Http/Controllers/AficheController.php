@@ -869,7 +869,7 @@ class AficheController extends Controller
         return $rpta;
     }
 
-    public function crear_grupo(Request $request, $token)
+    public function crear_grupo(Request $request,$idProducto, $token)
     {
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
@@ -931,7 +931,36 @@ class AficheController extends Controller
         $grupo->afiche_id = $afiche->afiche_id;
         $grupo->save();
 
-        $rpta->tieneError = false;
+        if($grupo->grupo_afiche_id>0){
+            
+           
+            $afiche = Afiche::where('afiche_id', $afiche_id)->first();
+            if ($afiche == null) {
+                $contenidoError = Error::getError(28);
+                $rpta->tieneError = true;
+                $rpta->error = $contenidoError;
+                return $rpta;
+            }
+
+            $producto = Producto::where('producto_id', $idProducto)->first();
+            if ($producto == null) {
+                $contenidoError = Error::getError(29);
+                $rpta->tieneError = true;
+                $rpta->error = $contenidoError;
+                return $rpta;
+            }
+
+            $afiche_detalle = AficheDetalle::where('afiche_id', $afiche_id)
+                ->where('producto_id', $producto_id)
+                ->first();
+
+            $afiche_detalle->grupo_afiche_id = $grupo->grupo_afiche_id;
+            $afiche_detalle->save();
+            $rpta->tieneError = false;
+            return $rpta;
+        }
+
+        $rpta->tieneError = true;
         return $rpta;
 
     }
