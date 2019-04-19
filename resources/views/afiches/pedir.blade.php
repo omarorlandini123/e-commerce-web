@@ -20,29 +20,31 @@
                     $total_pagar=0;
                 @endphp
                 @foreach ($productos as $producto)
-                <div class="col-12">
-                    <label for="formGroupExampleInput">Confirma la cantidad de <strong>{{$producto->producto_nombre}}</strong></label>
-                </div>                
-                <div class="col-4">
-                    <div class="form-group">
-                        
-                        <input type="number" class="form-control" 
-                        onkeyup="calcular2({{$producto->producto_id}})" 
-                        id="prod_{{$producto->producto_id}}" 
-                        name="prod_{{$producto->producto_id}}" 
-                        value="{{empty($producto->cantidad_sol)?"0":$producto->cantidad_sol}}"
-                            placeholder="¿Cuántos quieres?">
-                    </div> 
-                </div>  
-                <div class="col-8">
-                    <div class="form-group">
-                        
-                      <p>S/. <span id="prec_{{$producto->producto_id}}">{{number_format($producto->producto_precio,2)}}</span> X <span id="prod_cant_{{$producto->producto_id}}"> {{$producto->cantidad_sol}} </span>  = S/. <span class="total_prod" id="prec_total_{{$producto->producto_id}}">{{number_format(number_format($producto->producto_precio,2) * number_format($producto->cantidad_sol,2),2)}}</span></p>
-                    </div> 
-                </div>      
-                @php
-                    $total_pagar=$total_pagar+number_format(number_format($producto->producto_precio,2) * number_format($producto->cantidad_sol,2),2);
-                @endphp    
+                    @if($producto->cantidad_sol>0)
+                        <div class="col-12">
+                            <label for="formGroupExampleInput">Confirma la cantidad de <strong>{{$producto->producto_nombre}}</strong></label>
+                        </div>                
+                        <div class="col-4">
+                            <div class="form-group">
+                                
+                                <input type="number" class="form-control" 
+                                onkeyup="calcular2({{$producto->producto_id}})" 
+                                id="prod_{{$producto->producto_id}}" 
+                                name="prod_{{$producto->producto_id}}" 
+                                value="{{empty($producto->cantidad_sol)?"0":$producto->cantidad_sol}}"
+                                    placeholder="¿Cuántos quieres?">
+                            </div> 
+                        </div>  
+                        <div class="col-8">
+                            <div class="form-group">
+                                
+                            <p>S/. <span id="prec_{{$producto->producto_id}}">{{number_format($producto->producto_precio,2)}}</span> X <span id="prod_cant_{{$producto->producto_id}}"> {{$producto->cantidad_sol}} </span>  = S/. <span class="total_prod" id="prec_total_{{$producto->producto_id}}">{{number_format(number_format($producto->producto_precio,2) * number_format($producto->cantidad_sol,2),2)}}</span></p>
+                            </div> 
+                        </div>      
+                        @php
+                            $total_pagar=$total_pagar+number_format(number_format($producto->producto_precio,2) * number_format($producto->cantidad_sol,2),2);
+                        @endphp   
+                    @endif 
                 @endforeach        
             
                    

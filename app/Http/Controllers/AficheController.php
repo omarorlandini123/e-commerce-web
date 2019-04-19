@@ -912,6 +912,8 @@ class AficheController extends Controller
         }
 
         $nombre = $request->input('nombre');
+        $nombre=strtolower($nombre); // todo el string a letras minusculas
+        $nombre=ucfirst($nombre) ; // La primera letra en mayúscula
         $afiche_id = $request->input('afiche_id');
 
         $afiche = Afiche::where('afiche_id', $afiche_id)->first();
