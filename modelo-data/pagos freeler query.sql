@@ -21,7 +21,9 @@
     a.freeler_id freeler_que_ha_vendido,
     f.freeler_id freeler_propietario_del_producto,
     sum(d.cantidad  * e.producto_precio) venta_total,
-    round(sum(d.cantidad  * e.producto_precio)*0.05,2) comision_a_pagar_al_propietario
+    round(sum(d.cantidad  * e.producto_precio)*0.9,2) al_propietario_90_porciento,
+    round(sum(d.cantidad  * e.producto_precio)*0.05,2) pagar_a_freeler_app_5_porciento,
+    round(sum(d.cantidad  * e.producto_precio)*0.05,2) para_vendedor_5_porciento
     FROM freeler a 
     inner join usuario b on a.usuario_id=b.usuario_id
     inner join pedido c on a.freeler_id=c.freeler_shared_id and c.pagado=1 and c.eliminado=0
