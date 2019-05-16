@@ -2,8 +2,8 @@
     <div class="card-body">
         <div class="row">
             <div class="col-4">
-                <center> <img src="/Producto/Preview/{{$detalle->producto->producto_id}}/{{$token}}" width="100" height="100"
-                    alt="{{$detalle->producto->producto_nombre}}" class="rounded-circle"></center>
+                <center> <a href="" onclick="PreviewProducto({{$detalle->producto->producto_id}},'{{$token}}')"><img src="/Producto/Preview/{{$detalle->producto->producto_id}}/{{$token}}" width="100" height="100"
+                    alt="{{$detalle->producto->producto_nombre}}" class="rounded-circle"></a></center>
                     S/. <span id="prec_{{$detalle->producto->producto_id}}">{{number_format($detalle->producto->producto_precio,2)}}</span>
             </div>
             <div class="col-8" >

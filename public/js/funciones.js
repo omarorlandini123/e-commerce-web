@@ -123,3 +123,12 @@ function calcular4(var_id_prodcuto) {
 
 
 
+
+function PreviewProducto(id_producto, token) {
+    $.get("/Producto/Resumen/" + id_producto + "/" + token, function (data) {
+        $('#exampleModal').html();
+        $('#exampleModal').modal('show');
+    });
+
+
+}

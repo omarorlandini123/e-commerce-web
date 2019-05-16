@@ -63,6 +63,7 @@ Route::get('/Producto/PreviewTiny/{idProducto}/{token}','ProductoController@getP
 Route::get('/Producto/Eliminar/{idProducto}/{token}','ProductoController@eliminar');
 //------Producto WEB
 Route::get('/Producto/{idProducto}/{token}','ProductoController@index');
+Route::get('/Producto/Resumen/{idProducto}/{token}','ProductoController@detalleBreve');
 Route::post('/Producto/Pedir/{idProducto}/{token}','ProductoController@confirmar')->name('pedido.confirmar');
 Route::get('/Producto/Pedir/{idProducto}/{token}','ProductoController@pedir')->name('producto.pedir');
 
