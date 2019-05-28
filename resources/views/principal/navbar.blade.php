@@ -19,6 +19,11 @@
 
       <a href="/logout" style="color:white;">Cerrar Sesión</a>
     </span>
+    @else
+      <span class="navbar-text">
+                
+        <a href="/login" style="color:white;">Ingresar</a>
+      </span>
     @endif
   </div>
 </nav>
