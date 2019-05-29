@@ -8,6 +8,7 @@
         <form action="{{ action('AdministradorController@empresas_buscar') }}" method="post">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <input class="form-control" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
+            <button type="submit" class="btn btn-primary"></button>
         </form>
         <br>
         <div class="list-group">
