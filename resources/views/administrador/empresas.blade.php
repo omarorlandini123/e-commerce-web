@@ -5,7 +5,8 @@
 
     <div class="row">
         <div class="col-sm-3">
-        <form action="{{route('administrador.empresa.buscar')}}" method="post">
+        <form action="{{ action('AdministradorController@empresas_buscar') }}" method="post">
+            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <input class="form-control" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
         </form>
         <br>
