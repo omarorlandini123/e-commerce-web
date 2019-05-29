@@ -5,19 +5,20 @@
 
     <div class="row">
         <div class="col-sm-3">
-        <input class="form-control" type="text" placeholder="Buscar Empresas">
-        <br>
-        <div class="list-group">
-            @inject('Empresa', 'App\Empresa')
-            <?
-                $encontrados = $Empresa::paginate(8);
-            ?>
-            @foreach ($encontrados as $emp)
-                
-                <a href="{{route('administrador.empresa', ['empresa_id' => $emp->empresa_id])}}" class="list-group-item list-group-item-action">{{$emp->empresa_nombre}}</a>
-            @endforeach
+            <input class="form-control" type="text" placeholder="Buscar Empresas">
+            <br>
+            <div class="list-group">
+                @inject('Empresa', 'App\Empresa')
+                <?
+                    $encontrados = $Empresa::paginate(8);
+                ?>
+                @foreach ($encontrados as $emp)
+                    
+                    <a href="{{route('administrador.empresa', ['empresa_id' => $emp->empresa_id])}}" class="list-group-item list-group-item-action">{{$emp->empresa_nombre}}</a>
+                @endforeach
 
-        </div>
+            </div>
+            {{ $encontrados->links() }}
         </div>
         <div class="col-sm-9">
             <div class="card">
