@@ -7,6 +7,7 @@ use App\Error;
 use App\Freeler;
 use App\Respuesta;
 use App\Token;
+use App\Administrador;
 use App\TokenUsuario;
 use App\Usuario;
 use App\Almacen;
@@ -187,9 +188,16 @@ class UsuarioController extends Controller
         if ($request->session()->has('producto_token')) {
             $token = $request->session()->get('producto_token');
         }
-        
+
+        $administrador = Administrador::where('usuario_id',  $usuario->usuario_id)->first();
+
+        if($administrador!=null){
+            $request->session()->put('administrador_id', $administrador->administrador_id);
+            return redirect()->route('administrador.empresas');
+        }
               
         $comprador = Comprador::where('usuario_id',  $usuario->usuario_id)->first();
+       
         if($comprador!=null){
             $request->session()->put('comprador_id', $comprador->comprador_id);
         }else{

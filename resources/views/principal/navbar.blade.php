@@ -19,6 +19,14 @@
 
       <a href="/logout" style="color:white;">Cerrar Sesión</a>
     </span>
+    @elseif(Session::has('administrador_id'))
+    <span class="navbar-text">
+      @inject('Administrador', 'App\Administrador')
+      
+      <label style="margin-right:15px;color:white">{{$Administrador::where('administrador_id',Session::get('administrador_id'))->first()->usuario->nombre_completo()}}</label>
+
+      <a href="/logout" style="color:white;">Cerrar Sesión</a>
+    </span>
     @else
       <span class="navbar-text">
                 

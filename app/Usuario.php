@@ -29,6 +29,10 @@ class Usuario extends Model
         return $this->hasMany('App\Freeler','usuario_id','usuario_id');
     }
 
+    public function administrador(){
+        return $this->hasMany('App\Administrador','usuario_id','usuario_id');
+    }
+
     public function ubicacion(){
         return $this->belongsTo('App\Ubicacion','id_ubicacion','id_ubicacion');
     }

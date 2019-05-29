@@ -13,6 +13,8 @@
 
 Route::get('/','TokenController@landing');
 
+Route::get('/Administrador/Empresas','AdministradorController@empresas_index')->name('administrador.empresas');
+
 Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::put('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::get('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
@@ -96,4 +98,4 @@ Route::get('/Pedido/Eliminar/{idPedido}/{token}','PedidoController@eliminar_pedi
 
 Route::get('/Pedibles/Listar/{token}/{tipo}/{condicion}','PedibleController@listar')->name('pedible.listar');
 
-Route::get('/logout','TokenController@logout')->name('logout');
+Route::get('/logout','TokenController@logout')->name('logout'); 
