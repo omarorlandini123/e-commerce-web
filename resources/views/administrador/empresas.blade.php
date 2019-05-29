@@ -40,11 +40,13 @@
                             <input class="form-control" type="text" placeholder="RUC" value="{{$encontrados[0]->empresa_RUC}}">
                             
                         </div>
+                        @if($encontrados[0]->freeler!=null)
                         <div class="col-sm-6">
                             <label for="">Nombre Freeler</label>
                             <input class="form-control" type="text" placeholder="Freler" disabled value="{{$encontrados[0]->freeler->usuario->nombre_completo()}}">
                             
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
