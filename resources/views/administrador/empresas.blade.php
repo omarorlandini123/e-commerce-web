@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-3">
         <form action="{{route('administrador.empresa.buscar')}}" method="post">
-            <input class="form-control" type="text" placeholder="Buscar Empresas">
+            <input class="form-control" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
         </form>
         <br>
         <div class="list-group">
