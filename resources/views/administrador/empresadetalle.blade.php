@@ -8,10 +8,7 @@
             <input class="form-control" type="text" placeholder="Buscar Empresas">
             <br>
             <div class="list-group">
-                @inject('Empresa', 'App\Empresa')
-                <?
-                    $encontrados = $Empresa::paginate(6);
-                ?>
+               
                 @foreach ($encontrados as $emp)
                     
                     <a href="{{route('administrador.empresa', ['empresa_id' => $emp->empresa_id])}}" class="list-group-item list-group-item-action">{{$emp->empresa_nombre}}</a>
