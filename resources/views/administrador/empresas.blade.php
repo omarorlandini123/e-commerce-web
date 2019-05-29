@@ -5,6 +5,7 @@
 
     <div class="row">
         <div class="col-sm-3">
+        <input class="form-control" type="text" placeholder="BuscarS">
         <div class="list-group">
             @inject('Empresa', 'App\Empresa')
             @foreach ($Empresa::paginate(8) as $emp)
