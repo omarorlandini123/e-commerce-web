@@ -9,7 +9,7 @@
             @inject('Empresa', 'App\Empresa')
             @foreach ($Empresa::all() as $emp)
                 
-                <a href="#" class="list-group-item list-group-item-action">$emp->empresa_nombre</a>
+                <a href="#" class="list-group-item list-group-item-action">{{$emp->empresa_nombre}}</a>
             @endforeach
 
         </div>
