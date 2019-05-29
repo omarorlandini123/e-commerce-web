@@ -5,10 +5,14 @@
 
     <div class="row">
         <div class="col-sm-3">
-        <form action="{{ action('AdministradorController@empresas_buscar') }}" method="post">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-            <input class="form-control col-sm-9" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
-            <button type="submit" class="btn btn-primary col-sm-3">Buscar</button>
+      
+        <form class="form-inline" action="{{ action('AdministradorController@empresas_buscar') }}" method="post">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+            <div class="form-group mb-2">
+                <label for="cond" class="sr-only">Buscar</label>
+                <input type="text" class="form-control-plaintext"  name="cond" id="cond"  placeholder="Buscar Empresas" value="">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Buscar</button>
         </form>
         <br>
         <div class="list-group">
