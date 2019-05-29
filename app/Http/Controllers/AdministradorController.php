@@ -20,7 +20,7 @@ class AdministradorController extends Controller
 
     public function empresas_buscar(Request $request,$cond){
       
-        $encontrados = Empresa::where('empresa_nombre','like','%'.$cond.'%')->orderBy('empresa_nombre')->paginate(6);
+        $encontrados = Empresa::where('empresa_nombre','like','%'.$request->input('cond').'%')->orderBy('empresa_nombre')->paginate(6);
         $empresa=  $encontrados[0];
         $data=array(
             'encontrados'=>$encontrados,
