@@ -14,6 +14,7 @@
 Route::get('/','TokenController@landing');
 
 Route::get('/Administrador/Empresas','AdministradorController@empresas_index')->name('administrador.empresas');
+Route::get('/Administrador/Empresas/{empresa_id}','AdministradorController@empresas_show')->name('administrador.empresa');
 
 Route::post('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');
 Route::put('/ItemAlmacen/Registrar/{token}','ItemAlmacenController@registrar');

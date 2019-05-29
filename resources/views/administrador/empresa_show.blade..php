@@ -29,26 +29,26 @@
                         <div class="col-sm-6">
                         <br>
                             <label for="">Nombre</label>
-                            <input class="form-control" type="text" placeholder="Nombre" value="{{$encontrados[0]->empresa_nombre}}">
+                            <input class="form-control" type="text" placeholder="Nombre" value="{{$empresa->empresa_nombre}}">
                             
                         </div>
                         <div class="col-sm-6">
                         <br>
                             <label for="">Detalle</label>
-                            <input class="form-control" type="text" placeholder="Detalle" value="{{$encontrados[0]->empresa_detalle}}">
+                            <input class="form-control" type="text" placeholder="Detalle" value="{{$empresa->empresa_detalle}}">
                             
                         </div>
                         <div class="col-sm-6">
                         <br>
                             <label for="">RUC</label>
-                            <input class="form-control" type="text" placeholder="RUC" value="{{$encontrados[0]->empresa_RUC}}">
+                            <input class="form-control" type="text" placeholder="RUC" value="{{$empresa->empresa_RUC}}">
                             
                         </div>
-                        @if($encontrados[0]->freeler!=null)
+                        @if($empresa->freeler!=null)
                         <div class="col-sm-6">
                         <br>
                             <label for="">Nombre Freeler</label>
-                            <input class="form-control" type="text" placeholder="Freler" disabled value="{{$encontrados[0]->freeler->usuario->nombre_completo()}}">
+                            <input class="form-control" type="text" placeholder="Freler" disabled value="{{$empresa->freeler->usuario->nombre_completo()}}">
                             
                         </div>
                         @endif
