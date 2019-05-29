@@ -10,7 +10,7 @@
         <div class="list-group">
             @inject('Empresa', 'App\Empresa')
             <?
-                $encontrados = $Empresa::paginate(8);
+                $encontrados = $Empresa::paginate(6);
             ?>
             @foreach ($encontrados as $emp)
                 
@@ -18,7 +18,10 @@
             @endforeach
 
         </div>
-        {{ $encontrados->links() }}
+        <br>
+            <center>
+            {{ $encontrados->links() }}
+            </center>
         </div>
         <div class="col-sm-9">
             <div class="card">
