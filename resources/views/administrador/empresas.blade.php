@@ -10,7 +10,7 @@
         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div class="form-group mb-2">
                 <label for="cond" class="sr-only">Buscar</label>
-                <input type="text" class="form-control-plaintext"  name="cond" id="cond"  placeholder="Buscar Empresas" value="">
+                <input type="text" class="form-control"  name="cond" id="cond"  placeholder="Buscar Empresas" value="">
             </div>
             <button type="submit" class="btn btn-primary mb-2">Buscar</button>
         </form>
