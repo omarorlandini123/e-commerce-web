@@ -25,27 +25,28 @@
                 <div class="card-body">
                     <h5 class="card-title">Detalles de la empresa</h5>
                     <div class="row">
-                        <br>
+                       
                         <div class="col-sm-6">
+                        <br>
                             <label for="">Nombre</label>
                             <input class="form-control" type="text" placeholder="Nombre" value="{{$encontrados[0]->empresa_nombre}}">
                             
                         </div>
-                        <br>
                         <div class="col-sm-6">
+                        <br>
                             <label for="">Detalle</label>
                             <input class="form-control" type="text" placeholder="Detalle" value="{{$encontrados[0]->empresa_detalle}}">
                             
                         </div>
-                        <br>
                         <div class="col-sm-6">
+                        <br>
                             <label for="">RUC</label>
                             <input class="form-control" type="text" placeholder="RUC" value="{{$encontrados[0]->empresa_RUC}}">
                             
                         </div>
                         @if($encontrados[0]->freeler!=null)
-                        <br>
                         <div class="col-sm-6">
+                        <br>
                             <label for="">Nombre Freeler</label>
                             <input class="form-control" type="text" placeholder="Freler" disabled value="{{$encontrados[0]->freeler->usuario->nombre_completo()}}">
                             
