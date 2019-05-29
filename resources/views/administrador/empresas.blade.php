@@ -7,8 +7,8 @@
         <div class="col-sm-3">
         <form action="{{ action('AdministradorController@empresas_buscar') }}" method="post">
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-            <input class="form-control" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
-            <button type="submit" class="btn btn-primary"></button>
+            <input class="form-control col-sm-9" type="text" name="cond" id="cond" placeholder="Buscar Empresas">
+            <button type="submit" class="btn btn-primary col-sm-3">Buscar</button>
         </form>
         <br>
         <div class="list-group">

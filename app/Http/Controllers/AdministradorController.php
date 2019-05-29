@@ -18,7 +18,7 @@ class AdministradorController extends Controller
         return view('administrador.empresas')->with($data);
     }
 
-    public function empresas_buscar(Request $request,$cond){
+    public function empresas_buscar(Request $request){
       
         $encontrados = Empresa::where('empresa_nombre','like','%'.$request->input('cond').'%')->orderBy('empresa_nombre')->paginate(6);
         $empresa=  $encontrados[0];
@@ -36,6 +36,6 @@ class AdministradorController extends Controller
             'encontrados'=>$encontrados,
             'empresa'=>$empresa
         ) ; 
-        return view('administrador.empresadetalle')->with($data);
+        return view('administrador.empresas')->with($data);
     }
 }
