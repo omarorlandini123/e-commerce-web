@@ -18,7 +18,11 @@
                 @endforeach
 
             </div>
+            <br>
+            <center>
             {{ $encontrados->links() }}
+            </center>
+            
         </div>
         <div class="col-sm-9">
             <div class="card">
