@@ -29,7 +29,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null  ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -38,7 +38,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -111,7 +111,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -120,7 +120,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -209,7 +209,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -218,7 +218,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -307,7 +307,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -338,7 +338,7 @@ class AficheController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             return Error::getError(5);
         }
 
@@ -380,13 +380,13 @@ class AficheController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -514,7 +514,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -523,7 +523,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -615,7 +615,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -624,7 +624,7 @@ class AficheController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -719,13 +719,13 @@ class AficheController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -792,13 +792,13 @@ class AficheController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -874,13 +874,13 @@ class AficheController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -970,13 +970,13 @@ class AficheController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;

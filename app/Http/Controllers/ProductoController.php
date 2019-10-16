@@ -155,7 +155,7 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;

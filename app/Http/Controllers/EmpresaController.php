@@ -19,7 +19,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -60,7 +60,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -103,7 +103,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -144,7 +144,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -180,7 +180,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -210,7 +210,7 @@ class EmpresaController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -251,7 +251,7 @@ $almacenInicialAPP = Almacen::where('empresa_id',$empresaFind->empresa_id)
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
