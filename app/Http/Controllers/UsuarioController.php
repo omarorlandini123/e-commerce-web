@@ -32,7 +32,7 @@ class UsuarioController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -42,7 +42,7 @@ class UsuarioController extends Controller
         $token_var = Token::where('token', $token)->first();
 
         $documentoExiste = Documento::where('documento_numero', $request->input('dni'))->first();
-        if ($documentoExiste != null || count($documentoExiste) != 0) {
+        if ($documentoExiste != null) {
             $contenidoError = Error::getError(8);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -115,7 +115,7 @@ class UsuarioController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             return Error::getError(5);
         }
         return Usuario::all();
@@ -125,7 +125,7 @@ class UsuarioController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             return Error::getError(5);
         }
 

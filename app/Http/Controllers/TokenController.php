@@ -77,7 +77,7 @@ class TokenController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -105,7 +105,7 @@ class TokenController extends Controller
                 $usuarioTok = Usuario::where('usuario_id', $tokenuser->usuario_usuario_id)->first();
                 if ($usuarioTok != null) {
                     $freeler_exists = Freeler::where('usuario_id', $usuarioTok->usuario_id)->first();
-                    if (count($freeler_exists) != null) {
+                    if ($freeler_exists != null) {
                         $tieneUsuarioAsociado = true;
                         $tokenuser->token_token_id = $token_var->token_id;
                         $tokenuser->save();
@@ -138,7 +138,7 @@ class TokenController extends Controller
 
         $token_encontrado = Token::where([['token_codigo_sms', '=', $codigo], ['token_numero', '=', $numero]])->orderBy('token_fecha_creacion', 'desc')->take(1)->get();
 
-        if ($token_encontrado == null || count($token_encontrado) == 0 || $token_encontrado[0] == null) {
+        if ($token_encontrado == null ) {
             $contenidoError = Error::getError(4);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;

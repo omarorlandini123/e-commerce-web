@@ -29,16 +29,7 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
-            $contenidoError = Error::getError(5);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
-
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -87,21 +78,14 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
 
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
-            $contenidoError = Error::getError(5);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
+        
 
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
@@ -162,7 +146,7 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -234,16 +218,7 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
-            $contenidoError = Error::getError(5);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
-
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -338,21 +313,14 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
 
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
-            $contenidoError = Error::getError(5);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
+       
 
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
@@ -429,21 +397,13 @@ class ProductoController extends Controller
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
             return $rpta;
         }
 
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
-            $contenidoError = Error::getError(5);
-            $rpta->tieneError = true;
-            $rpta->error = $contenidoError;
-            return $rpta;
-        }
 
         $tokenUsuarioFound = TokenUsuario::where('token_token_id', $token_var->token_id)->first();
         if ($tokenUsuarioFound == null) {
@@ -516,15 +476,11 @@ class ProductoController extends Controller
     public function crear(Request $request, $token)
     {
         $rpta = new Respuesta;
-        $token_var = Token::where('token', $token)->first();
-
-        if ($token_var == null || count($token_var) == 0) {
-            return Error::getError(5);
-        }
+       
 
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             $contenidoError = Error::getError(5);
             $rpta->tieneError = true;
             $rpta->error = $contenidoError;
@@ -628,7 +584,7 @@ class ProductoController extends Controller
         $rpta = new Respuesta;
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null) {
             return Error::getError(5);
         }
 
@@ -658,7 +614,7 @@ class ProductoController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
@@ -724,7 +680,7 @@ class ProductoController extends Controller
     {
         $token_var = Token::where('token', $token)->first();
 
-        if ($token_var == null || count($token_var) == 0) {
+        if ($token_var == null ) {
             return Error::getError(5);
         }
 
